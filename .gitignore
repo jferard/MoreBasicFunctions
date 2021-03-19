@@ -1,0 +1,7 @@
+.idea/
+temp/
+oxt-target/
+target/
+*.oxt
+*.iml
+

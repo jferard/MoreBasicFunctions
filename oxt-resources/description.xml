@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ MoreBasicFunctions - A LibreOffice Add-On written in Java that provides more basic functions.
+  ~ Copyright (C) 2021 Julien Férard.
+  ~
+  ~ MoreBasicFunctions is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ MoreBasicFunctions is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
+<description xmlns="http://openoffice.org/extensions/description/2006"
+             xmlns:d="http://openoffice.org/extensions/description/2006"
+             xmlns:l="http://libreoffice.org/extensions/description/2011"
+             xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <identifier value="com.github.jferard.mbfs.MoreBasicFunctions"/>
+    <version value="0.1"/>
+
+    <display-name>
+        <name lang="en">More Basic Functions</name>
+    </display-name>
+
+    <publisher>
+        <name xlink:href="https://com.github.jferard"
+              lang="en">Julien Férard
+        </name>
+    </publisher>
+
+    <registration>
+        <simple-license accept-by="user">
+            <license-text xlink:href="LICENSE" lang="en"/>
+        </simple-license>
+    </registration>
+
+    <extension-description>
+        <src lang="en" xlink:href="package-description.txt"/>
+    </extension-description>
+
+    <icon>
+        <default xlink:href="more-basic-funcs.png"/>
+    </icon>
+
+    <update-information>
+        <src xlink:href="https://com.github.jferard/MoreBasicFunctions/"/>
+    </update-information>
+
+    <dependencies>
+        <l:LibreOffice-minimal-version value="4.0" d:name="LibreOffice.org 4.0" />
+    </dependencies>
+
+    <platform value="all"/>
+
+</description>

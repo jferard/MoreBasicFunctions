@@ -1,0 +1,2 @@
+A LibreOffice Add-On written in Java that provides more basic functions.
+
