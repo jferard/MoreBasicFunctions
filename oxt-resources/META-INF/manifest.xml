@@ -18,10 +18,9 @@
   -->
 
 <manifest:manifest>
-    <!-- seems this is not necessary
     <manifest:file-entry
             manifest:media-type="application/vnd.sun.star.uno-typelibrary;type=RDB"
-            manifest:full-path="MoreBasicFunctions.rdb"/> -->
+            manifest:full-path="MoreBasicFunctions.rdb"/>
 
     <manifest:file-entry
             manifest:media-type="application/vnd.sun.star.uno-component;type=Java"

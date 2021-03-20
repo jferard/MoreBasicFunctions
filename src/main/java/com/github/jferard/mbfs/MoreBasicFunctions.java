@@ -22,7 +22,6 @@ import com.sun.star.lib.uno.helper.Factory;
 import com.sun.star.registry.XRegistryKey;
 
 public class MoreBasicFunctions {
-    /* seems this is not necessary
     public static XSingleComponentFactory __getComponentFactory(String implementation) {
         if (implementation.equals(StringsImpl.implementationName)) {
             return Factory.createComponentFactory(StringsImpl.class, StringsImpl.implementationName,
@@ -36,5 +35,4 @@ public class MoreBasicFunctions {
         return Factory.writeRegistryServiceInfo(StringsImpl.implementationName,
                 StringsImpl.serviceNames, xRegistryKey);
     }
-     */
 }

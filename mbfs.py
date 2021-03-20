@@ -38,12 +38,12 @@ lib_name = "MoreBasicFunctions"
 service_names = {"Strings": ["XStrings"]}
 
 lib_module = "com.github.jferard.mbfs"
-lib_path = lib_module.replace(".", "/")
+lib_path = lib_module.replace(".", os.path.sep)
 lib_root = lib_module.split(".")[0]
 
 work_dir = "temp"
 oxt_resources = "oxt-resources"
-jar_resources = "jar-resources"
+idl_resources = pt("doc", "idl")
 oxt_target = "oxt-target"
 
 mbfs = "."
@@ -77,7 +77,7 @@ class MoreBasicFunctions:
         Path(target_dir).mkdir(parents=True, exist_ok=True)
 
     def _build_urds(self):
-        for path in Path(jar_resources).glob("*.idl"):
+        for path in Path(idl_resources).glob("*.idl"):
             print(f"Processing {path}")
             command = [idlc, "-we", "-I", pt(oo_sdk_home, "idl"), "-O", work_dir,
                        str(path)]
@@ -98,13 +98,13 @@ class MoreBasicFunctions:
                                                                             "*.urd")])
 
     def check(self):
-        print(f"Viewing RDB")
+        print(f"Showing RDB")
         process = self._run_command(
             [regview, pt(work_dir, lib_name + RDB)])
         print(process.stdout)
 
     def _generate_interface(self):
-        types = [f"{lib_module}.{path.stem}" for path in Path(jar_resources).glob("X*.idl")]
+        types = [f"{lib_module}.{path.stem}" for path in Path(idl_resources).glob("X*.idl")]
         print(f"Generating interfaces: {types}")
         process = self._run_command(
             [javamaker, "-T", ";".join(types), "-nD", pt(office_program_path, TYPES_RDB),
@@ -113,7 +113,7 @@ class MoreBasicFunctions:
     def _generate_template(self):
         types = [ ]
         print(f"Generating template")
-        for path in Path(jar_resources).glob("X*.idl"):
+        for path in Path(idl_resources).glob("X*.idl"):
             interface = f"{lib_module}.{path.stem}"
             service = f"{lib_module}.{path.stem[1:]}Impl"
             process = self._run_command(
@@ -159,7 +159,7 @@ class MoreBasicFunctions:
 
 def main():
     mbfs = MoreBasicFunctions()
-    # mbfs.prepare() # generate the files
+    mbfs.prepare()  # generate the files
     mbfs.build()
 
 

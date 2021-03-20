@@ -15,18 +15,18 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-#ifndef INCLUDED_COM_GITHUB_JFERARD_MBFS_XSTRINGS
-#define INCLUDED_COM_GITHUB_JFERARD_MBFS_XSTRINGS
+#ifndef INCLUDED_COM_GITHUB_JFERARD_MBFS_STRINGS
+#define INCLUDED_COM_GITHUB_JFERARD_MBFS_STRINGS
 
 #include <com/sun/star/uno/XInterface.idl>
+#include <XStrings.idl>
 
 module com { module github { module jferard { module mbfs {
 
-interface XStrings {
-    string reversed([in] string s);
-};
+interface XStrings;
+
+service Strings : XStrings;
 
 }; }; }; };
-
 
 #endif

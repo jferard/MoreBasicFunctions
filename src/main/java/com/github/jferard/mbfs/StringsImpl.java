@@ -26,6 +26,7 @@ import com.sun.star.uno.XComponentContext;
 
 public final class StringsImpl extends WeakBase
         implements XServiceInfo, XStrings {
+    /*
     public static XSingleComponentFactory __getComponentFactory(String implementation) {
         if (implementation.equals(StringsImpl.implementationName)) {
             return Factory.createComponentFactory(StringsImpl.class, StringsImpl.implementationName,
@@ -39,6 +40,7 @@ public final class StringsImpl extends WeakBase
         return Factory.writeRegistryServiceInfo(StringsImpl.implementationName,
                 StringsImpl.serviceNames, xRegistryKey);
     }
+     */
 
     public static final String implementationName = StringsImpl.class.getName();
 
