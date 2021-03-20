@@ -18,30 +18,11 @@
 package com.github.jferard.mbfs;
 
 import com.sun.star.lang.XServiceInfo;
-import com.sun.star.lang.XSingleComponentFactory;
-import com.sun.star.lib.uno.helper.Factory;
 import com.sun.star.lib.uno.helper.WeakBase;
-import com.sun.star.registry.XRegistryKey;
 import com.sun.star.uno.XComponentContext;
 
 public final class StringsImpl extends WeakBase
         implements XServiceInfo, XStrings {
-    /*
-    public static XSingleComponentFactory __getComponentFactory(String implementation) {
-        if (implementation.equals(StringsImpl.implementationName)) {
-            return Factory.createComponentFactory(StringsImpl.class, StringsImpl.implementationName,
-                    StringsImpl.serviceNames);
-        } else {
-            return null;
-        }
-    }
-
-    public static boolean __writeRegistryServiceInfo(XRegistryKey xRegistryKey) {
-        return Factory.writeRegistryServiceInfo(StringsImpl.implementationName,
-                StringsImpl.serviceNames, xRegistryKey);
-    }
-     */
-
     public static final String implementationName = StringsImpl.class.getName();
 
     public static final String[] serviceNames = {"com.github.jferard.mbfs.Strings"};
@@ -52,10 +33,12 @@ public final class StringsImpl extends WeakBase
         xContext = context;
     }
 
+    @Override
     public String getImplementationName() {
         return implementationName;
     }
 
+    @Override
     public String[] getSupportedServiceNames() {
         return serviceNames;
     }
