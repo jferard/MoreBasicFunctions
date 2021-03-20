@@ -46,6 +46,8 @@ oxt_resources = "oxt-resources"
 idl_resources = pt("doc", "idl")
 oxt_target = "oxt-target"
 
+mvn_source = pt("src", "main", "java")
+
 mbfs = "."
 
 target_dir = pt(work_dir, "t_target")
@@ -96,6 +98,7 @@ class MoreBasicFunctions:
             [regmerge, "-v", pt(work_dir, lib_name + RDB), "UCR"] + [str(p) for p in
                                                                      Path(work_dir).glob(
                                                                             "*.urd")])
+        shutil.copy(pt(work_dir, lib_name + RDB), pt(oxt_resources, lib_name + RDB))
 
     def check(self):
         print(f"Showing RDB")
@@ -109,9 +112,13 @@ class MoreBasicFunctions:
         process = self._run_command(
             [javamaker, "-T", ";".join(types), "-nD", pt(office_program_path, TYPES_RDB),
              pt("..", lib_name + RDB)], cwd=target_dir)
+        print(f"Decompiling interfaces")
+        for c in Path(target_dir).rglob("*.class"):
+            print(f"{c} -> {mvn_source}")
+            process = self._run_command(["procyon", "-o", str(mvn_source), str(c)])
 
     def _generate_template(self):
-        types = [ ]
+        types = []
         print(f"Generating template")
         for path in Path(idl_resources).glob("X*.idl"):
             interface = f"{lib_module}.{path.stem}"

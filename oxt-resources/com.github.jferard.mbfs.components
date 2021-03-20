@@ -19,7 +19,7 @@
 
 <components xmlns="http://openoffice.org/2010/uno-components">
 	<component loader="com.sun.star.loader.Java2">
-		<implementation name="com.github.jferard.mbfs.StringsImpl">
+		<implementation name="com.github.jferard.mbfs.Strings">
 			<service name="com.github.jferard.mbfs.Strings"/>
 		</implementation>
 	</component>

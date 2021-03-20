@@ -4,6 +4,21 @@ Copyright (C) 2021 Julien Férard.
 # Goal
 LibreOffice Basic is pretty limited, and calling Calc functions is cumbersome. Hence the idea of this add-on.
 
+# Installation
+The preparation step requires the LibreOffice SDK and the procyon decompiler. On Ubuntu
+
+    $ sudo apt-get install libreoffice-dev
+    $ sudo apt-get install procyon-decompiler
+
+Now run:
+
+    $ python3 mbfs.py
+
+If something goes wrong, you should check the configuration: https://api.libreoffice.org/docs/install.html.
+
+
+
+
 # Usage
 At this time, this is only a proof of concept. You can install the add-on with the extension manager. Then try in the LibreOffice macro console:
 

@@ -19,6 +19,7 @@
 #define INCLUDED_COM_GITHUB_JFERARD_MBFS_XSTRINGS
 
 #include <com/sun/star/uno/XInterface.idl>
+#include <com/sun/star/container/XEnumeration.idl>
 
 module com { module github { module jferard { module mbfs {
 
@@ -27,6 +28,108 @@ interface XStrings {
     Return the reversed string. E.g. `reversed("foo")` is `"oof"`
     */
     string reversed([in] string s);
+
+    /**
+    Compare two strings and return an long that indicates their sort position
+    */
+    long compare([in] string s1, [in] string s2);
+
+    /**
+    Compare two strings and return an long that indicates their sort position
+    */
+    long compareIgnoreCase([in] string s1, [in] string s2);
+
+    /**
+    Return true if the first string contains the second
+    */
+    boolean contains([in] string haystack, [in] string needle);
+
+    /**
+    Return true if the first string contains the second
+    */
+    boolean containsIgnoreCase([in] string haystack, [in] string needle);
+
+    /**
+    Return true if the string ends with a a string
+    */
+    boolean endsWith([in] string s, [in] string e);
+
+    /**
+    Return true if the string ends with a a string
+    */
+    boolean endsWithIgnoreCase([in] string s, [in] string e);
+
+    /**
+    Create an enumeration
+    */
+    com::sun::star::container::XEnumeration enumerate([in] string s);
+
+    /**
+    Return a formatted string (%s)
+    */
+    string format([in] string formatString, [in] sequence<string> parameters);
+
+    /**
+    Return the index or -1
+    */
+    long indexOf([in] string haystack, [in] string needle);
+
+    /**
+    Return the index or -1
+    */
+    long indexOfIgnoreCase([in] string haystack, [in] string needle);
+
+    /**
+    Return a string with s2 inserted at given index.
+    */
+    string insert([in] string s, [in] string s2, [in] long index);
+
+    /**
+    Join a sequence of strings
+    */
+    string join([in] sequence<string> strings, [in] string delimiter);
+
+    /**
+    Return the index or -1
+    */
+    long lastIndexOf([in] string haystack, [in] string needle);
+
+    /**
+    Return the index or -1
+    */
+    long lastIndexOfIgnoreCase([in] string haystack, [in] string needle);
+
+    /**
+    Return a padded string.
+    */
+    string padLeft([in] string s, [in] string s2, [in] long n);
+
+    /**
+    Return a padded string.
+    */
+    string padRight([in] string s, [in] string s2, [in] long n);
+
+    /**
+    Return a string.
+    */
+    string replace([in] string s, [in] string before, [in] string after);
+
+    /**
+    Split a string
+    */
+    sequence<string> split([in] string s, [in] string delimiter);
+
+    /**
+    Return true if the string ends with a a string
+    */
+    boolean startsWith([in] string s, [in] string e);
+
+    /**
+    Return true if the string ends with a a string
+    */
+    boolean startsWithIgnoreCase([in] string s, [in] string e);
+
+    // lower, upper, trim, trimLeft, trimRight...
 };
 
 }; }; }; };
