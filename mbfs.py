@@ -22,8 +22,7 @@ import shutil
 import subprocess
 import zipfile
 from pathlib import Path
-
-import sys
+from xml.sax.saxutils import escape
 
 RDB = ".rdb"
 TYPES_RDB = "types"+RDB
@@ -128,7 +127,7 @@ class MoreBasicFunctions:
                  pt(office_program_path, "types.rdb"), "-l", pt("..", lib_name + RDB), "-n",
                  service, "-t", interface], cwd=src_dir)
 
-    def build(self):
+    def build(self, include_testsuite=True):
         try:
             shutil.rmtree(Path(oxt_target))
         except FileNotFoundError:
@@ -136,7 +135,7 @@ class MoreBasicFunctions:
         Path(oxt_target).mkdir(parents=True, exist_ok=True)
         self._maven()
         self._copy_jar()
-        self._copy_resources()
+        self._copy_resources(include_testsuite)
         self._create_oxt()
 
     def _maven(self):
@@ -151,9 +150,31 @@ class MoreBasicFunctions:
             print(f"> Copy jar: {src} -> {dest}")
             shutil.copy(src, dest)
 
-    def _copy_resources(self):
+    def _copy_resources(self, include_testsuite):
         print(f"> Copy resources: {oxt_resources}")
         shutil.copytree(oxt_resources, oxt_target, dirs_exist_ok=True)
+        if include_testsuite:
+            basic_module = pt(oxt_target, lib_name)
+            Path(basic_module).mkdir()
+            with Path(basic_module, "script.xlb").open("w", encoding="utf-8") as d:
+                d.write(f"""<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE library:library PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "library.dtd">
+    <library:library xmlns:library="http://openoffice.org/2000/library" library:name="{lib_name}" library:readonly="false" library:passwordprotected="false">
+    <library:element library:name="{lib_name}"/>
+</library:library>""")
+            with Path(basic_module, "dialog.xlb").open("w", encoding="utf-8") as d:
+                d.write(f"""<?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE library:library PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "library.dtd">
+    <library:library xmlns:library="http://openoffice.org/2000/library" library:name="{lib_name}" library:readonly="false" library:passwordprotected="false">
+</library:library>""")
+            with Path(basic_module, lib_name + ".xba").open("w", encoding="utf-8") as d:
+                d.write(f"""<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="{lib_name}" script:language="StarBasic">""")
+                with Path("TestSuite.txt").open("r", encoding="utf-8") as s:
+                    d.write(escape(s.read()))
+                d.write("""</script:module>""")
+
 
     def _create_oxt(self):
         print(f"> Zip everything: {oxt_resources}")
@@ -167,7 +188,7 @@ class MoreBasicFunctions:
 def main():
     mbfs = MoreBasicFunctions()
     mbfs.prepare()  # generate the files
-    mbfs.build()
+    mbfs.build(include_testsuite=True)
 
 
 if __name__ == "__main__":

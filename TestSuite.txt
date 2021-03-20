@@ -21,6 +21,7 @@ Sub MBFSTestSuite()
 	Dim Tests as Variant
     Tests = createUNOService("com.github.jferard.mbfs.Tests")
     StringsTestSuite(Tests)
+    MsgBox Tests.message()
 End Sub
 
 Sub StringsTestSuite(Tests as com.github.jferard.mbfs.XTests)
