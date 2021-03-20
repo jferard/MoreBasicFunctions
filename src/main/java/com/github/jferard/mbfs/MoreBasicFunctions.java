@@ -26,7 +26,7 @@ public class MoreBasicFunctions {
     public static final String IMPLEMENTATION_NAME = "implementationName";
     public static final String SERVICE_NAMES = "serviceNames";
     private static final Class<? extends XServiceInfo>[] implementationClasses =
-            new Class[]{Strings.class};
+            new Class[]{Strings.class, Tests.class};
 
     public static XSingleComponentFactory __getComponentFactory(String implementation) {
         for (Class<? extends XServiceInfo> implementationClass : implementationClasses) {

@@ -39,6 +39,9 @@ For regex usage: similar to `Strings`.
 ## `Sequences`
 For sequences manipulation: sort, shuffle, split into chunks, min, max, avg...
 
+## `Tests`
+Some Junit like functions.
+
 ## `Math`
 
 ## `Dates`
