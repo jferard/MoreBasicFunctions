@@ -63,18 +63,18 @@ public class Tests extends WeakBase
     }
 
     @Override
-    public void assertEquals(Object p0, Object p1, String message) {
+    public void assertEquals(Object expected, Object actual, String message) {
         this.count++;
-        if (p0 == null && p1 != null || !(p0.equals(p1))) {
-            this.errors.add(String.format("%s: objects %s and %s are not equal", p0, p1, message));
+        if (expected == null && actual != null || !(expected.equals(actual))) {
+            this.errors.add(String.format("%s: objects `%s` and `%s` are not equal", message, expected, actual));
         }
     }
 
     @Override
-    public void assertNotEquals(Object p0, Object p1, String message) {
+    public void assertNotEquals(Object expected, Object actual, String message) {
         this.count++;
-        if (p0 == null && p1 == null || p0.equals(p1)) {
-            this.errors.add(String.format("%s: objects %s and %s are equal", p0, p1, message));
+        if (expected == null && actual == null || expected.equals(actual)) {
+            this.errors.add(String.format("%s: objects `%s` and `%s` are equal", message, expected, actual));
         }
     }
 

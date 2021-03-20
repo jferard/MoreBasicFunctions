@@ -19,13 +19,25 @@ Option Explicit
 
 Sub MBFSTestSuite()
 	Dim Tests as Variant
+
     Tests = createUNOService("com.github.jferard.mbfs.Tests")
+    TestsTestSuite(Tests)
     StringsTestSuite(Tests)
-    MsgBox Tests.message()
+End Sub
+
+Sub TestsTestSuite(Tests as com.github.jferard.mbfs.XTests)
+	Dim Tests0 as Variant
+
+	Tests0 = createUNOService("com.github.jferard.mbfs.Tests")
+	Tests0.assertTrue(False, "fail msg")
+	Tests.assertEquals(1, Tests0.errors(), "1 error")
+	Tests.assertEquals("Failure: 1/1" & chr(10) & "fail msg: failed", Tests0.message(), "1 error message")
+    Tests.check()
 End Sub
 
 Sub StringsTestSuite(Tests as com.github.jferard.mbfs.XTests)
 	Dim strings as Variant
+
     Strings = createUNOService("com.github.jferard.mbfs.Strings")
     Tests.assertEquals(Strings.reversed("MoreBasicFunctions"), "snoitcnuFcisaBeroM", "reversed")
     Tests.assertTrue(Strings.containsIgnoreCase("MoreBasicFunctions", "BasiC"), "contains")
