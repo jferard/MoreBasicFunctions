@@ -31,9 +31,11 @@ public final class Strings extends WeakBase
     public static final String[] serviceNames = {"com.github.jferard.mbfs.Strings"};
 
     private final XComponentContext xContext;
+    private final Locale locale;
 
     public Strings(XComponentContext context) {
         xContext = context;
+        locale = Locale.US;
     }
 
     @Override
@@ -46,6 +48,7 @@ public final class Strings extends WeakBase
         return serviceNames;
     }
 
+    @Override
     public boolean supportsService(String serviceName) {
         for (String name : serviceNames) {
             if (serviceName.equals(name)) {
@@ -56,7 +59,6 @@ public final class Strings extends WeakBase
     }
 
 
-    // com.github.jferard.mbfs.XStrings:
     public String reversed(String s) {
         StringBuilder sb = new StringBuilder();
         for (int i = s.length() - 1; i >= 0; i--) {
@@ -66,48 +68,48 @@ public final class Strings extends WeakBase
     }
 
     @Override
-    public int compare(String p0, String p1) {
-        return 0;
+    public int compare(String s0, String s1) {
+        return s0.compareTo(s1);
     }
 
     @Override
-    public int compareIgnoreCase(String p0, String p1) {
-        return p0.compareTo(p1);
+    public int compareIgnoreCase(String s0, String s1) {
+        return s0.toLowerCase(locale).compareTo(s1.toLowerCase(locale));
     }
 
     @Override
-    public boolean contains(String p0, String p1) {
-        return p0.contains(p1);
+    public boolean contains(String s0, String s1) {
+        return s0.contains(s1);
     }
 
     @Override
-    public boolean containsIgnoreCase(String p0, String p1) {
-        return p0.toLowerCase(Locale.US).contains(p1.toLowerCase(Locale.US));
+    public boolean containsIgnoreCase(String s0, String s1) {
+        return s0.toLowerCase(locale).contains(s1.toLowerCase(locale));
     }
 
     @Override
-    public boolean endsWith(String p0, String p1) {
-        return p0.endsWith(p1);
+    public boolean endsWith(String s0, String s1) {
+        return s0.endsWith(s1);
     }
 
     @Override
-    public boolean endsWithIgnoreCase(String p0, String p1) {
-        return p0.toLowerCase(Locale.US).endsWith(p1.toLowerCase(Locale.US));
+    public boolean endsWithIgnoreCase(String s0, String s1) {
+        return s0.toLowerCase(locale).endsWith(s1.toLowerCase(locale));
     }
 
     @Override
-    public XEnumeration enumerate(final String p0) {
+    public XEnumeration enumerate(final String s) {
         return new XEnumeration() {
             int i=0;
 
             @Override
             public boolean hasMoreElements() {
-                return i<p0.length();
+                return i<s.length();
             }
 
             @Override
             public Object nextElement() {
-                char ret = p0.charAt(i);
+                char ret = s.charAt(i);
                 i++;
                 return ret;
             }
@@ -116,67 +118,165 @@ public final class Strings extends WeakBase
 
     @Override
     public String format(String format, String[] args) {
-        return String.format(format, args);
+        return String.format(format, (Object[]) args);
     }
 
     @Override
-    public int indexOf(String p0, String p1) {
-        return p0.indexOf(p1);
+    public int indexOf(String s0, String s1) {
+        return s0.indexOf(s1);
     }
 
     @Override
-    public int indexOfIgnoreCase(String p0, String p1) {
-        return p0.toLowerCase(Locale.US).indexOf(p1.toLowerCase(Locale.US));
+    public int indexOfIgnoreCase(String s0, String s1) {
+        return s0.toLowerCase(locale).indexOf(s1.toLowerCase(locale));
     }
 
     @Override
-    public String insert(String p0, String p1, int index) {
-        return p0.substring(0, index) + p1 + p0.substring(index);
+    public String insert(String s0, String s1, int index) {
+        return s0.substring(0, index) + s1 + s0.substring(index);
     }
 
     @Override
     public String join(String[] strings, String delimiter) {
-        return null;
+        if (strings.length == 0) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder(strings[0]);
+        for (int i=1; i<strings.length; i++) {
+            sb.append(delimiter).append(strings[i]);
+        }
+        return sb.toString();
     }
 
     @Override
-    public int lastIndexOf(String p0, String p1) {
-        return p0.lastIndexOf(p1);
+    public int lastIndexOf(String s0, String s1) {
+        return s0.lastIndexOf(s1);
     }
 
     @Override
-    public int lastIndexOfIgnoreCase(String p0, String p1) {
-        return p0.toLowerCase(Locale.US).lastIndexOf(p1.toLowerCase(Locale.US));
+    public int lastIndexOfIgnoreCase(String s0, String s1) {
+        return s0.toLowerCase(locale).lastIndexOf(s1.toLowerCase(locale));
    }
 
     @Override
-    public String padLeft(String p0, String p1, int p2) {
-        return null;
+    public String lower(String s) {
+        return s.toLowerCase(locale);
     }
 
     @Override
-    public String padRight(String p0, String p1, int p2) {
-        return null;
+    public String padLeft(String s, String oneCharString, int n) {
+        char c = oneChar(oneCharString);
+        if (s.length() >= n) {
+            return s;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i=s.length(); i<n; i++) {
+            sb.append(c);
+        }
+        sb.append(s);
+        return sb.toString();
+    }
+
+    private char oneChar(String oneCharString) {
+        if (oneCharString.length() != 1) {
+            throw new RuntimeException("Expected one char but got `"+ oneCharString +"`");
+        }
+        return oneCharString.charAt(0);
     }
 
     @Override
-    public String replace(String p0, String p1, String p2) {
-        return null;
+    public String padRight(String s, String oneCharString, int n) {
+        if (s.length() >= n) {
+            return s;
+        }
+        char c = oneChar(oneCharString);
+        StringBuilder sb = new StringBuilder(s);
+        for (int i=s.length(); i<n; i++) {
+            sb.append(c);
+        }
+        return sb.toString();
     }
 
     @Override
-    public String[] split(String p0, String p1) {
-        return new String[0];
+    public String replace(String s, String target, String replacement) {
+        return s.replace(target, replacement);
     }
 
     @Override
-    public boolean startsWith(String p0, String p1) {
-        return false;
+    public String[] split(String s, String regex) {
+        return s.split(regex);
     }
 
     @Override
-    public boolean startsWithIgnoreCase(String p0, String p1) {
-        return false;
+    public boolean startsWith(String s0, String s1) {
+        return s0.startsWith(s1);
+    }
+
+    @Override
+    public boolean startsWithIgnoreCase(String s0, String s1) {
+        return s0.toLowerCase(locale).startsWith(s1.toLowerCase(locale));
+    }
+
+    @Override
+    public String trim(String s, String oneCharString) {
+        char c = oneChar(oneCharString);
+        int i=0;
+        while (s.charAt(i) == c) {
+            i++;
+        }
+        int j=s.length();
+        while (s.charAt(j-1) == c) {
+            j--;
+        }
+        return s.substring(i, j);
+    }
+
+    @Override
+    public String trimLeft(String s, String oneCharString) {
+        char c = oneChar(oneCharString);
+        int i=0;
+        while (s.charAt(i) == c) {
+            i++;
+        }
+        return s.substring(i);
+    }
+
+    @Override
+    public String trimRight(String s, String oneCharString) {
+        char c = oneChar(oneCharString);
+        int j=s.length();
+        while (s.charAt(j-1) == c) {
+            j--;
+        }
+        return s.substring(0, j);
+    }
+
+    @Override
+    public String trimSpaces(String s) {
+        return s.trim();
+    }
+
+    @Override
+    public String trimLeftSpaces(String s) {
+        int i=0;
+        while (Character.isSpaceChar(s.charAt(i))) {
+            i++;
+        }
+        return s.substring(i);
+   }
+
+    @Override
+    public String trimRightSpaces(String s) {
+        int j=s.length();
+        while (Character.isSpaceChar(s.charAt(j-1))) {
+            j--;
+        }
+        return s.substring(0, j);
+    }
+
+    @Override
+    public String upper(String s) {
+        return s.toUpperCase(locale);
     }
 
 }

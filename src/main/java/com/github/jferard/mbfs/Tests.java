@@ -24,7 +24,6 @@ import com.sun.star.uno.RuntimeException;
 import com.sun.star.uno.XComponentContext;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class Tests extends WeakBase
@@ -53,6 +52,7 @@ public class Tests extends WeakBase
         return serviceNames;
     }
 
+    @Override
     public boolean supportsService(String serviceName) {
         for (String name : serviceNames) {
             if (serviceName.equals(name)) {
@@ -104,7 +104,6 @@ public class Tests extends WeakBase
         if (errors.size() == 0) {
             return String.format("Success: %d/%d", count, count);
         }
-        Iterator<String> it = errors.iterator();
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("Failure: %d/%d", errors.size(), count));
         for (String error : errors) {

@@ -57,11 +57,75 @@ Sub TestsTestSuite(Tests as com.github.jferard.mbfs.XTests)
     Tests.check()
 End Sub
 
-Sub StringsTestSuite(Tests as com.github.jferard.mbfs.XTests)
+Sub StringsTestSuite(Optional Tests as Variant)
 	Dim strings as Variant
+	Dim enumeration as Variant
+
+	If IsMissing(Tests) Then
+	    Tests = createUNOService("com.github.jferard.mbfs.Tests")
+	End If
 
     Strings = createUNOService("com.github.jferard.mbfs.Strings")
-    Tests.assertEquals(Strings.reversed("MoreBasicFunctions"), "snoitcnuFcisaBeroM", "reversed")
+
+    Tests.assertEquals(Strings.compare("MoreBasicFunctions", "MoreBasicFunctions"), 0, "compare equal strings")
+    Tests.assertTrue(Strings.compare("MoreBasicFunctions", "MoreBasic") > 0, "compare more")
+    Tests.assertTrue(Strings.compare("MoreBasic", "MoreBasicFunctions") < 0, "compare less")
+    Tests.assertTrue(Strings.compare("A", "a") < 0, "compare case sensitive")
+    Tests.assertTrue(Strings.compareIgnoreCase("A", "a") = 0, "compare ignore case")
+
     Tests.assertTrue(Strings.containsIgnoreCase("MoreBasicFunctions", "BasiC"), "contains")
+    Tests.assertFalse(Strings.contains("MoreBasicFunctions", "Python"), "does not contain")
+
+    Tests.assertTrue(Strings.endsWith("MoreBasicFunctions", "Functions"), "endd with")
+    Tests.assertFalse(Strings.endsWith("MoreBasicFunctions", "Function"), "does not end with")
+    Tests.assertFalse(Strings.endsWith("MoreBasicFunctions", "FUNCTIONS"), "does not end with case sensitive")
+    Tests.assertTrue(Strings.endsWithIgnoreCase("MoreBasicFunctions", "FUNCTIONS"), "ends with case ignore case")
+
+	enumeration = Strings.enumerate("MoreBasicFunctions")
+	Tests.assertTrue(enumeration.hasMoreElements(), "first char exists")
+	Tests.assertEquals(CreateUNOValue("char", "M"), enumeration.nextElement(), "first char")
+	Tests.assertTrue(enumeration.hasMoreElements(), "second char exists")
+	Tests.assertEquals(CreateUNOValue("char", "o"), enumeration.nextElement(), "first char")
+	enumeration = Strings.enumerate("")
+	Tests.assertFalse(enumeration.hasMoreElements(), "no first char exists")
+
+	Tests.assertEquals("MoreBasicFunctions", Strings.format("More%s%s", Array("Basic", "Functions")), "format string")
+
+	Tests.assertEquals(4, Strings.indexOf("MoreBasicFunctions", "Basic"), "indexOf")
+	Tests.assertEquals(-1, Strings.indexOf("MoreBasicFunctions", "BASIC"), "indexOf case sensitive")
+	Tests.assertEquals(4, Strings.indexOfIgnoreCase("MoreBasicFunctions", "BASIC"), "indexOf ignore case")
+
+	Tests.assertEquals("MoreBasicFunctions", Strings.insert("MoreFunctions", "Basic", 4), "insert")
+
+	Tests.assertEquals("More-Basic-Functions", Strings.join(Array("More", "Basic", "Functions"), "-"), "join")
+
+	Tests.assertEquals(14, Strings.lastIndexOf("MoreBasicFunctions", "i"), "lastIndexOf")
+	Tests.assertEquals(-1, Strings.lastIndexOf("MoreBasicFunctions", "I"), "lastIndexOf case sensitive")
+	Tests.assertEquals(14, Strings.lastIndexOfIgnoreCase("MoreBasicFunctions", "I"), "lastIndexOf ignore case")
+
+	Tests.assertEquals("morebasicfunctions", Strings.lower("MoreBasicFunctions"), "lower")
+
+	Tests.assertEquals("0000012345", Strings.padLeft("12345", "0", 10), "padLeft")
+	Tests.assertEquals("1234500000", Strings.padRight("12345", "0", 10), "padRight")
+
+    Tests.assertEquals("MoreBasicFunctions", Strings.replace("MoreJavaFunctions", "Java", "Basic"), "replace")
+
+    Tests.assertEquals(Strings.reversed("MoreBasicFunctions"), "snoitcnuFcisaBeroM", "reversed")
+
+    Tests.assertEquals(Array("More", "Basic", "Functions"), Strings.split("More-Basic-Functions", "-"), "split")
+
+    Tests.assertTrue(Strings.startsWith("MoreBasicFunctions", "More"), "startsWith")
+    Tests.assertFalse(Strings.startsWith("MoreBasicFunctions", "MORE"), "startsWith case sensitive")
+    Tests.assertTrue(Strings.startsWithIgnoreCase("MoreBasicFunctions", "MORE"), "startsWith ignore case")
+
+	Tests.assertEquals("12345", Strings.trim("0001234500", "0"), "trim")
+	Tests.assertEquals("1234500", Strings.trimLeft("0001234500", "0"), "trimLeft")
+	Tests.assertEquals("00012345", Strings.trimRight("0001234500", "0"), "trimRight")
+
+	Tests.assertEquals("12345", Strings.trimSpaces("   12345  "), "trimSpaces")
+	Tests.assertEquals("12345  ", Strings.trimLeftSpaces("   12345  "), "trimLeftSpaces")
+	Tests.assertEquals("   12345", Strings.trimRightSpaces("   12345  "), "trimRightSpaces")
+
+	Tests.assertEquals("MOREBASICFUNCTIONS", Strings.upper("MoreBasicFunctions"), "upper")
     Tests.check()
 End Sub
