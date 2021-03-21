@@ -40,6 +40,11 @@ interface XTests {
     void assertTrue([in] boolean b, [in] string msg);
 
     /**
+    Assert that a condition is false
+    */
+    void assertFalse([in] boolean b, [in] string msg);
+
+    /**
     Finalize the tests
     */
     long errors();

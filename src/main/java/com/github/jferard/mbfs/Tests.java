@@ -82,7 +82,15 @@ public class Tests extends WeakBase
     public void assertTrue(boolean b, String message) {
         this.count++;
         if (!b) {
-            this.errors.add(String.format("%s: failed", message));
+            this.errors.add(String.format("%s: expected True", message));
+        }
+    }
+
+    @Override
+    public void assertFalse(boolean b, String message) {
+        this.count++;
+        if (b) {
+            this.errors.add(String.format("%s: expected False", message));
         }
     }
 
