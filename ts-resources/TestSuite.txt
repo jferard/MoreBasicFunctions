@@ -23,6 +23,8 @@ Sub MBFSTestSuite()
     Tests = createUNOService("com.github.jferard.mbfs.Tests")
     TestsTestSuite(Tests)
     StringsTestSuite(Tests)
+    Tests.check()
+    MsgBox Tests.message()
 End Sub
 
 Sub TestsTestSuite(Tests as com.github.jferard.mbfs.XTests)

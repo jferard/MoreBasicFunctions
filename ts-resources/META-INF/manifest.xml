@@ -21,6 +21,9 @@
     <manifest:file-entry manifest:full-path="MoreBasicFunctions.rdb"
                          manifest:media-type="application/vnd.sun.star.uno-typelibrary;type=RDB"/>
 
+    <manifest:file-entry manifest:full-path="MoreBasicFunctions/"
+                         manifest:media-type="application/vnd.sun.star.basic-library"/>
+
     <manifest:file-entry manifest:full-path="MoreBasicFunctions.jar"
                          manifest:media-type="application/vnd.sun.star.uno-component;type=Java"/>
 
