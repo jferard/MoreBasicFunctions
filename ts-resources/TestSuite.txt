@@ -23,6 +23,7 @@ Sub MBFSTestSuite()
     Tests = createUNOService("com.github.jferard.mbfs.Tests")
     TestsTestSuite(Tests)
     StringsTestSuite(Tests)
+    CellsTestSuite(Tests)
     Tests.check()
     MsgBox Tests.message()
 End Sub
@@ -146,5 +147,29 @@ Sub StringsTestSuite(Optional Tests as Variant)
 	Tests.assertEquals("trimRightSpaces", "   12345", Strings.trimRightSpaces("   12345  "))
 
 	Tests.assertEquals("upper", "MOREBASICFUNCTIONS", Strings.upper("MoreBasicFunctions"))
+    Tests.check()
+End Sub
+
+Sub CellsTestSuite(Optional Tests as Variant)
+	Dim Cells as Variant
+
+	If IsMissing(Tests) Then
+	    Tests = createUNOService("com.github.jferard.mbfs.Tests")
+	End If
+
+    Cells = createUNOService("com.github.jferard.mbfs.Cells")
+    Tests.assertEquals("0 -> `A`", "A", Cells.alphabeticCol(0))
+    Tests.assertEquals("25 -> `Z`", "Z", Cells.alphabeticCol(25))
+    Tests.assertEquals("26 -> `AA`", "AA", Cells.alphabeticCol(26))
+    Tests.assertEquals("51 -> `AZ`", "AZ", Cells.alphabeticCol(51))
+    Tests.assertEquals("52 -> `BA`", "BA", Cells.alphabeticCol(52))
+    Tests.assertEquals("1023 -> `AMJ`", "AMJ", Cells.alphabeticCol(1023))
+
+    Tests.assertEquals("`A` -> 0", Cells.numericCol("A"), 0)
+    Tests.assertEquals("`Z` -> 25", Cells.numericCol("Z"), 25)
+    Tests.assertEquals("`AA` -> 26", Cells.numericCol("AA"), 26)
+    Tests.assertEquals("`AZ` -> 51", Cells.numericCol("AZ"), 51)
+    Tests.assertEquals("`BA` -> 52", Cells.numericCol("BA"), 52)
+    Tests.assertEquals("`AMJ` -> 1023", Cells.numericCol("AMJ"), 1023)
     Tests.check()
 End Sub
