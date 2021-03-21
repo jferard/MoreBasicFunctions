@@ -28,12 +28,32 @@ Sub MBFSTestSuite()
 End Sub
 
 Sub TestsTestSuite(Tests as com.github.jferard.mbfs.XTests)
-	Dim Tests0 as Variant
+	Dim TestsAssertTrue, TestsAssertFalse, TestsAssertEquals, TestsAssertNotEquals as Variant
 
-	Tests0 = createUNOService("com.github.jferard.mbfs.Tests")
-	Tests0.assertTrue(False, "fail msg")
-	Tests.assertEquals(1, Tests0.errors(), "1 error")
-	Tests.assertEquals("Failure: 1/1" & chr(10) & "fail msg: failed", Tests0.message(), "1 error message")
+	TestsAssertTrue = createUNOService("com.github.jferard.mbfs.Tests")
+	TestsAssertTrue.assertTrue(True, "true msg")
+	TestsAssertTrue.assertTrue(False, "false msg")
+	Tests.assertEquals(1, TestsAssertTrue.errors(), "1 error")
+	Tests.assertEquals("Failure: 1/2" & chr(10) & "false msg: expected True", TestsAssertTrue.message(), "1 error message")
+
+	TestsAssertFalse = createUNOService("com.github.jferard.mbfs.Tests")
+	TestsAssertFalse.assertFalse(True, "true msg")
+	TestsAssertFalse.assertFalse(False, "false msg")
+	Tests.assertEquals(1, TestsAssertFalse.errors(), "1 error")
+	Tests.assertEquals("Failure: 1/2" & chr(10) & "true msg: expected False", TestsAssertFalse.message(), "1 error message")
+
+	TestsAssertEquals = createUNOService("com.github.jferard.mbfs.Tests")
+	TestsAssertEquals.assertEquals(1, 1, "eq msg")
+	TestsAssertEquals.assertEquals(1, 2, "neq msg")
+	Tests.assertEquals(1, TestsAssertEquals.errors(), "1 error")
+	Tests.assertEquals("Failure: 1/2" & chr(10) & "neq msg: objects `1` and `2` are not equal", TestsAssertEquals.message(), "1 error message")
+
+	TestsAssertNotEquals = createUNOService("com.github.jferard.mbfs.Tests")
+	TestsAssertNotEquals.assertNotEquals("foo", "foo", "eq msg")
+	TestsAssertNotEquals.assertNotEquals("foo", "bar", "neq msg")
+	Tests.assertEquals(1, TestsAssertNotEquals.errors(), "1 error")
+	Tests.assertEquals("Failure: 1/2" & chr(10) & "eq msg: objects `foo` and `foo` are equal", TestsAssertNotEquals.message(), "1 error message")
+
     Tests.check()
 End Sub
 
