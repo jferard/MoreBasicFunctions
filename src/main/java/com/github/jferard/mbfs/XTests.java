@@ -11,11 +11,15 @@ import com.sun.star.uno.XInterface;
 
 public interface XTests extends XInterface
 {
-    public static final TypeInfo[] UNOTYPEINFO = { new MethodTypeInfo("assertEquals", 0, 0), new MethodTypeInfo("assertNotEquals", 1, 0), new MethodTypeInfo("assertTrue", 2, 0), new MethodTypeInfo("assertFalse", 3, 0), new MethodTypeInfo("errors", 4, 0), new MethodTypeInfo("message", 5, 0), new MethodTypeInfo("check", 6, 0) };
+    public static final TypeInfo[] UNOTYPEINFO = { new MethodTypeInfo("assertEquals", 0, 0), new MethodTypeInfo("assertArrayEquals", 1, 0), new MethodTypeInfo("assertNotEquals", 2, 0), new MethodTypeInfo("assertArrayNotEquals", 3, 0), new MethodTypeInfo("assertTrue", 4, 0), new MethodTypeInfo("assertFalse", 5, 0), new MethodTypeInfo("errors", 6, 0), new MethodTypeInfo("message", 7, 0), new MethodTypeInfo("check", 8, 0) };
     
     void assertEquals(final String p0, final Object p1, final Object p2);
     
+    void assertArrayEquals(final String p0, final Object[] p1, final Object[] p2);
+    
     void assertNotEquals(final String p0, final Object p1, final Object p2);
+    
+    void assertArrayNotEquals(final String p0, final Object[] p1, final Object[] p2);
     
     void assertTrue(final String p0, final boolean p1);
     

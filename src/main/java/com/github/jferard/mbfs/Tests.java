@@ -24,6 +24,7 @@ import com.sun.star.uno.RuntimeException;
 import com.sun.star.uno.XComponentContext;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Tests extends WeakBase
@@ -65,16 +66,60 @@ public class Tests extends WeakBase
     @Override
     public void assertEquals(String message, Object expected, Object actual) {
         this.count++;
-        if (expected == null && actual != null || !(expected.equals(actual))) {
-            this.errors.add(String.format("%s: objects `%s` and `%s` are not equal", message, expected, actual));
+        if (!equals(expected, actual)) {
+            this.errors.add(String
+                    .format("%s: objects `%s` and `%s` are not equal", message, expected, actual));
+        }
+    }
+
+    private boolean equals(Object expected, Object actual) {
+        if (expected == null) {
+            return actual == null;
+        } else {
+            return expected.equals(actual);
         }
     }
 
     @Override
+    public void assertArrayEquals(String message, Object[] expected, Object[] actual) {
+        this.count++;
+        if (!arrayEquals(expected, actual)) {
+            this.errors.add(String.format("%s: arrays `%s` and `%s` are not equal", message,
+                    Arrays.asList(expected), Arrays.asList(actual)));
+        }
+    }
+
+    private boolean arrayEquals(Object[] expected, Object[] actual) {
+        if (expected == null) {
+            return actual == null;
+        } else if (expected.length == actual.length) {
+            for (int i = 0; i < expected.length; i++) {
+                if (!equals(expected[i], actual[i])) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    @Override
     public void assertNotEquals(String message, Object expected, Object actual) {
         this.count++;
-        if (expected == null && actual == null || expected.equals(actual)) {
-            this.errors.add(String.format("%s: objects `%s` and `%s` are equal", message, expected, actual));
+        if (equals(expected, actual)) {
+            this.errors.add(String
+                    .format("%s: objects `%s` and `%s` are equal", message, expected, actual));
+        }
+    }
+
+    @Override
+    public void assertArrayNotEquals(String message, Object[] expected, Object[] actual) {
+        this.count++;
+        if (arrayEquals(expected, actual)) {
+            this.errors.add(String.format("%s: arrays `%s` and `%s` are equal", message,
+                    Arrays.asList(expected), Arrays.asList(actual)));
         }
     }
 

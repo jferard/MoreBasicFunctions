@@ -30,9 +30,19 @@ interface XTests {
     void assertEquals([in] string msg, [in] any o1, [in] any o2);
 
     /**
+    Assert that two arrays are equal
+    */
+    void assertArrayEquals([in] string msg, [in] sequence<any> o1, [in] sequence<any> o2);
+
+    /**
     Assert that two objects are not equal
     */
     void assertNotEquals([in] string msg, [in] any o1, [in] any o2);
+
+    /**
+    Assert that two arrays are not equal
+    */
+    void assertArrayNotEquals([in] string msg, [in] sequence<any> o1, [in] sequence<any> o2);
 
     /**
     Assert that a condition is true

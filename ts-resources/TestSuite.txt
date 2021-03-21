@@ -27,8 +27,12 @@ Sub MBFSTestSuite()
     MsgBox Tests.message()
 End Sub
 
-Sub TestsTestSuite(Tests as com.github.jferard.mbfs.XTests)
-	Dim TestsAssertTrue, TestsAssertFalse, TestsAssertEquals, TestsAssertNotEquals as Variant
+Sub TestsTestSuite(Optional Tests as Variant)
+	Dim TestsAssertTrue, TestsAssertFalse, TestsAssertEquals, TestsAssertArrayEquals, TestsAssertNotEquals, TestsAssertArrayNotEquals  as Variant
+
+	If IsMissing(Tests) Then
+	    Tests = createUNOService("com.github.jferard.mbfs.Tests")
+	End If
 
 	TestsAssertTrue = createUNOService("com.github.jferard.mbfs.Tests")
 	TestsAssertTrue.assertTrue("true is true", True)
@@ -46,7 +50,14 @@ Sub TestsTestSuite(Tests as com.github.jferard.mbfs.XTests)
 	TestsAssertEquals.assertEquals("1 eq 1", 1, 1)
 	TestsAssertEquals.assertEquals("2 neq 1", 1, 2)
 	Tests.assertEquals("TestsAssertEquals errors", 1, TestsAssertEquals.errors())
-	Tests.assertEquals("TestsAssertEquals message", "Failure: 1/2" & chr(10) & "2 neq 1: objects `1` and `2` are not equal", TestsAssertEquals.message(), "1 error message")
+	Tests.assertEquals("TestsAssertEquals message", "Failure: 1/2" & chr(10) & "2 neq 1: objects `1` and `2` are not equal", TestsAssertEquals.message())
+
+	TestsAssertArrayEquals = createUNOService("com.github.jferard.mbfs.Tests")
+	TestsAssertArrayEquals.assertArrayEquals("[1] eq [1]", Array(1), Array(1))
+	TestsAssertArrayEquals.assertArrayEquals("[2] neq [1]", Array(1), Array(2))
+	TestsAssertArrayEquals.assertArrayEquals("[1, 2] neq [1]", Array(1), Array(1, 2))
+	Tests.assertEquals("TestsAssertArrayEquals errors", 2, TestsAssertArrayEquals.errors())
+	Tests.assertEquals("TestsAssertArrayEquals message", "Failure: 2/3" & chr(10) & "[2] neq [1]: arrays `[1]` and `[2]` are not equal" & chr(10) & "[1, 2] neq [1]: arrays `[1]` and `[1, 2]` are not equal", TestsAssertArrayEquals.message())
 
 	TestsAssertNotEquals = createUNOService("com.github.jferard.mbfs.Tests")
 	TestsAssertNotEquals.assertNotEquals("foo is foo", "foo", "foo")
@@ -54,11 +65,19 @@ Sub TestsTestSuite(Tests as com.github.jferard.mbfs.XTests)
 	Tests.assertEquals("TestsAssertNotEquals errors", 1, TestsAssertNotEquals.errors())
 	Tests.assertEquals("TestsAssertNotEquals message", "Failure: 1/2" & chr(10) & "foo is foo: objects `foo` and `foo` are equal", TestsAssertNotEquals.message())
 
+	TestsAssertArrayNotEquals = createUNOService("com.github.jferard.mbfs.Tests")
+	TestsAssertArrayNotEquals.assertArrayNotEquals("[1] eq [1]", Array(1), Array(1))
+	TestsAssertArrayNotEquals.assertArrayNotEquals("[2] neq [1]", Array(1), Array(2))
+	TestsAssertArrayNotEquals.assertArrayNotEquals("[1, 2] neq [1]", Array(1), Array(1, 2))
+	Tests.assertEquals("TestsAssertArrayNotEquals errors", 1, TestsAssertArrayNotEquals.errors())
+	Tests.assertEquals("TestsAssertArrayEquals message", "Failure: 1/3" & chr(10) & "[1] eq [1]: arrays `[1]` and `[1]` are equal", TestsAssertArrayNotEquals.message())
+
+
     Tests.check()
 End Sub
 
 Sub StringsTestSuite(Optional Tests as Variant)
-	Dim strings as Variant
+	Dim Strings as Variant
 	Dim enumeration as Variant
 
 	If IsMissing(Tests) Then
@@ -112,7 +131,7 @@ Sub StringsTestSuite(Optional Tests as Variant)
 
     Tests.assertEquals("reversed", Strings.reversed("MoreBasicFunctions"), "snoitcnuFcisaBeroM")
 
-    Tests.assertEquals("split", Array("More", "Basic", "Functions"), Strings.split("More-Basic-Functions", "-"))
+    Tests.assertArrayEquals("split", Array("More", "Basic", "Functions"), Strings.split("More-Basic-Functions", "-"))
 
     Tests.assertTrue("startsWith", Strings.startsWith("MoreBasicFunctions", "More"))
     Tests.assertFalse("startsWith case sensitive", Strings.startsWith("MoreBasicFunctions", "MORE"))
