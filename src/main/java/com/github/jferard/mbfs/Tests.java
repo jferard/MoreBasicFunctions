@@ -63,7 +63,7 @@ public class Tests extends WeakBase
     }
 
     @Override
-    public void assertEquals(Object expected, Object actual, String message) {
+    public void assertEquals(String message, Object expected, Object actual) {
         this.count++;
         if (expected == null && actual != null || !(expected.equals(actual))) {
             this.errors.add(String.format("%s: objects `%s` and `%s` are not equal", message, expected, actual));
@@ -71,7 +71,7 @@ public class Tests extends WeakBase
     }
 
     @Override
-    public void assertNotEquals(Object expected, Object actual, String message) {
+    public void assertNotEquals(String message, Object expected, Object actual) {
         this.count++;
         if (expected == null && actual == null || expected.equals(actual)) {
             this.errors.add(String.format("%s: objects `%s` and `%s` are equal", message, expected, actual));
@@ -79,7 +79,7 @@ public class Tests extends WeakBase
     }
 
     @Override
-    public void assertTrue(boolean b, String message) {
+    public void assertTrue(String message, boolean b) {
         this.count++;
         if (!b) {
             this.errors.add(String.format("%s: expected True", message));
@@ -87,7 +87,7 @@ public class Tests extends WeakBase
     }
 
     @Override
-    public void assertFalse(boolean b, String message) {
+    public void assertFalse(String message, boolean b) {
         this.count++;
         if (b) {
             this.errors.add(String.format("%s: expected False", message));

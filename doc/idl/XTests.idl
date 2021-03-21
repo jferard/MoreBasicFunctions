@@ -27,22 +27,22 @@ interface XTests {
     /**
     Assert that two objects are equal
     */
-    void assertEquals([in] any o1, [in] any o2, [in] string msg);
+    void assertEquals([in] string msg, [in] any o1, [in] any o2);
 
     /**
     Assert that two objects are not equal
     */
-    void assertNotEquals([in] any o1, [in] any o2, [in] string msg);
+    void assertNotEquals([in] string msg, [in] any o1, [in] any o2);
 
     /**
     Assert that a condition is true
     */
-    void assertTrue([in] boolean b, [in] string msg);
+    void assertTrue([in] string msg, [in] boolean b);
 
     /**
     Assert that a condition is false
     */
-    void assertFalse([in] boolean b, [in] string msg);
+    void assertFalse([in] string msg, [in] boolean b);
 
     /**
     Finalize the tests
