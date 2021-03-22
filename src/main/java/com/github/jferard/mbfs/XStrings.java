@@ -11,7 +11,9 @@ import com.sun.star.uno.XInterface;
 
 public interface XStrings extends XInterface
 {
-    public static final TypeInfo[] UNOTYPEINFO = { new MethodTypeInfo("compare", 0, 0), new MethodTypeInfo("compareIgnoreCase", 1, 0), new MethodTypeInfo("contains", 2, 0), new MethodTypeInfo("containsIgnoreCase", 3, 0), new MethodTypeInfo("endsWith", 4, 0), new MethodTypeInfo("endsWithIgnoreCase", 5, 0), new MethodTypeInfo("enumerate", 6, 0), new MethodTypeInfo("format", 7, 0), new MethodTypeInfo("indexOf", 8, 0), new MethodTypeInfo("indexOfIgnoreCase", 9, 0), new MethodTypeInfo("insert", 10, 0), new MethodTypeInfo("join", 11, 0), new MethodTypeInfo("lastIndexOf", 12, 0), new MethodTypeInfo("lastIndexOfIgnoreCase", 13, 0), new MethodTypeInfo("lower", 14, 0), new MethodTypeInfo("padLeft", 15, 0), new MethodTypeInfo("padRight", 16, 0), new MethodTypeInfo("replace", 17, 0), new MethodTypeInfo("reversed", 18, 0), new MethodTypeInfo("split", 19, 0), new MethodTypeInfo("startsWith", 20, 0), new MethodTypeInfo("startsWithIgnoreCase", 21, 0), new MethodTypeInfo("trim", 22, 0), new MethodTypeInfo("trimLeft", 23, 0), new MethodTypeInfo("trimRight", 24, 0), new MethodTypeInfo("trimSpaces", 25, 0), new MethodTypeInfo("trimLeftSpaces", 26, 0), new MethodTypeInfo("trimRightSpaces", 27, 0), new MethodTypeInfo("upper", 28, 0) };
+    public static final TypeInfo[] UNOTYPEINFO = { new MethodTypeInfo("charAt", 0, 0), new MethodTypeInfo("compare", 1, 0), new MethodTypeInfo("compareIgnoreCase", 2, 0), new MethodTypeInfo("contains", 3, 0), new MethodTypeInfo("containsIgnoreCase", 4, 0), new MethodTypeInfo("endsWith", 5, 0), new MethodTypeInfo("endsWithIgnoreCase", 6, 0), new MethodTypeInfo("enumerate", 7, 0), new MethodTypeInfo("format", 8, 0), new MethodTypeInfo("indexOf", 9, 0), new MethodTypeInfo("indexOfIgnoreCase", 10, 0), new MethodTypeInfo("insert", 11, 0), new MethodTypeInfo("join", 12, 0), new MethodTypeInfo("lastIndexOf", 13, 0), new MethodTypeInfo("lastIndexOfIgnoreCase", 14, 0), new MethodTypeInfo("lower", 15, 0), new MethodTypeInfo("padLeft", 16, 0), new MethodTypeInfo("padRight", 17, 0), new MethodTypeInfo("replace", 18, 0), new MethodTypeInfo("reversed", 19, 0), new MethodTypeInfo("split", 20, 0), new MethodTypeInfo("startsWith", 21, 0), new MethodTypeInfo("startsWithIgnoreCase", 22, 0), new MethodTypeInfo("substring", 23, 0), new MethodTypeInfo("trim", 24, 0), new MethodTypeInfo("trimLeft", 25, 0), new MethodTypeInfo("trimRight", 26, 0), new MethodTypeInfo("trimSpaces", 27, 0), new MethodTypeInfo("trimLeftSpaces", 28, 0), new MethodTypeInfo("trimRightSpaces", 29, 0), new MethodTypeInfo("upper", 30, 0) };
+    
+    String charAt(final String p0, final int p1);
     
     int compare(final String p0, final String p1);
     
@@ -56,6 +58,8 @@ public interface XStrings extends XInterface
     boolean startsWith(final String p0, final String p1);
     
     boolean startsWithIgnoreCase(final String p0, final String p1);
+    
+    String substring(final String p0, final int p1, final int p2);
     
     String trim(final String p0, final String p1);
     

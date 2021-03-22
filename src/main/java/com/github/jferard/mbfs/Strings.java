@@ -68,6 +68,11 @@ public final class Strings extends WeakBase
     }
 
     @Override
+    public String charAt(String s, int pos) {
+        return new String(new char[]{s.charAt(pos)});
+    }
+
+    @Override
     public int compare(String s0, String s1) {
         return s0.compareTo(s1);
     }
@@ -100,11 +105,11 @@ public final class Strings extends WeakBase
     @Override
     public XEnumeration enumerate(final String s) {
         return new XEnumeration() {
-            int i=0;
+            int i = 0;
 
             @Override
             public boolean hasMoreElements() {
-                return i<s.length();
+                return i < s.length();
             }
 
             @Override
@@ -142,7 +147,7 @@ public final class Strings extends WeakBase
             return "";
         }
         StringBuilder sb = new StringBuilder(strings[0]);
-        for (int i=1; i<strings.length; i++) {
+        for (int i = 1; i < strings.length; i++) {
             sb.append(delimiter).append(strings[i]);
         }
         return sb.toString();
@@ -156,7 +161,7 @@ public final class Strings extends WeakBase
     @Override
     public int lastIndexOfIgnoreCase(String s0, String s1) {
         return s0.toLowerCase(locale).lastIndexOf(s1.toLowerCase(locale));
-   }
+    }
 
     @Override
     public String lower(String s) {
@@ -170,7 +175,7 @@ public final class Strings extends WeakBase
             return s;
         }
         StringBuilder sb = new StringBuilder();
-        for (int i=s.length(); i<n; i++) {
+        for (int i = s.length(); i < n; i++) {
             sb.append(c);
         }
         sb.append(s);
@@ -179,7 +184,7 @@ public final class Strings extends WeakBase
 
     private char oneChar(String oneCharString) {
         if (oneCharString.length() != 1) {
-            throw new RuntimeException("Expected one char but got `"+ oneCharString +"`");
+            throw new RuntimeException("Expected one char but got `" + oneCharString + "`");
         }
         return oneCharString.charAt(0);
     }
@@ -191,7 +196,7 @@ public final class Strings extends WeakBase
         }
         char c = oneChar(oneCharString);
         StringBuilder sb = new StringBuilder(s);
-        for (int i=s.length(); i<n; i++) {
+        for (int i = s.length(); i < n; i++) {
             sb.append(c);
         }
         return sb.toString();
@@ -218,14 +223,23 @@ public final class Strings extends WeakBase
     }
 
     @Override
+    public String substring(String s, int from, int to) {
+        if (to < 0) {
+            return s.substring(from);
+        } else {
+            return s.substring(from, to);
+        }
+    }
+
+    @Override
     public String trim(String s, String oneCharString) {
         char c = oneChar(oneCharString);
-        int i=0;
+        int i = 0;
         while (s.charAt(i) == c) {
             i++;
         }
-        int j=s.length();
-        while (s.charAt(j-1) == c) {
+        int j = s.length();
+        while (s.charAt(j - 1) == c) {
             j--;
         }
         return s.substring(i, j);
@@ -234,7 +248,7 @@ public final class Strings extends WeakBase
     @Override
     public String trimLeft(String s, String oneCharString) {
         char c = oneChar(oneCharString);
-        int i=0;
+        int i = 0;
         while (s.charAt(i) == c) {
             i++;
         }
@@ -244,8 +258,8 @@ public final class Strings extends WeakBase
     @Override
     public String trimRight(String s, String oneCharString) {
         char c = oneChar(oneCharString);
-        int j=s.length();
-        while (s.charAt(j-1) == c) {
+        int j = s.length();
+        while (s.charAt(j - 1) == c) {
             j--;
         }
         return s.substring(0, j);
@@ -258,17 +272,17 @@ public final class Strings extends WeakBase
 
     @Override
     public String trimLeftSpaces(String s) {
-        int i=0;
+        int i = 0;
         while (Character.isSpaceChar(s.charAt(i))) {
             i++;
         }
         return s.substring(i);
-   }
+    }
 
     @Override
     public String trimRightSpaces(String s) {
-        int j=s.length();
-        while (Character.isSpaceChar(s.charAt(j-1))) {
+        int j = s.length();
+        while (Character.isSpaceChar(s.charAt(j - 1))) {
             j--;
         }
         return s.substring(0, j);

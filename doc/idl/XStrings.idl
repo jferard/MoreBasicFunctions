@@ -25,6 +25,11 @@ module com { module github { module jferard { module mbfs {
 
 interface XStrings {
     /**
+    Return the char at a given position.
+    */
+    string charAt([in] string s, [in] long pos);
+
+    /**
     Compare two strings and return an long that indicates their sort position
     */
     long compare([in] string s1, [in] string s2);
@@ -133,6 +138,11 @@ interface XStrings {
     Return true if the string ends with a a string
     */
     boolean startsWithIgnoreCase([in] string s, [in] string e);
+
+    /**
+    Return a substring, `to` is excluded. If `to` is negative, then `to` is the length of `s`.
+    */
+    string substring([in] string s, [in] long from, [in] long to);
 
     /**
     Return a trimmed string.

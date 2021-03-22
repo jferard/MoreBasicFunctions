@@ -28,22 +28,31 @@ At this time, this is only a proof of concept. You can install the add-on with t
 # Target
 MoreBasicFunctions is meant to provide several services.
 
-## `Strings`
-For string manipulation: reverse, split, join, lower/upper case, slice, search... 
+## `Tests`
+Some Junit like functions: `assertTrue`, `assertFalse`, `assertEquals`, `assertNotEquals`,
+`assertArrayEquals`, `assertArrayNotEquals`.
 
-Maybe diff, encodings...
+## `Strings`
+For string manipulation: `reversed`, `split`, `join`, `lower`/`upper` case, `indexOf`... 
+
+TODO: `substring`, maybe `diff`, encodings...
 
 ## `Regexes`
-For regex usage: similar to `Strings`.
+For regex usage.
+
+TODO: similar to `Strings`.
 
 ## `Sequences`
-For sequences manipulation: sort, shuffle, split into chunks, min, max, avg...
+For sequences manipulation.
 
-## `Tests`
-Some Junit like functions.
+TODO: `sort`, `shuffle`, split into chunks, `min`, `max`, `avg`...
 
 ## `Math`
+TODO.
 
 ## `Dates`
+TODO: 
 
-## To be continued
+## `Paths`
+TODO: `glob`, `rglob`.
+

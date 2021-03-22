@@ -87,6 +87,8 @@ Sub StringsTestSuite(Optional Tests as Variant)
 
     Strings = createUNOService("com.github.jferard.mbfs.Strings")
 
+    Tests.assertEquals("charAt", "B", Strings.charAt("MoreBasicFunctions", 4))
+
     Tests.assertEquals("compare equal strings", Strings.compare("MoreBasicFunctions", "MoreBasicFunctions"), 0, )
     Tests.assertTrue("compare more", Strings.compare("MoreBasicFunctions", "MoreBasic") > 0)
     Tests.assertTrue("compare less", Strings.compare("MoreBasic", "MoreBasicFunctions") < 0)
@@ -137,6 +139,9 @@ Sub StringsTestSuite(Optional Tests as Variant)
     Tests.assertTrue("startsWith", Strings.startsWith("MoreBasicFunctions", "More"))
     Tests.assertFalse("startsWith case sensitive", Strings.startsWith("MoreBasicFunctions", "MORE"))
     Tests.assertTrue("startsWith ignore case", Strings.startsWithIgnoreCase("MoreBasicFunctions", "MORE"))
+
+    Tests.assertEquals("substring", "Basic", Strings.substring("MoreBasicFunctions", 4, 9))
+    Tests.assertEquals("substring -1", "BasicFunctions", Strings.substring("MoreBasicFunctions", 4, -1))
 
 	Tests.assertEquals("trim", "12345", Strings.trim("0001234500", "0"))
 	Tests.assertEquals("trimLeft", "1234500", Strings.trimLeft("0001234500", "0"))
