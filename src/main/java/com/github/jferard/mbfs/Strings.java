@@ -18,24 +18,45 @@
 package com.github.jferard.mbfs;
 
 import com.sun.star.container.XEnumeration;
+import com.sun.star.lang.XInitialization;
 import com.sun.star.lang.XServiceInfo;
 import com.sun.star.lib.uno.helper.WeakBase;
+import com.sun.star.uno.Exception;
 import com.sun.star.uno.XComponentContext;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 public final class Strings extends WeakBase
-        implements XServiceInfo, XStrings {
+        implements XServiceInfo, XStrings, XInitialization {
     public static final String implementationName = Strings.class.getName();
 
     public static final String[] serviceNames = {"com.github.jferard.mbfs.Strings"};
 
-    private final XComponentContext xContext;
-    private final Locale locale;
+    public static XStrings create(XComponentContext context) {
+        return new Strings(context, Locale.getDefault());
+    }
 
-    public Strings(XComponentContext context) {
-        xContext = context;
-        locale = Locale.US;
+    public static XStrings createWithLocale(XComponentContext context, String localeName) {
+        Locale locale = getLocale(localeName);
+        return new Strings(context, locale);
+    }
+
+    private static Locale getLocale(String localeName) {
+        String[] parts = localeName.split("_");
+        if (parts.length == 1) {
+            return new Locale(parts[0]);
+        } else {
+            return new Locale(parts[0], parts[1]);
+        }
+    }
+
+    private final XComponentContext xContext;
+    private Locale locale;
+
+    Strings(XComponentContext context, Locale locale) {
+        this.xContext = context;
+        this.locale = locale;
     }
 
     @Override
@@ -58,7 +79,7 @@ public final class Strings extends WeakBase
         return false;
     }
 
-
+    @Override
     public String reversed(String s) {
         StringBuilder sb = new StringBuilder();
         for (int i = s.length() - 1; i >= 0; i--) {
@@ -293,4 +314,14 @@ public final class Strings extends WeakBase
         return s.toUpperCase(locale);
     }
 
+    @Override
+    public void initialize(Object[] objects) throws Exception {
+        if (objects.length == 0) {
+            this.locale = Locale.getDefault();
+        } else if (objects.length == 1) {
+            this.locale = getLocale((String) objects[0]);
+        } else {
+            throw new RuntimeException("Too many parameters: "+ Arrays.asList(objects));
+        }
+    }
 }

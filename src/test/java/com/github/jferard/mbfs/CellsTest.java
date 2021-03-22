@@ -18,12 +18,11 @@
 
 package com.github.jferard.mbfs;
 
-import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CellsTest extends TestCase {
+public class CellsTest {
     public Cells cells;
 
     @Before

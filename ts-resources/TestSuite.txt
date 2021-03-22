@@ -85,7 +85,7 @@ Sub StringsTestSuite(Optional Tests as Variant)
 	    Tests = createUNOService("com.github.jferard.mbfs.Tests")
 	End If
 
-    Strings = createUNOService("com.github.jferard.mbfs.Strings")
+    Strings = com.github.jferard.mbfs.Strings.createWithLocale("en_US")
 
     Tests.assertEquals("charAt", "B", Strings.charAt("MoreBasicFunctions", 4))
 

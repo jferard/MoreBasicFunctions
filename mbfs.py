@@ -121,9 +121,9 @@ class MoreBasicFunctions:
     def _generate_template(self):
         types = []
         print(f"Generating template")
-        for path in Path(idl_resources).glob("X*.idl"):
+        for path in Path(idl_resources).glob("*.idl"):
             interface = f"{lib_module}.{path.stem}"
-            service = f"{lib_module}.{path.stem[1:]}Impl"
+            service = f"{lib_module}.{path.stem}"
             process = self._run_command(
                 [uno_skeletonmaker, "component", "-l",
                  pt(office_program_path, "types.rdb"), "-l", pt("..", lib_name + RDB), "-n",
