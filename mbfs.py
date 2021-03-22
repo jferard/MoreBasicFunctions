@@ -25,6 +25,8 @@ from pathlib import Path
 
 from xml.sax.saxutils import escape
 
+VERSION = "0.0.1"
+
 RDB = ".rdb"
 TYPES_RDB = "types" + RDB
 
@@ -138,9 +140,9 @@ class MoreBasicFunctions:
         self._maven()
         self._copy_jar()
         self._copy_resources()
-        self._create_oxt(lib_name + ".oxt")
+        self._create_oxt(lib_name + "-" + VERSION + ".oxt")
         self._copy_ts_resources()
-        self._create_oxt(lib_name + "-ts.oxt")
+        self._create_oxt(lib_name + "-ts-" + VERSION + ".oxt")
 
     def _maven(self):
         process = self._run_command(

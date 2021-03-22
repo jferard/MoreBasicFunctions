@@ -24,6 +24,7 @@ Sub MBFSTestSuite()
     TestsTestSuite(Tests)
     StringsTestSuite(Tests)
     CellsTestSuite(Tests)
+    UtilsTestSuite(Tests)
     Tests.check()
     MsgBox Tests.message()
 End Sub
@@ -176,5 +177,25 @@ Sub CellsTestSuite(Optional Tests as Variant)
     Tests.assertEquals("`AZ` -> 51", Cells.numericCol("AZ"), 51)
     Tests.assertEquals("`BA` -> 52", Cells.numericCol("BA"), 52)
     Tests.assertEquals("`AMJ` -> 1023", Cells.numericCol("AMJ"), 1023)
+    Tests.check()
+End Sub
+
+Sub UtilsTestSuite(Optional Tests as Variant)
+	Dim Utils as Variant
+	Dim pvs as Variant
+
+	If IsMissing(Tests) Then
+	    Tests = createUNOService("com.github.jferard.mbfs.Tests")
+	End If
+
+    Utils = createUNOService("com.github.jferard.mbfs.Utils")
+    pvs = Utils.makePVs(Array("name1", 1, "name2", 2))
+    Tests.assertEquals("pv0.name", "name1", pvs(0).Name)
+    Tests.assertEquals("pv0.value", 1, pvs(0).Value)
+    Tests.assertEquals("pv1.name", "name2", pvs(0).Name)
+    Tests.assertEquals("pv1.value", 2, pvs(1).Value)
+    Tests.assertEquals("pvs from", 0, Lbound(pvs))
+    Tests.assertEquals("pvs to ", 1, Ubound(pvs))
+
     Tests.check()
 End Sub

@@ -28,5 +28,8 @@
 		<implementation name="com.github.jferard.mbfs.Tests">
 			<service name="com.github.jferard.mbfs.Tests"/>
 		</implementation>
+		<implementation name="com.github.jferard.mbfs.Utils">
+			<service name="com.github.jferard.mbfs.Utils"/>
+		</implementation>
 	</component>
 </components>

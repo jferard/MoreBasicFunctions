@@ -54,6 +54,10 @@ public final class Strings extends WeakBase
     private final XComponentContext xContext;
     private Locale locale;
 
+    public Strings(XComponentContext context) {
+        this.xContext = context;
+    }
+
     Strings(XComponentContext context, Locale locale) {
         this.xContext = context;
         this.locale = locale;

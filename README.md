@@ -16,6 +16,12 @@ Versus:
 	MsgBox Strings.replace("123123123", "3", "abc")
 
 # Installation
+Dowload the latest [release](https://github.com/jferard/MoreBasicFunctions/releases) or compile the extension (see Compilation below).
+
+In LibreOffice: first, save any opened document.
+Then `Tools > Extension Manager...` and choose the MoreBasicFunctions extension. Accept the license and close the extension manager. Be sure to restart LibreOffice.
+
+# Compilation
 The preparation step requires the LibreOffice SDK and the procyon decompiler. On Ubuntu
 
     $ sudo apt-get install libreoffice-dev

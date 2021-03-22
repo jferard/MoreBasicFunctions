@@ -29,7 +29,7 @@ public class StringsTest {
 
     @Before
     public void setUp() {
-        strings = new Strings(null);
+        strings = new Strings(null, Locale.US);
     }
 
     @Test
