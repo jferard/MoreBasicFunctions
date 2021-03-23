@@ -27,6 +27,12 @@ import com.sun.star.uno.XComponentContext;
 import java.util.Arrays;
 import java.util.Locale;
 
+/**
+ * A service to handle strings.
+ *
+ * General note: if an index `pos` is negative, then the index is `pos + s.length()`. That is:
+ * `Strings.charAt("More", -1)` is `"e"`.
+ */
 public final class Strings extends WeakBase
         implements XServiceInfo, XStrings, XInitialization {
     public static final String implementationName = Strings.class.getName();
@@ -94,6 +100,9 @@ public final class Strings extends WeakBase
 
     @Override
     public String charAt(String s, int pos) {
+        if (pos < 0) {
+            pos += s.length();
+        }
         return new String(new char[]{s.charAt(pos)});
     }
 
@@ -162,8 +171,11 @@ public final class Strings extends WeakBase
     }
 
     @Override
-    public String insert(String s0, String s1, int index) {
-        return s0.substring(0, index) + s1 + s0.substring(index);
+    public String insert(String s0, String s1, int pos) {
+        if (pos < 0) {
+            pos += s0.length();
+        }
+        return s0.substring(0, pos) + s1 + s0.substring(pos);
     }
 
     @Override
@@ -249,11 +261,29 @@ public final class Strings extends WeakBase
 
     @Override
     public String substring(String s, int from, int to) {
-        if (to < 0) {
-            return s.substring(from);
-        } else {
-            return s.substring(from, to);
+        if (from < 0) {
+            from += s.length();
         }
+        if (to < 0) {
+            to += s.length();
+        }
+        return s.substring(from, to);
+    }
+
+    @Override
+    public String substringFrom(String s, int from) {
+        if (from < 0) {
+            from += s.length();
+        }
+        return s.substring(from);
+    }
+
+    @Override
+    public String substringTo(String s, int to) {
+        if (to < 0) {
+            to += s.length();
+        }
+        return s.substring(0, to);
     }
 
     @Override

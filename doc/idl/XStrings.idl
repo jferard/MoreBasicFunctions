@@ -140,9 +140,19 @@ interface XStrings {
     boolean startsWithIgnoreCase([in] string s, [in] string e);
 
     /**
-    Return a substring, `to` is excluded. If `to` is negative, then `to` is the length of `s`.
+    Return a substring, `to` is excluded.
     */
     string substring([in] string s, [in] long from, [in] long to);
+
+    /**
+    Return a substring.
+    */
+    string substringFrom([in] string s, [in] long from);
+
+    /**
+    Return a substring, `to` is excluded.
+    */
+    string substringTo([in] string s, [in] long to);
 
     /**
     Return a trimmed string.
