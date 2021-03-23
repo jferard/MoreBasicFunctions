@@ -51,6 +51,9 @@ For string manipulation: `reversed`, `split`, `join`, `lower`/`upper` case, `ind
 
 TODO: `substring`, maybe `diff`, encodings...
 
+## `Characters`
+TODO: `Ord`/`Char` + `isLetter`, `isDigit`, ...
+
 ## `Regexes`
 For regex usage.
 
