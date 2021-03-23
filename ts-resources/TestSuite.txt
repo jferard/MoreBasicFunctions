@@ -25,6 +25,7 @@ Sub MBFSTestSuite()
     StringsTestSuite(Tests)
     CellsTestSuite(Tests)
     UtilsTestSuite(Tests)
+    ListTestSuite(Tests)
     Tests.check()
     MsgBox Tests.message()
 End Sub
@@ -204,6 +205,27 @@ Sub UtilsTestSuite(Optional Tests as Variant)
     Tests.assertEquals("pv1.value", 2, pvs(1).Value)
     Tests.assertEquals("pvs from", 0, Lbound(pvs))
     Tests.assertEquals("pvs to ", 1, Ubound(pvs))
+
+    Tests.check()
+End Sub
+
+Sub ListTestSuite(Optional Tests as Variant)
+	Dim slist, llist as Variant
+
+	If IsMissing(Tests) Then
+	    Tests = createUNOService("com.github.jferard.mbfs.Tests")
+	End If
+
+    slist = com.github.jferard.mbfs.List.create("string")
+    Tests.assertEquals("empty slist size", 0, slist.size())
+    slist.append("foo")
+    Tests.assertEquals("one element slist size", 1, slist.size())
+    Tests.assertEquals("first element slist", "foo", slist.get(0))
+
+    llist = com.github.jferard.mbfs.List.create("long")
+    llist.append(CreateUNOValue("long", 1))
+    Tests.assertEquals("one element llist size", 1, llist.size())
+    Tests.assertEquals("first element llist", 1, llist.get(0))
 
     Tests.check()
 End Sub

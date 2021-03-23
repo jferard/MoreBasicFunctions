@@ -23,7 +23,7 @@
 
 module com { module github { module jferard { module mbfs {
 
-interface XStrings {
+interface XStrings: com::sun::star::uno::XInterface {
     /**
     Return the char at a given position.
     */

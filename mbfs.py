@@ -97,11 +97,16 @@ class MoreBasicFunctions:
 
     def _merge_urds(self):
         print(f"Merging URDS")
+        rdb = pt(work_dir, lib_name + RDB)
+        try:
+            os.unlink(rdb)
+        except FileNotFoundError:
+            pass
         process = self._run_command(
-            [regmerge, "-v", pt(work_dir, lib_name + RDB), "UCR"] + [str(p) for p in
-                                                                     Path(work_dir).glob(
+            [regmerge, "-v", rdb, "UCR"] + [str(p) for p in
+                                          Path(work_dir).glob(
                                                                          "*.urd")])
-        shutil.copy(pt(work_dir, lib_name + RDB), pt(oxt_resources, lib_name + RDB))
+        shutil.copy(rdb, pt(oxt_resources, lib_name + RDB))
 
     def check(self):
         print(f"Showing RDB")

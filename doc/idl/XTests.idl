@@ -23,7 +23,7 @@
 
 module com { module github { module jferard { module mbfs {
 
-interface XTests {
+interface XTests: com::sun::star::uno::XInterface {
     /**
     Assert that two objects are equal
     */

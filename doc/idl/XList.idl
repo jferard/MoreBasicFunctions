@@ -1,0 +1,50 @@
+/*
+   MoreBasicFunctions - A LibreOffice Add-On written in Java that provides more basic functions.
+   Copyright (C) 2021 Julien Férard.
+
+   MoreBasicFunctions is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   MoreBasicFunctions is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+#ifndef INCLUDED_COM_GITHUB_JFERARD_MBFS_XLIST
+#define INCLUDED_COM_GITHUB_JFERARD_MBFS_XLIST
+
+#include <com/sun/star/uno/XInterface.idl>
+#include <com/sun/star/beans/IllegalTypeException.idl>
+#include <com/sun/star/lang/IndexOutOfBoundsException.idl>
+
+module com { module github { module jferard { module mbfs {
+
+interface XList: com::sun::star::uno::XInterface {
+    void append([in] any element)
+            raises( ::com::sun::star::beans::IllegalTypeException );
+
+    void insert([in] long pos, [in] any element)
+            raises( ::com::sun::star::beans::IllegalTypeException, ::com::sun::star::lang::IndexOutOfBoundsException );
+
+    long size();
+
+    any get([in] long pos)
+            raises ( ::com::sun::star::lang::IndexOutOfBoundsException);
+
+    void set([in] long pos, [in] any element)
+            raises( ::com::sun::star::beans::IllegalTypeException, ::com::sun::star::lang::IndexOutOfBoundsException );
+
+    any removeLast()
+            raises ( ::com::sun::star::lang::IndexOutOfBoundsException);
+
+    sequence<any> toArray();
+};
+
+}; }; }; };
+
+#endif

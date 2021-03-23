@@ -31,5 +31,8 @@
 		<implementation name="com.github.jferard.mbfs.Utils">
 			<service name="com.github.jferard.mbfs.Utils"/>
 		</implementation>
+		<implementation name="com.github.jferard.mbfs.MBFSList">
+			<service name="com.github.jferard.mbfs.List"/>
+		</implementation>
 	</component>
 </components>

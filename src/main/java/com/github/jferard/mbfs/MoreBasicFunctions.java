@@ -25,8 +25,10 @@ import com.sun.star.registry.XRegistryKey;
 public class MoreBasicFunctions {
     public static final String IMPLEMENTATION_NAME = "implementationName";
     public static final String SERVICE_NAMES = "serviceNames";
+
+    @SuppressWarnings("unchecked")
     private static final Class<? extends XServiceInfo>[] implementationClasses =
-            new Class[]{Strings.class, Tests.class, Cells.class, Utils.class};
+            new Class[]{Strings.class, Tests.class, Cells.class, Utils.class, MBFSList.class};
 
     public static XSingleComponentFactory __getComponentFactory(String implementation) {
         for (Class<? extends XServiceInfo> implementationClass : implementationClasses) {

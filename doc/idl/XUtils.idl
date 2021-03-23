@@ -23,7 +23,7 @@
 
 module com { module github { module jferard { module mbfs {
 
-interface XUtils {
+interface XUtils: com::sun::star::uno::XInterface {
     /**
     Return a PropertyValue
     */

@@ -25,7 +25,7 @@ module com { module github { module jferard { module mbfs {
 
 interface XTests;
 
-service Tests : XTests;
+service Tests: XTests;
 
 }; }; }; };
 

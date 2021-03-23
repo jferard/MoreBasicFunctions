@@ -33,7 +33,7 @@ import java.util.Locale;
  * General note: if an index `pos` is negative, then the index is `pos + s.length()`. That is:
  * `Strings.charAt("More", -1)` is `"e"`.
  */
-public final class Strings extends WeakBase
+public class Strings extends WeakBase
         implements XServiceInfo, XStrings, XInitialization {
     public static final String implementationName = Strings.class.getName();
 
@@ -62,6 +62,7 @@ public final class Strings extends WeakBase
 
     public Strings(XComponentContext context) {
         this.xContext = context;
+        this.locale = Locale.getDefault();
     }
 
     Strings(XComponentContext context, Locale locale) {
