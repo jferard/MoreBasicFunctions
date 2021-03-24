@@ -22,7 +22,7 @@
 
 module com { module github { module jferard { module mbfs {
 
-interface XCells: com::sun::star::uno::XInterface {
+interface XCells: ::com::sun::star::uno::XInterface {
     /**
     Return the alphabetic representation of the column. Starts with A = 0.
     */

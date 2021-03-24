@@ -24,7 +24,7 @@
 
 module com { module github { module jferard { module mbfs {
 
-interface XList: com::sun::star::uno::XInterface {
+interface XList: ::com::sun::star::uno::XInterface {
     void append([in] any element)
             raises( ::com::sun::star::beans::IllegalTypeException );
 

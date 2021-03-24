@@ -23,7 +23,7 @@
 
 module com { module github { module jferard { module mbfs {
 
-interface XTests: com::sun::star::uno::XInterface {
+interface XTests: ::com::sun::star::uno::XInterface {
     /**
     Assert that two objects are equal
     */
@@ -67,7 +67,7 @@ interface XTests: com::sun::star::uno::XInterface {
     /**
     Raise an error if some tests failed
     */
-    void check() raises (com::sun::star::uno::RuntimeException);
+    void check() raises (::com::sun::star::uno::RuntimeException);
 };
 
 }; }; }; };

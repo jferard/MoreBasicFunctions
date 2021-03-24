@@ -23,7 +23,7 @@
 
 module com { module github { module jferard { module mbfs {
 
-interface XStrings: com::sun::star::uno::XInterface {
+interface XStrings: ::com::sun::star::uno::XInterface {
     /**
     Return the char at a given position.
     */
@@ -62,7 +62,7 @@ interface XStrings: com::sun::star::uno::XInterface {
     /**
     Create an enumeration
     */
-    com::sun::star::container::XEnumeration enumerate([in] string s);
+    ::com::sun::star::container::XEnumeration enumerate([in] string s);
 
     /**
     Return a formatted string (%s)
