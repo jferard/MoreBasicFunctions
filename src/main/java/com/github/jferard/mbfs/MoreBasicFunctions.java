@@ -28,7 +28,8 @@ public class MoreBasicFunctions {
 
     @SuppressWarnings("unchecked")
     private static final Class<? extends XServiceInfo>[] implementationClasses =
-            new Class[]{Strings.class, Tests.class, Cells.class, Utils.class, MBFSList.class};
+            new Class[]{Strings.class, Characters.class, Tests.class, Cells.class, Utils.class,
+                    MBFSList.class};
 
     public static XSingleComponentFactory __getComponentFactory(String implementation) {
         for (Class<? extends XServiceInfo> implementationClass : implementationClasses) {

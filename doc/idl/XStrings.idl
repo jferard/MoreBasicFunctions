@@ -20,6 +20,7 @@
 
 #include <com/sun/star/uno/XInterface.idl>
 #include <com/sun/star/container/XEnumeration.idl>
+#include <com/sun/star/lang/IllegalArgumentException.idl>
 
 module com { module github { module jferard { module mbfs {
 
@@ -107,12 +108,14 @@ interface XStrings: ::com::sun::star::uno::XInterface {
     /**
     Return a padded string.
     */
-    string padLeft([in] string s, [in] string c, [in] long n);
+    string padLeft([in] string s, [in] string c, [in] long n)
+            raises( ::com::sun::star::lang::IllegalArgumentException);
 
     /**
     Return a padded string.
     */
-    string padRight([in] string s, [in] string c, [in] long n);
+    string padRight([in] string s, [in] string c, [in] long n)
+            raises( ::com::sun::star::lang::IllegalArgumentException);
 
     /**
     Return a string.
@@ -157,17 +160,20 @@ interface XStrings: ::com::sun::star::uno::XInterface {
     /**
     Return a trimmed string.
     */
-    string trim([in] string s, [in] string c);
+    string trim([in] string s, [in] string c)
+            raises( ::com::sun::star::lang::IllegalArgumentException);
 
     /**
     Return a trimmed string.
     */
-    string trimLeft([in] string s, [in] string c);
+    string trimLeft([in] string s, [in] string c)
+            raises( ::com::sun::star::lang::IllegalArgumentException);
 
     /**
     Return a trimmed string.
     */
-    string trimRight([in] string s, [in] string c);
+    string trimRight([in] string s, [in] string c)
+            raises( ::com::sun::star::lang::IllegalArgumentException);
 
     /**
     Return a trimmed string.

@@ -5,6 +5,7 @@
 package com.github.jferard.mbfs;
 
 import com.sun.star.lib.uno.typeinfo.MethodTypeInfo;
+import com.sun.star.lang.IllegalArgumentException;
 import com.sun.star.container.XEnumeration;
 import com.sun.star.lib.uno.typeinfo.TypeInfo;
 import com.sun.star.uno.XInterface;
@@ -45,9 +46,9 @@ public interface XStrings extends XInterface
     
     String lower(final String p0);
     
-    String padLeft(final String p0, final String p1, final int p2);
+    String padLeft(final String p0, final String p1, final int p2) throws IllegalArgumentException;
     
-    String padRight(final String p0, final String p1, final int p2);
+    String padRight(final String p0, final String p1, final int p2) throws IllegalArgumentException;
     
     String replace(final String p0, final String p1, final String p2);
     
@@ -65,11 +66,11 @@ public interface XStrings extends XInterface
     
     String substringTo(final String p0, final int p1);
     
-    String trim(final String p0, final String p1);
+    String trim(final String p0, final String p1) throws IllegalArgumentException;
     
-    String trimLeft(final String p0, final String p1);
+    String trimLeft(final String p0, final String p1) throws IllegalArgumentException;
     
-    String trimRight(final String p0, final String p1);
+    String trimRight(final String p0, final String p1) throws IllegalArgumentException;
     
     String trimSpaces(final String p0);
     

@@ -275,3 +275,38 @@ Sub ListTestSuite(Optional Tests as Variant)
 
     Tests.check()
 End Sub
+
+Sub CharactersTestSuite(Optional Tests as Variant)
+	Dim Characters as Variant
+
+	If IsMissing(Tests) Then
+	    Tests = createUNOService("com.github.jferard.mbfs.Tests")
+	End If
+
+	Characters = CreateUNOService("com.github.jferard.mbfs.Characters")
+	Tests.assertTrue("isChar `a`", Characters.isChar("a"))
+	Tests.assertFalse("isChar `abc`", Characters.isChar("abc"))
+
+	Tests.assertTrue("isLetter `a`", Characters.isLetter("a"))
+	Tests.assertFalse("isLetter `,`", Characters.isLetter(","))
+
+	Tests.assertFalse("isDigit `a`", Characters.isDigit("a"))
+	Tests.assertTrue("isDigit`0`", Characters.isDigit("0"))
+
+	Tests.assertFalse("isSpace `a`", Characters.isSpace("a"))
+	Tests.assertTrue("isSpace ` `", Characters.isSpace(" "))
+	Tests.assertTrue("isSpace `\n`", Characters.isSpace(Chr(10)))
+
+	Tests.assertFalse("isUpperCase `a`", Characters.isUpperCase("a"))
+	Tests.assertTrue("isUpperCase `A`", Characters.isUpperCase("A"))
+
+	Tests.assertFalse("isPunctuation `a`", Characters.isPunctuation("a"))
+	Tests.assertTrue("isPunctuation `.`", Characters.isPunctuation("."))
+
+	On Error Goto ErrLetter
+	Characters.isLetter("abc")
+	Tests.assertEquals("isLetter `abc` should raise an error", 1, 0)
+
+    ErrLetter:
+    Tests.check()
+End Sub

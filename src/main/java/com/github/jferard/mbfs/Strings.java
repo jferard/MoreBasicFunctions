@@ -18,6 +18,7 @@
 package com.github.jferard.mbfs;
 
 import com.sun.star.container.XEnumeration;
+import com.sun.star.lang.IllegalArgumentException;
 import com.sun.star.lang.XInitialization;
 import com.sun.star.lang.XServiceInfo;
 import com.sun.star.lib.uno.helper.WeakBase;
@@ -208,7 +209,7 @@ public class Strings extends WeakBase
 
     @Override
     public String padLeft(String s, String oneCharString, int n) {
-        char c = oneChar(oneCharString);
+        char c = Util.oneChar(oneCharString);
         if (s.length() >= n) {
             return s;
         }
@@ -220,19 +221,12 @@ public class Strings extends WeakBase
         return sb.toString();
     }
 
-    private char oneChar(String oneCharString) {
-        if (oneCharString.length() != 1) {
-            throw new RuntimeException("Expected one char but got `" + oneCharString + "`");
-        }
-        return oneCharString.charAt(0);
-    }
-
     @Override
     public String padRight(String s, String oneCharString, int n) {
         if (s.length() >= n) {
             return s;
         }
-        char c = oneChar(oneCharString);
+        char c = Util.oneChar(oneCharString);
         StringBuilder sb = new StringBuilder(s);
         for (int i = s.length(); i < n; i++) {
             sb.append(c);
@@ -289,7 +283,7 @@ public class Strings extends WeakBase
 
     @Override
     public String trim(String s, String oneCharString) {
-        char c = oneChar(oneCharString);
+        char c = Util.oneChar(oneCharString);
         int i = 0;
         while (s.charAt(i) == c) {
             i++;
@@ -302,8 +296,8 @@ public class Strings extends WeakBase
     }
 
     @Override
-    public String trimLeft(String s, String oneCharString) {
-        char c = oneChar(oneCharString);
+    public String trimLeft(String s, String oneCharString)  throws IllegalArgumentException {
+        char c = Util.oneChar(oneCharString);
         int i = 0;
         while (s.charAt(i) == c) {
             i++;
@@ -312,8 +306,8 @@ public class Strings extends WeakBase
     }
 
     @Override
-    public String trimRight(String s, String oneCharString) {
-        char c = oneChar(oneCharString);
+    public String trimRight(String s, String oneCharString) throws IllegalArgumentException {
+        char c = Util.oneChar(oneCharString);
         int j = s.length();
         while (s.charAt(j - 1) == c) {
             j--;
@@ -359,4 +353,5 @@ public class Strings extends WeakBase
             throw new RuntimeException("Too many parameters: "+ Arrays.asList(objects));
         }
     }
+
 }
