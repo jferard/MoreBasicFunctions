@@ -211,7 +211,8 @@ End Sub
 
 Sub ListTestSuite(Optional Tests as Variant)
 	Dim stringList, longList, secondStringList as Variant
-	Dim enum as Variant
+	Dim enumeration as Variant
+	Dim i as Integer
 
 	If IsMissing(Tests) Then
 	    Tests = createUNOService("com.github.jferard.mbfs.Tests")
@@ -244,8 +245,8 @@ Sub ListTestSuite(Optional Tests as Variant)
     Tests.assertEquals("third element fromEnumerable", "Functions", secondStringList.get(2))
     Tests.assertEquals("size fromEnumerable", 3, secondStringList.size())
 
-    enum = stringList.createEnumeration()
-    secondStringList = com.github.jferard.mbfs.List.fromEnumeration("string", enum)
+    enumeration = stringList.createEnumeration()
+    secondStringList = com.github.jferard.mbfs.List.fromEnumeration("string", enumeration)
     Tests.assertEquals("first element fromEnumeration", "More", secondStringList.get(0))
     Tests.assertEquals("second element fromEnumeration", "Basic", secondStringList.get(1))
     Tests.assertEquals("third element fromEnumeration", "Functions", secondStringList.get(2))
@@ -258,6 +259,13 @@ Sub ListTestSuite(Optional Tests as Variant)
 	Tests.assertEquals("get `And`", "And", secondStringList.get(1))
 	secondStringList.appendCollection(stringList)
 	Tests.assertEquals("[More, And, More, Basic, Functions] size", 5, secondStringList.size())
+	Tests.assertArrayEquals("[More, And, More, Basic, Functions] toArray", Array("More", "And", "More", "Basic", "Functions"), secondStringList.toArray())
+
+	secondStringList = com.github.jferard.mbfs.List.create("string")
+	For i=0 To 100
+		secondStringList.appendCollection(stringList)
+	Next i
+	Tests.assertEquals("Test long list", 303, secondStringList.size())
 
     Tests.check()
 End Sub
