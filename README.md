@@ -47,9 +47,9 @@ Some Junit like functions: `assertTrue`, `assertFalse`, `assertEquals`, `assertN
 `assertArrayEquals`, `assertArrayNotEquals`.
 
 ## `Strings`
-For string manipulation: `reversed`, `split`, `join`, `lower`/`upper` case, `indexOf`... 
+For string manipulation: `reversed`, `split`, `join`, `lower`/`upper` case, `indexOf`, `substring`...
 
-TODO: `substring`, maybe `diff`, encodings...
+TODO: maybe `diff`, encodings...
 
 ## `Characters`
 TODO: `Ord`/`Char` + `isLetter`, `isDigit`, ...
@@ -57,10 +57,10 @@ TODO: `Ord`/`Char` + `isLetter`, `isDigit`, ...
 ## `Regexes`
 For regex usage.
 
-TODO: similar to `Strings`.
+TODO: similar to `Strings`, groups, match, search.
 
-## `Sequences`
-For sequences manipulation.
+## `Collections`
+For collections manipulation.
 
 TODO: `sort`, `shuffle`, split into chunks, `min`, `max`, `avg`...
 
