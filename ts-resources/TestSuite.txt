@@ -210,22 +210,54 @@ Sub UtilsTestSuite(Optional Tests as Variant)
 End Sub
 
 Sub ListTestSuite(Optional Tests as Variant)
-	Dim slist, llist as Variant
+	Dim stringList, longList, secondStringList as Variant
+	Dim enum as Variant
 
 	If IsMissing(Tests) Then
 	    Tests = createUNOService("com.github.jferard.mbfs.Tests")
 	End If
 
-    slist = com.github.jferard.mbfs.List.create("string")
-    Tests.assertEquals("empty slist size", 0, slist.size())
-    slist.append("foo")
-    Tests.assertEquals("one element slist size", 1, slist.size())
-    Tests.assertEquals("first element slist", "foo", slist.get(0))
+    stringList = com.github.jferard.mbfs.List.create("string")
+    Tests.assertEquals("empty stringList size", 0, stringList.size())
+    stringList.append("foo")
+    Tests.assertEquals("one element stringList size", 1, stringList.size())
+    Tests.assertEquals("first element stringList", "foo", stringList.get(0))
 
-    llist = com.github.jferard.mbfs.List.create("long")
-    llist.append(CreateUNOValue("long", 1))
-    Tests.assertEquals("one element llist size", 1, llist.size())
-    Tests.assertEquals("first element llist", 1, llist.get(0))
+    longList = com.github.jferard.mbfs.List.create("long")
+    longList.append(CreateUNOValue("long", 1))
+    Tests.assertEquals("one element longList size", 1, longList.size())
+    Tests.assertEquals("first element longList", 1, longList.get(0))
+
+    stringList = com.github.jferard.mbfs.List.fromArray("string", Array("More", "Basic", "Functions"))
+    Tests.assertEquals("first element fromArray", "More", stringList.get(0))
+
+    secondStringList = com.github.jferard.mbfs.List.fromIndexed("string", stringList)
+    Tests.assertEquals("first element fromIndexed", "More", secondStringList.get(0))
+    Tests.assertEquals("second element fromIndexed", "Basic", secondStringList.get(1))
+    Tests.assertEquals("third element fromIndexed", "Functions", secondStringList.get(2))
+    Tests.assertEquals("size fromIndexed", 3, secondStringList.size())
+
+
+    secondStringList = com.github.jferard.mbfs.List.fromEnumerable("string", stringList)
+    Tests.assertEquals("first element fromEnumerable", "More", secondStringList.get(0))
+    Tests.assertEquals("second element fromEnumerable", "Basic", secondStringList.get(1))
+    Tests.assertEquals("third element fromEnumerable", "Functions", secondStringList.get(2))
+    Tests.assertEquals("size fromEnumerable", 3, secondStringList.size())
+
+    enum = stringList.createEnumeration()
+    secondStringList = com.github.jferard.mbfs.List.fromEnumeration("string", enum)
+    Tests.assertEquals("first element fromEnumeration", "More", secondStringList.get(0))
+    Tests.assertEquals("second element fromEnumeration", "Basic", secondStringList.get(1))
+    Tests.assertEquals("third element fromEnumeration", "Functions", secondStringList.get(2))
+    Tests.assertEquals("size fromEnumeration", 3, secondStringList.size())
+
+	Tests.assertEquals("remove `Functions`", "Functions", secondStringList.removeLast())
+	Tests.assertEquals("remove `Basic`", "Basic", secondStringList.removeLast())
+	Tests.assertEquals("[More] size", 1, secondStringList.size())
+	secondStringList.append("And")
+	Tests.assertEquals("get `And`", "And", secondStringList.get(1))
+	secondStringList.appendCollection(stringList)
+	Tests.assertEquals("[More, And, More, Basic, Functions] size", 5, secondStringList.size())
 
     Tests.check()
 End Sub

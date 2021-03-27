@@ -20,16 +20,26 @@
 
 #include <com/sun/star/uno/XInterface.idl>
 #include <com/sun/star/beans/IllegalTypeException.idl>
+#include <com/sun/star/container/XIndexReplace.idl>
+#include <com/sun/star/container/XEnumerationAccess.idl>
+#include <com/sun/star/container/NoSuchElementException.idl>
 #include <com/sun/star/lang/IndexOutOfBoundsException.idl>
+#include <com/sun/star/lang/IllegalArgumentException.idl>
+#include <com/sun/star/lang/WrappedTargetException.idl>
+#include <com/sun/star/lang/WrappedTargetException.idl>
 
 module com { module github { module jferard { module mbfs {
 
-interface XList: ::com::sun::star::uno::XInterface {
+interface XList {
+    interface ::com::sun::star::container::XIndexReplace;
+    interface ::com::sun::star::container::XEnumerationAccess;
+
     void append([in] any element)
-            raises( ::com::sun::star::beans::IllegalTypeException );
+            raises( ::com::sun::star::lang::IllegalArgumentException );
 
     void insert([in] long pos, [in] any element)
-            raises( ::com::sun::star::beans::IllegalTypeException, ::com::sun::star::lang::IndexOutOfBoundsException );
+            raises( ::com::sun::star::lang::IllegalArgumentException,
+                    ::com::sun::star::lang::IndexOutOfBoundsException );
 
     long size();
 
@@ -37,10 +47,18 @@ interface XList: ::com::sun::star::uno::XInterface {
             raises ( ::com::sun::star::lang::IndexOutOfBoundsException);
 
     void set([in] long pos, [in] any element)
-            raises( ::com::sun::star::beans::IllegalTypeException, ::com::sun::star::lang::IndexOutOfBoundsException );
+            raises( ::com::sun::star::lang::IllegalArgumentException,
+                    ::com::sun::star::lang::IndexOutOfBoundsException );
 
     any removeLast()
             raises ( ::com::sun::star::lang::IndexOutOfBoundsException);
+
+    void appendCollection([in] any collection)
+            raises( ::com::sun::star::lang::IllegalArgumentException,
+                    ::com::sun::star::lang::IndexOutOfBoundsException,
+                    ::com::sun::star::lang::WrappedTargetException,
+                    ::com::sun::star::container::NoSuchElementException
+                    );
 
     sequence<any> toArray();
 };
