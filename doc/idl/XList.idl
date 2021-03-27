@@ -61,6 +61,15 @@ interface XList {
                     );
 
     sequence<any> toArray();
+
+    XList subListFrom([in] long from)
+            raises( ::com::sun::star::lang::IllegalArgumentException);
+
+    XList subListTo([in] long to)
+            raises( ::com::sun::star::lang::IllegalArgumentException);
+
+    XList subList([in] long from, [in] long to)
+            raises( ::com::sun::star::lang::IllegalArgumentException);
 };
 
 }; }; }; };

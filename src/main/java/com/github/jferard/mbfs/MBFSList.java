@@ -204,6 +204,45 @@ public class MBFSList extends WeakBase
     }
 
     @Override
+    public XList subListFrom(int from) throws IllegalArgumentException {
+        if (from < 0) {
+            from += this.size;
+        }
+        MBFSList ret = MBFSList.createEmpty(this.xContext, this.elementType);
+        for (int i=from; i<this.size; i++) {
+            ret.append(this.array[i]);
+        }
+        return ret;
+    }
+
+    @Override
+    public XList subListTo(int to) throws IllegalArgumentException {
+        if (to < 0) {
+            to += this.size;
+        }
+        MBFSList ret = MBFSList.createEmpty(this.xContext, this.elementType);
+        for (int i=0; i<to; i++) {
+            ret.append(this.array[i]);
+        }
+        return ret;
+    }
+
+    @Override
+    public XList subList(int from, int to) throws IllegalArgumentException {
+        if (from < 0) {
+            from += this.size;
+        }
+        if (to < 0) {
+            to += this.size;
+        }
+        MBFSList ret = MBFSList.createEmpty(this.xContext, this.elementType);
+        for (int i=from; i<to; i++) {
+            ret.append(this.array[i]);
+        }
+        return ret;
+    }
+
+    @Override
     public XEnumeration createEnumeration() {
         return new XEnumeration() {
             int i = 0;

@@ -267,5 +267,11 @@ Sub ListTestSuite(Optional Tests as Variant)
 	Next i
 	Tests.assertEquals("Test long list", 303, secondStringList.size())
 
+	Tests.assertArrayEquals("sublistFrom 1", Array("Basic", "Functions"), stringList.sublistFrom(1).toArray())
+	Tests.assertArrayEquals("sublistFrom -1", Array("Functions"), stringList.sublistFrom(-1).toArray())
+	Tests.assertArrayEquals("sublistTo 1", Array("More"), stringList.sublistTo(1).toArray())
+	Tests.assertArrayEquals("sublistTo -1", Array("More", "Basic"), stringList.sublistTo(-1).toArray())
+	Tests.assertArrayEquals("sublist 1 -1", Array("Basic"), stringList.sublist(1, -1).toArray())
+
     Tests.check()
 End Sub
