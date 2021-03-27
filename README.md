@@ -55,9 +55,7 @@ TODO: maybe `diff`, encodings...
 For character manipulation `Ord`/`Chr` and identification: `isLetter`, `isDigit`...
 
 ## `Regexes`
-For regex usage.
-
-TODO: similar to `Strings`, groups, match, search.
+For regex usage: `match`, `findAll`/`findFirst`, `replaceAll`/`replaceFirst`.  
 
 ## `Collections`
 For collections manipulation.

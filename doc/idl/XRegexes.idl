@@ -25,6 +25,35 @@
 module com { module github { module jferard { module mbfs {
 
 interface XRegexes: ::com::sun::star::uno::XInterface {
+    /*
+    Return an array of all parts of the string matching the pattern.
+    */
+    sequence<string> findAll([in] string s, [in] string pattern);
+
+    /*
+    Return true if the string matches the pattern
+    */
+    string findFirst([in] string s, [in] string pattern);
+
+    /*
+    Return true if the string matches the pattern
+    */
+    boolean match([in] string s, [in] string pattern);
+
+    /*
+    Return the string with the pattern replaced by replacement.
+    */
+    string replaceFirst([in] string s, [in] string pattern, [in] string replacement);
+
+    /*
+    Return the string with the pattern replaced by replacement.
+    */
+    string replaceAll([in] string s, [in] string pattern, [in] string replacement);
+
+    /*
+    Return an array of substring split on the pattern.
+    */
+    sequence<string> split([in] string s, [in] string pattern);
 };
 
 }; }; }; };

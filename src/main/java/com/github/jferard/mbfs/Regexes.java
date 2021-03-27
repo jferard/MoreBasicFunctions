@@ -22,6 +22,11 @@ import com.sun.star.lang.XServiceInfo;
 import com.sun.star.lib.uno.helper.WeakBase;
 import com.sun.star.uno.XComponentContext;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Regexes extends WeakBase
         implements XServiceInfo, XRegexes {
     public static final String implementationName = Regexes.class.getName();
@@ -52,5 +57,47 @@ public class Regexes extends WeakBase
             }
         }
         return false;
+    }
+
+    @Override
+    public String[] findAll(String s, String pattern) {
+        List<String> ret = new ArrayList<String>();
+        Matcher matcher = Pattern.compile(pattern).matcher(s);
+        int i=0;
+        while (matcher.find(i)) {
+            i = matcher.end();
+            ret.add(matcher.group());
+        }
+        return ret.toArray(new String[] {});
+    }
+
+    @Override
+    public String findFirst(String s, String pattern) {
+        Matcher matcher = Pattern.compile(pattern).matcher(s);
+        if (matcher.find()) {
+            return matcher.group();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public boolean match(String s, String pattern) {
+        return s.matches(pattern);
+    }
+
+    @Override
+    public String replaceFirst(String s, String pattern, String replacement) {
+        return s.replaceFirst(pattern, replacement);
+    }
+
+    @Override
+    public String replaceAll(String s, String pattern, String replacement) {
+        return s.replaceAll(pattern, replacement);
+    }
+
+    @Override
+    public String[] split(String s, String pattern) {
+        return s.split(pattern);
     }
 }

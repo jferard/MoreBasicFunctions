@@ -23,6 +23,7 @@ Sub MBFSTestSuite()
     Tests = createUNOService("com.github.jferard.mbfs.Tests")
     TestsTestSuite(Tests)
     StringsTestSuite(Tests)
+    RegexesTestSuite(Tests)
     CellsTestSuite(Tests)
     UtilsTestSuite(Tests)
     ListTestSuite(Tests)
@@ -162,6 +163,25 @@ Sub StringsTestSuite(Optional Tests as Variant)
 	Tests.assertEquals("trimRightSpaces", "   12345", Strings.trimRightSpaces("   12345  "))
 
 	Tests.assertEquals("upper", "MOREBASICFUNCTIONS", Strings.upper("MoreBasicFunctions"))
+    Tests.check()
+End Sub
+
+Sub RegexesTestSuite(Optional Tests as Variant)
+	Dim Regexes as Variant
+	Dim enumeration as Variant
+
+	If IsMissing(Tests) Then
+	    Tests = createUNOService("com.github.jferard.mbfs.Tests")
+	End If
+
+    Regexes = CreateUNOService("com.github.jferard.mbfs.Regexes")
+	Tests.assertArrayEquals("findAll", Array("123", "456", "789"), Regexes.findAll("   123456789  ", "\d{3}"))
+	Tests.assertEquals("findFirst", "123", Regexes.findFirst("   123456789  ", "\d{3}"))
+	Tests.assertTrue("match", Regexes.match("   12345  ", "^\s+\d+\s+$"))
+	Tests.assertEquals("replaceAll", "   DDD  ", Regexes.replaceAll("   123456789  ", "\d{3}", "D"))
+	Tests.assertEquals("replaceFirst", "   D456789  ", Regexes.replaceFirst("   123456789  ", "\d{3}", "D"))
+	Tests.assertArrayEquals("split", Array("", "1", "23", "456", "78", "9"), Regexes.split(" 1 23   456   78 9   ", "\s+"))
+
     Tests.check()
 End Sub
 
