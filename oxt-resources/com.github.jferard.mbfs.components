@@ -25,6 +25,18 @@
 		<implementation name="com.github.jferard.mbfs.Characters">
 			<service name="com.github.jferard.mbfs.Characters"/>
 		</implementation>
+		<implementation name="com.github.jferard.mbfs.Regexes">
+			<service name="com.github.jferard.mbfs.Regexes"/>
+		</implementation>
+		<implementation name="com.github.jferard.mbfs.Collections">
+			<service name="com.github.jferard.mbfs.Collections"/>
+		</implementation>
+		<implementation name="com.github.jferard.mbfs.Dates">
+			<service name="com.github.jferard.mbfs.Dates"/>
+		</implementation>
+		<implementation name="com.github.jferard.mbfs.Paths">
+			<service name="com.github.jferard.mbfs.Paths"/>
+		</implementation>
 		<implementation name="com.github.jferard.mbfs.Cells">
 			<service name="com.github.jferard.mbfs.Cells"/>
 		</implementation>

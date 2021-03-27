@@ -1,0 +1,32 @@
+/*
+   MoreBasicFunctions - A LibreOffice Add-On written in Java that provides more basic functions.
+   Copyright (C) 2021 Julien Férard.
+
+   MoreBasicFunctions is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   MoreBasicFunctions is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+#ifndef INCLUDED_COM_GITHUB_JFERARD_MBFS_XDATES
+#define INCLUDED_COM_GITHUB_JFERARD_MBFS_XDATES
+
+#include <com/sun/star/uno/XInterface.idl>
+#include <com/sun/star/container/XEnumeration.idl>
+#include <com/sun/star/lang/IllegalArgumentException.idl>
+
+module com { module github { module jferard { module mbfs {
+
+interface XDates: ::com::sun::star::uno::XInterface {
+};
+
+}; }; }; };
+
+#endif
