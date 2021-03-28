@@ -25,6 +25,21 @@
 module com { module github { module jferard { module mbfs {
 
 interface XDates: ::com::sun::star::uno::XInterface {
+    long date([in] long year, [in] long month, [in] long day);
+
+    double datetime([in] long year, [in] long month, [in] long day, [in] long hours, [in] long minutes, [in] double seconds);
+
+    double now();
+
+    string strftime([in] double time, [in] string format)
+                raises( ::com::sun::star::lang::IllegalArgumentException);
+
+    double strptime([in] string str, [in] string format)
+                raises( ::com::sun::star::lang::IllegalArgumentException);
+
+    double time([in] long hours, [in] long minutes, [in] double seconds);
+
+    hyper timestamp([in] double time);
 };
 
 }; }; }; };

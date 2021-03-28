@@ -11,11 +11,15 @@ import com.sun.star.uno.XInterface;
 
 public interface XTests extends XInterface
 {
-    public static final TypeInfo[] UNOTYPEINFO = { new MethodTypeInfo("assertEquals", 0, 0), new MethodTypeInfo("assertArrayEquals", 1, 0), new MethodTypeInfo("assertNotEquals", 2, 0), new MethodTypeInfo("assertArrayNotEquals", 3, 0), new MethodTypeInfo("assertTrue", 4, 0), new MethodTypeInfo("assertFalse", 5, 0), new MethodTypeInfo("errors", 6, 0), new MethodTypeInfo("message", 7, 0), new MethodTypeInfo("check", 8, 0) };
-    
-    void assertEquals(final String p0, final Object p1, final Object p2);
+    public static final TypeInfo[] UNOTYPEINFO = { new MethodTypeInfo("assertArrayEquals", 0, 0), new MethodTypeInfo("assertDoubleEquals", 1, 0), new MethodTypeInfo("assertDoubleNotEquals", 2, 0), new MethodTypeInfo("assertEquals", 3, 0), new MethodTypeInfo("assertNotEquals", 4, 0), new MethodTypeInfo("assertArrayNotEquals", 5, 0), new MethodTypeInfo("assertTrue", 6, 0), new MethodTypeInfo("assertFalse", 7, 0), new MethodTypeInfo("errors", 8, 0), new MethodTypeInfo("message", 9, 0), new MethodTypeInfo("check", 10, 0) };
     
     void assertArrayEquals(final String p0, final Object[] p1, final Object[] p2);
+    
+    void assertDoubleEquals(final String p0, final double p1, final double p2, final double p3);
+    
+    void assertDoubleNotEquals(final String p0, final double p1, final double p2, final double p3);
+    
+    void assertEquals(final String p0, final Object p1, final Object p2);
     
     void assertNotEquals(final String p0, final Object p1, final Object p2);
     

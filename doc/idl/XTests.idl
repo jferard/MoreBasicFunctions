@@ -25,14 +25,24 @@ module com { module github { module jferard { module mbfs {
 
 interface XTests: ::com::sun::star::uno::XInterface {
     /**
-    Assert that two objects are equal
-    */
-    void assertEquals([in] string msg, [in] any o1, [in] any o2);
-
-    /**
     Assert that two arrays are equal
     */
     void assertArrayEquals([in] string msg, [in] sequence<any> o1, [in] sequence<any> o2);
+
+    /**
+    Assert that two doubles are equal
+    */
+    void assertDoubleEquals([in] string msg, [in] double d1, [in] double d2, [in] double delta);
+
+    /**
+    Assert that two doubles are not equal
+    */
+    void assertDoubleNotEquals([in] string msg, [in] double d1, [in] double d2, [in] double delta);
+
+    /**
+    Assert that two objects are equal
+    */
+    void assertEquals([in] string msg, [in] any o1, [in] any o2);
 
     /**
     Assert that two objects are not equal

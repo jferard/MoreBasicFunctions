@@ -58,15 +58,15 @@ For character manipulation `Ord`/`Chr` and identification: `isLetter`, `isDigit`
 For regex usage: `match`, `findAll`/`findFirst`, `replaceAll`/`replaceFirst`.  
 
 ## `Collections`
-For collections manipulation.
+For collections manipulation: `sort`, `shuffle`, `min`, `max`, `avg`...
 
-TODO: `sort`, `shuffle`, split into chunks, `min`, `max`, `avg`...
+TODO: `concat`, `times`, `chunks`, `randomElement`.
 
 ## `Dates`
-TODO: 
+For date and time manipulation: `now`, `strptime`/`strftime`, `interval`. 
 
 ## `Paths`
-TODO: `glob`, `rglob`.
+TODO: `glob`, `rglob`, `split`, `parent`, `withExtension`, `merge`...
 
 ## `Math`
 TODO.

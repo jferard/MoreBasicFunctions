@@ -23,11 +23,12 @@ Sub MBFSTestSuite()
     Tests = createUNOService("com.github.jferard.mbfs.Tests")
     TestsTestSuite(Tests)
     StringsTestSuite(Tests)
+    CharactersTestSuite(Tests)
     RegexesTestSuite(Tests)
-    CellsTestSuite(Tests)
-    CollectionsTestSuite(Tests)
-    UtilsTestSuite(Tests)
     ListTestSuite(Tests)
+    CollectionsTestSuite(Tests)
+    CellsTestSuite(Tests)
+    UtilsTestSuite(Tests)
     Tests.check()
     MsgBox Tests.message()
 End Sub
@@ -53,9 +54,10 @@ Sub TestsTestSuite(Optional Tests as Variant)
 
 	TestsAssertEquals = createUNOService("com.github.jferard.mbfs.Tests")
 	TestsAssertEquals.assertEquals("1 eq 1", 1, 1)
+	TestsAssertEquals.assertDoubleEquals("x eq x", 44283.500001, 44283.5, 0.001)
 	TestsAssertEquals.assertEquals("2 neq 1", 1, 2)
 	Tests.assertEquals("TestsAssertEquals errors", 1, TestsAssertEquals.errors())
-	Tests.assertEquals("TestsAssertEquals message", "Failure: 1/2" & chr(10) & "2 neq 1: objects `1` and `2` are not equal", TestsAssertEquals.message())
+	Tests.assertEquals("TestsAssertEquals message", "Failure: 1/3" & chr(10) & "2 neq 1: objects `1` and `2` are not equal", TestsAssertEquals.message())
 
 	TestsAssertArrayEquals = createUNOService("com.github.jferard.mbfs.Tests")
 	TestsAssertArrayEquals.assertArrayEquals("[1] eq [1]", Array(1), Array(1))
@@ -167,6 +169,41 @@ Sub StringsTestSuite(Optional Tests as Variant)
     Tests.check()
 End Sub
 
+Sub CharactersTestSuite(Optional Tests as Variant)
+	Dim Characters as Variant
+
+	If IsMissing(Tests) Then
+	    Tests = createUNOService("com.github.jferard.mbfs.Tests")
+	End If
+
+	Characters = CreateUNOService("com.github.jferard.mbfs.Characters")
+	Tests.assertTrue("isChar `a`", Characters.isChar("a"))
+	Tests.assertFalse("isChar `abc`", Characters.isChar("abc"))
+
+	Tests.assertTrue("isLetter `a`", Characters.isLetter("a"))
+	Tests.assertFalse("isLetter `,`", Characters.isLetter(","))
+
+	Tests.assertFalse("isDigit `a`", Characters.isDigit("a"))
+	Tests.assertTrue("isDigit`0`", Characters.isDigit("0"))
+
+	Tests.assertFalse("isSpace `a`", Characters.isSpace("a"))
+	Tests.assertTrue("isSpace ` `", Characters.isSpace(" "))
+	Tests.assertTrue("isSpace `\n`", Characters.isSpace(Chr(10)))
+
+	Tests.assertFalse("isUpperCase `a`", Characters.isUpperCase("a"))
+	Tests.assertTrue("isUpperCase `A`", Characters.isUpperCase("A"))
+
+	Tests.assertFalse("isPunctuation `a`", Characters.isPunctuation("a"))
+	Tests.assertTrue("isPunctuation `.`", Characters.isPunctuation("."))
+
+	On Error Goto ErrLetter
+	Characters.isLetter("abc")
+	Tests.assertEquals("isLetter `abc` should raise an error", 1, 0)
+
+    ErrLetter:
+    Tests.check()
+End Sub
+
 Sub RegexesTestSuite(Optional Tests as Variant)
 	Dim Regexes as Variant
 	Dim enumeration as Variant
@@ -182,67 +219,6 @@ Sub RegexesTestSuite(Optional Tests as Variant)
 	Tests.assertEquals("replaceAll", "   DDD  ", Regexes.replaceAll("   123456789  ", "\d{3}", "D"))
 	Tests.assertEquals("replaceFirst", "   D456789  ", Regexes.replaceFirst("   123456789  ", "\d{3}", "D"))
 	Tests.assertArrayEquals("split", Array("", "1", "23", "456", "78", "9"), Regexes.split(" 1 23   456   78 9   ", "\s+"))
-
-    Tests.check()
-End Sub
-
-Sub CellsTestSuite(Optional Tests as Variant)
-	Dim Cells as Variant
-
-	If IsMissing(Tests) Then
-	    Tests = createUNOService("com.github.jferard.mbfs.Tests")
-	End If
-
-    Cells = createUNOService("com.github.jferard.mbfs.Cells")
-    Tests.assertEquals("0 -> `A`", "A", Cells.alphabeticCol(0))
-    Tests.assertEquals("25 -> `Z`", "Z", Cells.alphabeticCol(25))
-    Tests.assertEquals("26 -> `AA`", "AA", Cells.alphabeticCol(26))
-    Tests.assertEquals("51 -> `AZ`", "AZ", Cells.alphabeticCol(51))
-    Tests.assertEquals("52 -> `BA`", "BA", Cells.alphabeticCol(52))
-    Tests.assertEquals("1023 -> `AMJ`", "AMJ", Cells.alphabeticCol(1023))
-
-    Tests.assertEquals("`A` -> 0", Cells.numericCol("A"), 0)
-    Tests.assertEquals("`Z` -> 25", Cells.numericCol("Z"), 25)
-    Tests.assertEquals("`AA` -> 26", Cells.numericCol("AA"), 26)
-    Tests.assertEquals("`AZ` -> 51", Cells.numericCol("AZ"), 51)
-    Tests.assertEquals("`BA` -> 52", Cells.numericCol("BA"), 52)
-    Tests.assertEquals("`AMJ` -> 1023", Cells.numericCol("AMJ"), 1023)
-    Tests.check()
-End Sub
-
-Sub CollectionsTestSuite(Optional Tests as Variant)
-	Dim Collections as Variant
-
-	If IsMissing(Tests) Then
-	    Tests = createUNOService("com.github.jferard.mbfs.Tests")
-	End If
-
-    Collections = createUNOService("com.github.jferard.mbfs.Collections")
-    Tests.assertArrayEquals("sort small ints", Array(1, 2, 3), Collections.sort(Array(2, 3, 1)))
-    Tests.assertEquals("shuffle small ints 1", 0, LBound(Collections.shuffle(Array(2, 3, 1))))
-    Tests.assertEquals("shuffle small ints 2", 2, UBound(Collections.shuffle(Array(2, 3, 1))))
-    Tests.assertEquals("max", 3, Collections.max(Array(2, 3, 1)))
-    Tests.assertEquals("min", 1, Collections.min(Array(2, 3, 1)))
-    Tests.assertEquals("avg", 2.8, Collections.avg(Array(2, 3, 1, 7, -5)))
-    Tests.check()
-End Sub
-
-Sub UtilsTestSuite(Optional Tests as Variant)
-	Dim Utils as Variant
-	Dim pvs as Variant
-
-	If IsMissing(Tests) Then
-	    Tests = createUNOService("com.github.jferard.mbfs.Tests")
-	End If
-
-    Utils = createUNOService("com.github.jferard.mbfs.Utils")
-    pvs = Utils.makePVs(Array("name1", 1, "name2", 2))
-    Tests.assertEquals("pv0.name", "name1", pvs(0).Name)
-    Tests.assertEquals("pv0.value", 1, pvs(0).Value)
-    Tests.assertEquals("pv1.name", "name2", pvs(1).Name)
-    Tests.assertEquals("pv1.value", 2, pvs(1).Value)
-    Tests.assertEquals("pvs from", 0, Lbound(pvs))
-    Tests.assertEquals("pvs to ", 1, Ubound(pvs))
 
     Tests.check()
 End Sub
@@ -314,37 +290,83 @@ Sub ListTestSuite(Optional Tests as Variant)
     Tests.check()
 End Sub
 
-Sub CharactersTestSuite(Optional Tests as Variant)
-	Dim Characters as Variant
+Sub CollectionsTestSuite(Optional Tests as Variant)
+	Dim Collections as Variant
 
 	If IsMissing(Tests) Then
 	    Tests = createUNOService("com.github.jferard.mbfs.Tests")
 	End If
 
-	Characters = CreateUNOService("com.github.jferard.mbfs.Characters")
-	Tests.assertTrue("isChar `a`", Characters.isChar("a"))
-	Tests.assertFalse("isChar `abc`", Characters.isChar("abc"))
+    Collections = createUNOService("com.github.jferard.mbfs.Collections")
+    Tests.assertArrayEquals("sort small ints", Array(1, 2, 3), Collections.sort(Array(2, 3, 1)))
+    Tests.assertEquals("shuffle small ints 1", 0, LBound(Collections.shuffle(Array(2, 3, 1))))
+    Tests.assertEquals("shuffle small ints 2", 2, UBound(Collections.shuffle(Array(2, 3, 1))))
+    Tests.assertEquals("max", 3, Collections.max(Array(2, 3, 1)))
+    Tests.assertEquals("min", 1, Collections.min(Array(2, 3, 1)))
+    Tests.assertEquals("avg", 2.8, Collections.avg(Array(2, 3, 1, 7, -5)))
+    Tests.check()
+End Sub
 
-	Tests.assertTrue("isLetter `a`", Characters.isLetter("a"))
-	Tests.assertFalse("isLetter `,`", Characters.isLetter(","))
+Sub DatesTestSuite(Optional Tests as Variant)
+	Dim Dates as Variant
 
-	Tests.assertFalse("isDigit `a`", Characters.isDigit("a"))
-	Tests.assertTrue("isDigit`0`", Characters.isDigit("0"))
+	If IsMissing(Tests) Then
+	    Tests = createUNOService("com.github.jferard.mbfs.Tests")
+	End If
 
-	Tests.assertFalse("isSpace `a`", Characters.isSpace("a"))
-	Tests.assertTrue("isSpace ` `", Characters.isSpace(" "))
-	Tests.assertTrue("isSpace `\n`", Characters.isSpace(Chr(10)))
+    Dates = createUNOService("com.github.jferard.mbfs.Dates")
+    Tests.assertEquals("date", 44283, Dates.date(2021, 3, 28))
+    Tests.assertDoubleEquals("datetime 1", 44283.78191318287, Dates.datetime(2021, 3, 28, 18, 45, 57.3), 0.001)
+    Tests.assertDoubleEquals("datetime 2", 44220.5, Dates.datetime(2021, 1, 4, 12, 0, 0), 0.001)
+    Tests.assertEquals("strftime 1", "2021-03-28T18:45:56", Dates.strftime(44283.7819, "yyyy-MM-dd'T'HH:mm:ss"))
+    Tests.assertEquals("strftime 2", "2021-01-24T12:00:00", Dates.strftime(44220.5, "yyyy-MM-dd'T'HH:mm:ss"))
+    Tests.assertDoubleEquals("strptime 1", 44283.86523148148, Dates.strptime("2021-03-28T20:45:56", "yyyy-MM-dd'T'HH:mm:ss"), 0.001)
+    Tests.assertDoubleEquals("strptime 2", 44220.5, Dates.strptime("2021-01-24T12:00:00", "yyyy-MM-dd'T'HH:mm:ss"), 0.001)
 
-	Tests.assertFalse("isUpperCase `a`", Characters.isUpperCase("a"))
-	Tests.assertTrue("isUpperCase `A`", Characters.isUpperCase("A"))
 
-	Tests.assertFalse("isPunctuation `a`", Characters.isPunctuation("a"))
-	Tests.assertTrue("isPunctuation `.`", Characters.isPunctuation("."))
+    Tests.check()
+End Sub
 
-	On Error Goto ErrLetter
-	Characters.isLetter("abc")
-	Tests.assertEquals("isLetter `abc` should raise an error", 1, 0)
+Sub CellsTestSuite(Optional Tests as Variant)
+	Dim Cells as Variant
 
-    ErrLetter:
+	If IsMissing(Tests) Then
+	    Tests = createUNOService("com.github.jferard.mbfs.Tests")
+	End If
+
+    Cells = createUNOService("com.github.jferard.mbfs.Cells")
+    Tests.assertEquals("0 -> `A`", "A", Cells.alphabeticCol(0))
+    Tests.assertEquals("25 -> `Z`", "Z", Cells.alphabeticCol(25))
+    Tests.assertEquals("26 -> `AA`", "AA", Cells.alphabeticCol(26))
+    Tests.assertEquals("51 -> `AZ`", "AZ", Cells.alphabeticCol(51))
+    Tests.assertEquals("52 -> `BA`", "BA", Cells.alphabeticCol(52))
+    Tests.assertEquals("1023 -> `AMJ`", "AMJ", Cells.alphabeticCol(1023))
+
+    Tests.assertEquals("`A` -> 0", Cells.numericCol("A"), 0)
+    Tests.assertEquals("`Z` -> 25", Cells.numericCol("Z"), 25)
+    Tests.assertEquals("`AA` -> 26", Cells.numericCol("AA"), 26)
+    Tests.assertEquals("`AZ` -> 51", Cells.numericCol("AZ"), 51)
+    Tests.assertEquals("`BA` -> 52", Cells.numericCol("BA"), 52)
+    Tests.assertEquals("`AMJ` -> 1023", Cells.numericCol("AMJ"), 1023)
+    Tests.check()
+End Sub
+
+Sub UtilsTestSuite(Optional Tests as Variant)
+	Dim Utils as Variant
+	Dim pvs as Variant
+
+	If IsMissing(Tests) Then
+	    Tests = createUNOService("com.github.jferard.mbfs.Tests")
+	End If
+
+    Utils = createUNOService("com.github.jferard.mbfs.Utils")
+    pvs = Utils.makePVs(Array("name1", 1, "name2", 2))
+    Tests.assertEquals("pv0.name", "name1", pvs(0).Name)
+    Tests.assertEquals("pv0.value", 1, pvs(0).Value)
+    Tests.assertEquals("pv1.name", "name2", pvs(1).Name)
+    Tests.assertEquals("pv1.value", 2, pvs(1).Value)
+    Tests.assertEquals("pvs from", 0, Lbound(pvs))
+    Tests.assertEquals("pvs to ", 1, Ubound(pvs))
+
     Tests.check()
 End Sub

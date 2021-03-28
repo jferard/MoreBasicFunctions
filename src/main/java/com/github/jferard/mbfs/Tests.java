@@ -89,6 +89,24 @@ public class Tests extends WeakBase
         }
     }
 
+    @Override
+    public void assertDoubleEquals(String message, double expected, double actual, double delta) {
+        this.count++;
+        if (actual < expected - delta || actual > expected + delta) {
+            this.errors.add(String
+                    .format("%s: double `%s` and `%s` are not equal", message, expected, actual));
+        }
+    }
+
+    @Override
+    public void assertDoubleNotEquals(String message, double expected, double actual, double delta) {
+        this.count++;
+        if (expected - delta <= actual && actual <= expected + delta) {
+            this.errors.add(String
+                    .format("%s: doubles `%s` and `%s` are equal", message, expected, actual));
+        }
+    }
+
     private boolean arrayEquals(Object[] expected, Object[] actual) {
         if (expected == null) {
             return actual == null;
