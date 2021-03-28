@@ -28,7 +28,50 @@ public class Util {
         return oneCharString.charAt(0);
     }
 
-    private Util() {}
+    public static Object[] toObjectArray(Object o) {
+        if (o instanceof byte[]) {
+            byte[] bytes = (byte[]) o;
+            Object[] ret = new Byte[bytes.length];
+            for (int i = 0; i < bytes.length; i++) {
+                ret[i] = bytes[i];
+            }
+            return ret;
+        } else if (o instanceof short[]) {
+            short[] shorts = (short[]) o;
+            Object[] ret = new Short[shorts.length];
+            for (int i = 0; i < shorts.length; i++) {
+                ret[i] = shorts[i];
+            }
+            return ret;
+        } else if (o instanceof int[]) {
+            int[] ints = (int[]) o;
+            Object[] ret = new Integer[ints.length];
+            for (int i = 0; i < ints.length; i++) {
+                ret[i] = ints[i];
+            }
+            return ret;
+        } else if (o instanceof boolean[]) {
+            boolean[] booleans = (boolean[]) o;
+            Object[] ret = new Boolean[booleans.length];
+            for (int i = 0; i < booleans.length; i++) {
+                ret[i] = booleans[i];
+            }
+            return ret;
+        }
+        return null;
+    }
 
+    public static Object toObject(Class<?> expectedClass, Object o) {
+        if (expectedClass == Integer.class) {
+            if (o instanceof Byte) {
+                return ((Byte) o).intValue();
+            } else if (o instanceof Short) {
+                return ((Short) o).intValue();
+            }
+        }
+        return null;
+    }
 
+    private Util() {
+    }
 }

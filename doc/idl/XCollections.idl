@@ -25,6 +25,36 @@
 module com { module github { module jferard { module mbfs {
 
 interface XCollections: ::com::sun::star::uno::XInterface {
+    /*
+    Return the mean of a collection
+    */
+    any avg([in] any collection);
+
+
+    /*
+    Return the max of a collection
+    */
+    any max([in] any collection);
+
+    /*
+    Return the min of a collection
+    */
+    any min([in] any collection);
+
+    /*
+    Return a shuffled copy of the collection
+    */
+    sequence<any> shuffle([in] any collection);
+
+    /*
+    Return a sorted copy of the collection
+    */
+    sequence<any> sort([in] any collection);
+
+    /*
+    Return an array
+    */
+    sequence<any> toArray([in] any collection);
 };
 
 }; }; }; };

@@ -62,12 +62,13 @@ For collections manipulation.
 
 TODO: `sort`, `shuffle`, split into chunks, `min`, `max`, `avg`...
 
-## `Math`
-TODO.
-
 ## `Dates`
 TODO: 
 
 ## `Paths`
 TODO: `glob`, `rglob`.
+
+## `Math`
+TODO.
+
 

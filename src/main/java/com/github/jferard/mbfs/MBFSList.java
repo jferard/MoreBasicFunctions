@@ -114,7 +114,7 @@ public class MBFSList extends WeakBase
 
     @Override
     public void append(Object o) throws IllegalArgumentException {
-        this.checkType(o);
+        o = this.cast(o);
         int length = this.array.length;
         if (this.size == length) {
             Object[] newArray = new Object[length * 2 + 1];
@@ -125,27 +125,25 @@ public class MBFSList extends WeakBase
         this.size++;
     }
 
-    private void checkType(Object o) throws IllegalArgumentException {
+    private Object cast(Object o) throws IllegalArgumentException {
         if (this.zClass.isInstance(o)) {
-            return;
-        }
-        try {
-            Class<?> c = (Class<?>) o.getClass().getField("TYPE").get(null);
-            if (this.zClass.isAssignableFrom(c)) {
-                return;
+            return o;
+        } else if (this.zClass == int.class) {
+            if (o instanceof Byte) {
+                return ((Byte) o).intValue();
+            } else if (o instanceof Short) {
+                return ((Short) o).intValue();
             }
-        } catch (IllegalAccessException ignored) {
-        } catch (NoSuchFieldException ignored) {
         }
         throw new IllegalArgumentException(
-                "Expected a `" + this.zClass + "` but got a `" + o.getClass() + "` + (`" + o +
+                "Expected a `" + this.zClass + "` but got a `" + o.getClass() + "` (`" + o +
                         "`)");
     }
 
     @Override
     public void insert(int pos, Object o)
             throws IllegalArgumentException, IndexOutOfBoundsException {
-        this.checkType(o);
+        o = this.cast(o);
         this.size++;
         int length = this.array.length;
         if (this.size == length) {
@@ -182,7 +180,7 @@ public class MBFSList extends WeakBase
 
     @Override
     public void set(int pos, Object o) throws IllegalArgumentException, IndexOutOfBoundsException {
-        this.checkType(o);
+        o = this.cast(o);
         pos = sanitizePos(pos);
         this.array[pos] = o;
     }
@@ -209,7 +207,7 @@ public class MBFSList extends WeakBase
             from += this.size;
         }
         MBFSList ret = MBFSList.createEmpty(this.xContext, this.elementType);
-        for (int i=from; i<this.size; i++) {
+        for (int i = from; i < this.size; i++) {
             ret.append(this.array[i]);
         }
         return ret;
@@ -221,7 +219,7 @@ public class MBFSList extends WeakBase
             to += this.size;
         }
         MBFSList ret = MBFSList.createEmpty(this.xContext, this.elementType);
-        for (int i=0; i<to; i++) {
+        for (int i = 0; i < to; i++) {
             ret.append(this.array[i]);
         }
         return ret;
@@ -236,7 +234,7 @@ public class MBFSList extends WeakBase
             to += this.size;
         }
         MBFSList ret = MBFSList.createEmpty(this.xContext, this.elementType);
-        for (int i=from; i<to; i++) {
+        for (int i = from; i < to; i++) {
             ret.append(this.array[i]);
         }
         return ret;
@@ -327,7 +325,8 @@ public class MBFSList extends WeakBase
             return;
         }
 
-        XEnumerationAccess enumerable = UnoRuntime.queryInterface(XEnumerationAccess.class, collection);
+        XEnumerationAccess enumerable =
+                UnoRuntime.queryInterface(XEnumerationAccess.class, collection);
         if (enumerable != null) {
             XEnumeration enumeration = enumerable.createEnumeration();
             appendEnumeration(enumeration);

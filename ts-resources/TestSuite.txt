@@ -25,6 +25,7 @@ Sub MBFSTestSuite()
     StringsTestSuite(Tests)
     RegexesTestSuite(Tests)
     CellsTestSuite(Tests)
+    CollectionsTestSuite(Tests)
     UtilsTestSuite(Tests)
     ListTestSuite(Tests)
     Tests.check()
@@ -209,6 +210,23 @@ Sub CellsTestSuite(Optional Tests as Variant)
     Tests.check()
 End Sub
 
+Sub CollectionsTestSuite(Optional Tests as Variant)
+	Dim Collections as Variant
+
+	If IsMissing(Tests) Then
+	    Tests = createUNOService("com.github.jferard.mbfs.Tests")
+	End If
+
+    Collections = createUNOService("com.github.jferard.mbfs.Collections")
+    Tests.assertArrayEquals("sort small ints", Array(1, 2, 3), Collections.sort(Array(2, 3, 1)))
+    Tests.assertEquals("shuffle small ints 1", 0, LBound(Collections.shuffle(Array(2, 3, 1))))
+    Tests.assertEquals("shuffle small ints 2", 2, UBound(Collections.shuffle(Array(2, 3, 1))))
+    Tests.assertEquals("max", 3, Collections.max(Array(2, 3, 1)))
+    Tests.assertEquals("min", 1, Collections.min(Array(2, 3, 1)))
+    Tests.assertEquals("avg", 2.8, Collections.avg(Array(2, 3, 1, 7, -5)))
+    Tests.check()
+End Sub
+
 Sub UtilsTestSuite(Optional Tests as Variant)
 	Dim Utils as Variant
 	Dim pvs as Variant
@@ -245,7 +263,7 @@ Sub ListTestSuite(Optional Tests as Variant)
     Tests.assertEquals("first element stringList", "foo", stringList.get(0))
 
     longList = com.github.jferard.mbfs.List.create("long")
-    longList.append(CreateUNOValue("long", 1))
+    longList.append(1)
     Tests.assertEquals("one element longList size", 1, longList.size())
     Tests.assertEquals("first element longList", 1, longList.get(0))
 
