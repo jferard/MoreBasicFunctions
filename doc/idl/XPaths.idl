@@ -25,6 +25,33 @@
 module com { module github { module jferard { module mbfs {
 
 interface XPaths: ::com::sun::star::uno::XInterface {
+    string concat([in] string path, [in] string otherPath);
+
+    boolean exists([in] string path);
+
+    string extension([in] string path);
+
+    boolean isDir([in] string path);
+
+    boolean isFile([in] string path);
+
+    string join([in] sequence<string> chunks);
+
+    sequence<string> list([in] string path, [in] string wildCard)
+            raises( ::com::sun::star::lang::IllegalArgumentException);
+
+    string name([in] string path);
+
+    string parent([in] string path);
+
+    sequence<string> recursiveList([in] string path, [in] string wildCard)
+            raises( ::com::sun::star::lang::IllegalArgumentException);
+
+    sequence<string> split([in] string path);
+
+    string stem([in] string path);
+
+    string withExtension([in] string path, [in] string extension);
 };
 
 }; }; }; };

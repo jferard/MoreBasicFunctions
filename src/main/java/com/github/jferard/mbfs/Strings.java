@@ -182,14 +182,7 @@ public class Strings extends WeakBase
 
     @Override
     public String join(String[] strings, String delimiter) {
-        if (strings.length == 0) {
-            return "";
-        }
-        StringBuilder sb = new StringBuilder(strings[0]);
-        for (int i = 1; i < strings.length; i++) {
-            sb.append(delimiter).append(strings[i]);
-        }
-        return sb.toString();
+        return Util.join(strings, delimiter);
     }
 
     @Override

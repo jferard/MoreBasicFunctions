@@ -16,7 +16,7 @@ Versus:
 	MsgBox Strings.replace("123123123", "3", "abc")
 
 # Installation
-Dowload the latest [release](https://github.com/jferard/MoreBasicFunctions/releases) or compile the extension (see Compilation below).
+Download the latest [release](https://github.com/jferard/MoreBasicFunctions/releases) or compile the extension (see Compilation below).
 
 In LibreOffice: first, save any opened document.
 Then `Tools > Extension Manager...` and choose the MoreBasicFunctions extension. Accept the license and close the extension manager. Be sure to restart LibreOffice.
@@ -42,6 +42,8 @@ At this time, this is only a proof of concept. You can install the add-on with t
 # Target
 MoreBasicFunctions is meant to provide several services.
 
+See the [doc directory](https://github.com/jferard/MoreBasicFunctions/tree/main/doc) for detailed information.
+
 ## `Tests`
 Some Junit like functions: `assertTrue`, `assertFalse`, `assertEquals`, `assertNotEquals`,
 `assertArrayEquals`, `assertArrayNotEquals`.
@@ -60,13 +62,15 @@ For regex usage: `match`, `findAll`/`findFirst`, `replaceAll`/`replaceFirst`.
 ## `Collections`
 For collections manipulation: `sort`, `shuffle`, `min`, `max`, `avg`...
 
-TODO: `concat`, `times`, `chunks`, `randomElement`.
+TODO: `concat`, `join`, `times`, `chunks`, `randomElement`.
 
 ## `Dates`
-For date and time manipulation: `now`, `strptime`/`strftime`, `interval`. 
+For date and time manipulation: `now`, `strptime`/`strftime`...
+
+TODO: Add one day, one month...
 
 ## `Paths`
-TODO: `glob`, `rglob`, `split`, `parent`, `withExtension`, `merge`...
+For path manipulation: `list`, `recursiveList`, `split`/`join`, `parent`, `withExtension`...
 
 ## `Math`
 TODO.

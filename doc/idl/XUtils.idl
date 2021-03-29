@@ -24,15 +24,20 @@
 module com { module github { module jferard { module mbfs {
 
 interface XUtils: ::com::sun::star::uno::XInterface {
-    /**
+    /*
     Return a PropertyValue
     */
     ::com::sun::star::beans::PropertyValue makePV([in] string name, [in] any value);
 
-    /**
+    /*
     Return an array of PropertyValues
     */
     sequence<::com::sun::star::beans::PropertyValue> makePVs([in] sequence<any> namesAndValues);
+
+    /*
+    Return true if the string matches the extglob pattern (man 1 bash)
+    */
+    boolean glob([in] string str, [in] string pattern);
 };
 
 }; }; }; };

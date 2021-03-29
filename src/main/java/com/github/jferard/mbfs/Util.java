@@ -72,6 +72,25 @@ public class Util {
         return null;
     }
 
+    public static String globToRe(String pattern) {
+        if (pattern.startsWith("re:")) {
+            return pattern.substring(3);
+        } else {
+            return new GlobProcessor(pattern).process();
+        }
+    }
+
+    public static String join(String[] strings, String delimiter) {
+        if (strings.length == 0) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder(strings[0]);
+        for (int i = 1; i < strings.length; i++) {
+            sb.append(delimiter).append(strings[i]);
+        }
+        return sb.toString();
+    }
+
     private Util() {
     }
 }

@@ -26,6 +26,7 @@ import com.sun.star.uno.XComponentContext;
 
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 public class Utils extends WeakBase
         implements XServiceInfo, XUtils {
@@ -76,5 +77,11 @@ public class Utils extends WeakBase
             propertyValues[i / 2] = new PropertyValue(name, -1, value, PropertyState.DIRECT_VALUE);
         }
         return propertyValues;
+    }
+
+    @Override
+    public boolean glob(String string, String pattern) {
+        String rePattern = Util.globToRe(pattern);
+        return Pattern.compile(rePattern).matcher(string).matches();
     }
 }

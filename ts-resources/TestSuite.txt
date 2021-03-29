@@ -27,6 +27,7 @@ Sub MBFSTestSuite()
     RegexesTestSuite(Tests)
     ListTestSuite(Tests)
     CollectionsTestSuite(Tests)
+    DatesTestSuite(Tests)
     CellsTestSuite(Tests)
     UtilsTestSuite(Tests)
     Tests.check()
@@ -317,15 +318,45 @@ Sub DatesTestSuite(Optional Tests as Variant)
     Dates = createUNOService("com.github.jferard.mbfs.Dates")
     Tests.assertEquals("date", 44283, Dates.date(2021, 3, 28))
     Tests.assertDoubleEquals("datetime 1", 44283.78191318287, Dates.datetime(2021, 3, 28, 18, 45, 57.3), 0.001)
-    Tests.assertDoubleEquals("datetime 2", 44220.5, Dates.datetime(2021, 1, 4, 12, 0, 0), 0.001)
+    Tests.assertDoubleEquals("datetime 2", 44200.5, Dates.datetime(2021, 1, 4, 12, 0, 0), 0.001)
     Tests.assertEquals("strftime 1", "2021-03-28T18:45:56", Dates.strftime(44283.7819, "yyyy-MM-dd'T'HH:mm:ss"))
     Tests.assertEquals("strftime 2", "2021-01-24T12:00:00", Dates.strftime(44220.5, "yyyy-MM-dd'T'HH:mm:ss"))
     Tests.assertDoubleEquals("strptime 1", 44283.86523148148, Dates.strptime("2021-03-28T20:45:56", "yyyy-MM-dd'T'HH:mm:ss"), 0.001)
     Tests.assertDoubleEquals("strptime 2", 44220.5, Dates.strptime("2021-01-24T12:00:00", "yyyy-MM-dd'T'HH:mm:ss"), 0.001)
 
-
     Tests.check()
 End Sub
+
+Sub PathsTestSuite(Optional Tests as Variant)
+	Dim Paths as Variant
+	Dim aPath as String
+	Dim anArray as Variant
+
+	aPath = "MoreBasicFunctions" & GetPathSeparator & "src" & GetPathSeparator & "main" & GetPathSeparator & "java" & GetPathSeparator & "com" & GetPathSeparator & "github" & GetPathSeparator & "jferard" & GetPathSeparator & "mbfs" & GetPathSeparator & "MoreBasicFunctions.java"
+	anArray = Array("MoreBasicFunctions", "src", "main", "java", "com", "github", "jferard", "mbfs", "MoreBasicFunctions.java")
+
+	If IsMissing(Tests) Then
+	    Tests = createUNOService("com.github.jferard.mbfs.Tests")
+	End If
+
+    Paths = createUNOService("com.github.jferard.mbfs.Paths")
+    Tests.assertEquals("concat", "MoreBasicFunctions" & GetPathSeparator & "README.md", Paths.concat("MoreBasicFunctions", "README.md"))
+    Tests.assertTrue("exists", Paths.exists("."))
+    Tests.assertEquals("extension", ".oxt", Paths.extension("MoreBasicFunctions.oxt"))
+    Tests.assertEquals("no extension", "", Paths.extension("MoreBasicFunctions"))
+    Tests.assertEquals("two extensions", ".zip", Paths.extension("MoreBasicFunctions.oxt.zip"))
+    Tests.assertTrue("isDir", Paths.isDir("."))
+    Tests.assertFalse("isDir", Paths.isFile("."))
+    Tests.assertEquals("join", aPath, Paths.join(anArray))
+    Tests.assertEquals("name", "bar.baz", Paths.name("foo" & GetPathSeparator & "bar.baz"))
+    Tests.assertEquals("parent", "foo", Paths.parent("foo" & GetPathSeparator & "bar.baz"))
+    Tests.assertArrayEquals("split", anArray, Paths.split(aPath))
+    Tests.assertEquals("stem", "foo" & GetPathSeparator & "bar", Paths.stem("foo" & GetPathSeparator & "bar.baz"))
+    Tests.assertEquals("with empty extension", "MoreBasicFunctions.oxt", Paths.withExtension("MoreBasicFunctions.oxt.zip", ""))
+    Tests.assertEquals("with extension", "MoreBasicFunctions.oxt.tar", Paths.withExtension("MoreBasicFunctions.oxt.zip", ".tar"))
+    Tests.check()
+End Sub
+
 
 Sub CellsTestSuite(Optional Tests as Variant)
 	Dim Cells as Variant
