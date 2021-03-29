@@ -293,18 +293,31 @@ End Sub
 
 Sub CollectionsTestSuite(Optional Tests as Variant)
 	Dim Collections as Variant
+	Dim slices, expectedSlices as Variant
+	Dim i as Integer
 
 	If IsMissing(Tests) Then
 	    Tests = createUNOService("com.github.jferard.mbfs.Tests")
 	End If
 
     Collections = createUNOService("com.github.jferard.mbfs.Collections")
-    Tests.assertArrayEquals("sort small ints", Array(1, 2, 3), Collections.sort(Array(2, 3, 1)))
-    Tests.assertEquals("shuffle small ints 1", 0, LBound(Collections.shuffle(Array(2, 3, 1))))
-    Tests.assertEquals("shuffle small ints 2", 2, UBound(Collections.shuffle(Array(2, 3, 1))))
+    Tests.assertEquals("avg", 2.8, Collections.avg(Array(2, 3, 1, 7, -5)))
+    Tests.assertArrayEquals("concat", Array(1, 2, 3, 4, 5, 6), Collections.concat(Array(1, 2, 3), Array(4, 5, 6)))
+    Tests.assertTrue("contains", Collections.contains(Array(3, 17, 9), 9))
+    Tests.assertArrayEquals("flatten", Array(1, 2, 3, 4, 5, 6, 7, 8, 9), Collections.flatten(Array(Array(1, 2, 3), Array(4, 5, 6), Array(7, 8, 9))))
     Tests.assertEquals("max", 3, Collections.max(Array(2, 3, 1)))
     Tests.assertEquals("min", 1, Collections.min(Array(2, 3, 1)))
-    Tests.assertEquals("avg", 2.8, Collections.avg(Array(2, 3, 1, 7, -5)))
+    Tests.assertTrue("randomElement", Collections.contains(Array(3, 17, 9), Collections.randomElement(Array(3, 17, 9))))
+    Tests.assertEquals("shuffle small ints 1", 0, LBound(Collections.shuffle(Array(2, 3, 1))))
+    Tests.assertEquals("shuffle small ints 2", 2, UBound(Collections.shuffle(Array(2, 3, 1))))
+
+    expectedSlices = Array(Array(1, 2, 3), Array(4, 5, 6), Array(7, 8, 9), Array(10))
+    slices = Collections.slice(Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), 3)
+    For i=LBound(slices) To Ubound(slices)
+	    Tests.assertArrayEquals("slice " & i, expectedSlices(i), slices(i))
+    Next i
+    Tests.assertArrayEquals("sort small ints", Array(1, 2, 3), Collections.sort(Array(2, 3, 1)))
+    Tests.assertArrayEquals("times", Array(1, 2, 3, 1, 2, 3, 1, 2, 3), Collections.times(Array(1, 2, 3), 3))
     Tests.check()
 End Sub
 

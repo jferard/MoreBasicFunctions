@@ -62,14 +62,26 @@ public class Util {
     }
 
     public static Object toObject(Class<?> expectedClass, Object o) {
-        if (expectedClass == Integer.class) {
+        if (expectedClass == Long.class) {
+            if (o instanceof Byte) {
+                return ((Byte) o).longValue();
+            } else if (o instanceof Short) {
+                return ((Short) o).longValue();
+            } else if (o instanceof Integer) {
+                return ((Integer) o).longValue();
+            }
+        } else if (expectedClass == Integer.class) {
             if (o instanceof Byte) {
                 return ((Byte) o).intValue();
             } else if (o instanceof Short) {
                 return ((Short) o).intValue();
             }
+        } else if (expectedClass == Short.class) {
+            if (o instanceof Byte) {
+                return ((Byte) o).shortValue();
+            }
         }
-        return null;
+        return o;
     }
 
     public static String globToRe(String pattern) {
