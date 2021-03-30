@@ -129,6 +129,11 @@ public class Strings extends WeakBase
     }
 
     @Override
+    public String eformat(String format, Object[] args) {
+        return String.format(format, args);
+    }
+
+    @Override
     public boolean endsWith(String s0, String s1) {
         return s0.endsWith(s1);
     }
@@ -158,8 +163,8 @@ public class Strings extends WeakBase
     }
 
     @Override
-    public String format(String format, String[] args) {
-        return String.format(format, (Object[]) args);
+    public String format(String format, Object[] args) {
+        return String.format(Util.unescape(format), args);
     }
 
     @Override
@@ -329,6 +334,11 @@ public class Strings extends WeakBase
             j--;
         }
         return s.substring(0, j);
+    }
+
+    @Override
+    public String unescape(String s) {
+        return Util.unescape(s);
     }
 
     @Override

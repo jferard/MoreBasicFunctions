@@ -168,6 +168,7 @@ Sub StringsTestSuite(Optional Tests as Variant)
 	Tests.assertEquals("trimLeftSpaces", "12345  ", Strings.trimLeftSpaces("   12345  "))
 	Tests.assertEquals("trimRightSpaces", "   12345", Strings.trimRightSpaces("   12345  "))
 
+	Tests.assertEquals("unescape", "More" & chr(10) & "Basic" & chr(10) & "Functions", Strings.unescape("More\nBasic\nFunctions"))
 	Tests.assertEquals("upper", "MOREBASICFUNCTIONS", Strings.upper("MoreBasicFunctions"))
     Tests.check()
 End Sub

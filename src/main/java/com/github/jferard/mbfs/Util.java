@@ -103,6 +103,38 @@ public class Util {
         return sb.toString();
     }
 
+    public static String unescape(String s) {
+        StringBuilder sb = new StringBuilder(s.length());
+        boolean backslashSeen = false;
+        for (int i=0; i<s.length(); i++) {
+            int c = s.charAt(i);
+            if (backslashSeen) {
+                switch (c) {
+                    case 'a': sb.append('\007'); break;
+                    case 'b': sb.append('\b'); break;
+                    case 'f': sb.append('\f'); break;
+                    case 'n': sb.append('\n'); break;
+                    case 'r': sb.append('\r'); break;
+                    case 't': sb.append('\t'); break;
+                    case 'v': sb.append('\013'); break;
+                    case '\\': sb.append('\\'); break;
+                    case '\'': sb.append('\''); break;
+                    case '"': sb.append('"'); break;
+                    case '?': sb.append('?'); break;
+                    default: sb.append('\\').append((char) c); break;
+                }
+                backslashSeen = false;
+            } else {
+                if (c == '\\') {
+                    backslashSeen = true;
+                } else {
+                    sb.append((char) c);
+                }
+            }
+        }
+        return sb.toString();
+    }
+
     private Util() {
     }
 }

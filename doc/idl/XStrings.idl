@@ -51,6 +51,12 @@ interface XStrings: ::com::sun::star::uno::XInterface {
     boolean containsIgnoreCase([in] string haystack, [in] string needle);
 
     /**
+    Return a formatted string (%s). The string is not "unescaped": you probably want to use
+    `Strings.format`.
+    */
+    string eformat([in] string formatString, [in] sequence<any> parameters);
+
+    /**
     Return true if the string ends with a a string
     */
     boolean endsWith([in] string s, [in] string e);
@@ -66,9 +72,9 @@ interface XStrings: ::com::sun::star::uno::XInterface {
     ::com::sun::star::container::XEnumeration enumerate([in] string s);
 
     /**
-    Return a formatted string (%s)
+    Return a formatted string (%s). The string is "unescaped"
     */
-    string format([in] string formatString, [in] sequence<string> parameters);
+    string format([in] string formatString, [in] sequence<any> parameters);
 
     /**
     Return the index or -1
@@ -189,6 +195,11 @@ interface XStrings: ::com::sun::star::uno::XInterface {
     Return a trimmed string.
     */
     string trimRightSpaces([in] string s);
+
+    /**
+    Return a string where chars like \n, \t... are converted to LF, TAB...
+    */
+    string unescape([in] string s);
 
     /**
     Return a upper case string.
