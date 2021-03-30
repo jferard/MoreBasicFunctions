@@ -26,8 +26,10 @@ Sub MBFSTestSuite()
     CharactersTestSuite(Tests)
     RegexesTestSuite(Tests)
     ListTestSuite(Tests)
+    SetTestSuite(Tests)
     CollectionsTestSuite(Tests)
     DatesTestSuite(Tests)
+    PathsTestSuite(Tests)
     CellsTestSuite(Tests)
     UtilsTestSuite(Tests)
     Tests.check()
@@ -287,6 +289,27 @@ Sub ListTestSuite(Optional Tests as Variant)
 	Tests.assertArrayEquals("sublistTo 1", Array("More"), stringList.sublistTo(1).toArray())
 	Tests.assertArrayEquals("sublistTo -1", Array("More", "Basic"), stringList.sublistTo(-1).toArray())
 	Tests.assertArrayEquals("sublist 1 -1", Array("Basic"), stringList.sublist(1, -1).toArray())
+
+    Tests.check()
+End Sub
+
+Sub SetTestSuite(Optional Tests as Variant)
+	Dim stringSet, longSet, secondStringSet as Variant
+	Dim enumeration as Variant
+	Dim i as Integer
+
+	If IsMissing(Tests) Then
+	    Tests = createUNOService("com.github.jferard.mbfs.Tests")
+	End If
+
+    stringSet = com.github.jferard.mbfs.Set.create("string")
+    Tests.assertEquals("empty stringSet size", 0, stringSet.size())
+    Tests.assertFalse("empty set has not foo", stringSet.has("foo"))
+    stringSet.insert("foo")
+    Tests.assertFalse("set has foo", stringSet.has("foo"))
+    stringSet.remove("foo")
+    Tests.assertFalse("empty set has not foo", stringSet.has("foo"))
+    Tests.assertEquals("empty stringSet size", 0, stringSet.size())
 
     Tests.check()
 End Sub

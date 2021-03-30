@@ -49,5 +49,8 @@
 		<implementation name="com.github.jferard.mbfs.MBFSList">
 			<service name="com.github.jferard.mbfs.List"/>
 		</implementation>
+		<implementation name="com.github.jferard.mbfs.MBFSSet">
+			<service name="com.github.jferard.mbfs.Set"/>
+		</implementation>
 	</component>
 </components>
