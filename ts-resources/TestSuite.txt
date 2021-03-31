@@ -160,6 +160,8 @@ Sub StringsTestSuite(Optional Tests as Variant)
     Tests.assertEquals("substringTo9", "MoreBasic", Strings.substringTo("MoreBasicFunctions", 9))
     Tests.assertEquals("substringTo-1", "MoreBasicFunction", Strings.substringTo("MoreBasicFunctions", -1))
 
+	Tests.assertEquals("toString", "1.2345", Strings.toString(1.2345))
+
 	Tests.assertEquals("trim", "12345", Strings.trim("0001234500", "0"))
 	Tests.assertEquals("trimLeft", "1234500", Strings.trimLeft("0001234500", "0"))
 	Tests.assertEquals("trimRight", "00012345", Strings.trimRight("0001234500", "0"))

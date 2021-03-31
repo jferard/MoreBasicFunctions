@@ -280,6 +280,14 @@ public class Strings extends WeakBase
     }
 
     @Override
+    public String toString(Object o) {
+        if (o == null) {
+            return "<NULL>";
+        }
+        return o.toString();
+    }
+
+    @Override
     public String trim(String s, String oneCharString) {
         char c = Util.oneChar(oneCharString);
         int i = 0;

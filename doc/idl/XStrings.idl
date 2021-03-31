@@ -164,6 +164,11 @@ interface XStrings: ::com::sun::star::uno::XInterface {
     string substringTo([in] string s, [in] long to);
 
     /**
+    Return a string representation of o.
+    */
+    string toString([in] any o);
+
+    /**
     Return a trimmed string.
     */
     string trim([in] string s, [in] string c)
