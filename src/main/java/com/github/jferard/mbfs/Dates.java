@@ -18,6 +18,7 @@
 
 package com.github.jferard.mbfs;
 
+import com.sun.star.lang.IllegalArgumentException;
 import com.sun.star.lang.XServiceInfo;
 import com.sun.star.lib.uno.helper.WeakBase;
 import com.sun.star.uno.XComponentContext;
@@ -33,18 +34,16 @@ public class Dates extends WeakBase
     public static final double MILLIS_BY_SECOND = 1000.0;
     public static final double MILLIS_BY_DAY = 24 * 60 * 60 * MILLIS_BY_SECOND;
     public static final TimeZone GMT_TIME_ZONE = TimeZone.getTimeZone("GMT");
-
+    public static final String implementationName = Dates.class.getName();
+    public static final String[] serviceNames = {"com.github.jferard.mbfs.Dates"};
     private static final long DATE_ZERO_IN_MILLIS;
+
     static {
         Calendar gmt = Calendar.getInstance(GMT_TIME_ZONE);
         gmt.setTimeInMillis(0);
         gmt.set(1899, Calendar.DECEMBER, 30);
         DATE_ZERO_IN_MILLIS = gmt.getTimeInMillis();
     }
-
-    public static final String implementationName = Dates.class.getName();
-
-    public static final String[] serviceNames = {"com.github.jferard.mbfs.Dates"};
 
     private final XComponentContext xContext;
     private final Calendar gmt;
@@ -75,9 +74,66 @@ public class Dates extends WeakBase
     }
 
     @Override
+    public double addToDate(int date, int count, String unitName) {
+        int unit = datetimeUnit(unitName);
+        if (unit >= Calendar.HOUR) {
+            throw new IllegalArgumentException(unitName);
+        }
+        long millis = doubleToMillis(date);
+        gmt.setTimeInMillis(millis);
+        gmt.add(unit, count);
+        return (int) millisToDouble(gmt.getTimeInMillis());
+    }
+
+    @Override
+    public double addToDatetime(double datetime, int count, String unitName) {
+        int unit = datetimeUnit(unitName);
+        long millis = doubleToMillis(datetime);
+        gmt.setTimeInMillis(millis);
+        gmt.add(unit, count);
+        return millisToDouble(gmt.getTimeInMillis());
+    }
+
+    @Override
+    public double addToTime(double time, int count, String unitName) {
+        int unit = datetimeUnit(unitName);
+        if (unit <= Calendar.MONTH) {
+            throw new IllegalArgumentException(unitName);
+        }
+        long millis = doubleToMillis(time);
+        gmt.setTimeInMillis(millis);
+        gmt.add(unit, count);
+        return millisToDouble(gmt.getTimeInMillis());
+    }
+
+    private int datetimeUnit(String unitName) {
+        int unit;
+        if (unitName.equalsIgnoreCase("year")) {
+            unit = Calendar.YEAR;
+        } else if (unitName.equalsIgnoreCase("month")) {
+            unit = Calendar.MONTH;
+        } else if (unitName.equalsIgnoreCase("week")) {
+            unit = Calendar.WEEK_OF_YEAR;
+        } else if (unitName.equalsIgnoreCase("day")) {
+            unit = Calendar.DAY_OF_YEAR;
+        } else if (unitName.equalsIgnoreCase("hour")) {
+            unit = Calendar.HOUR;
+        } else if (unitName.equalsIgnoreCase("minute")) {
+            unit = Calendar.MINUTE;
+        } else if (unitName.equalsIgnoreCase("second")) {
+            unit = Calendar.SECOND;
+        } else if (unitName.equalsIgnoreCase("millisecond")) {
+            unit = Calendar.MILLISECOND;
+        } else {
+            throw new IllegalArgumentException(unitName);
+        }
+        return unit;
+    }
+
+    @Override
     public int date(int year, int month, int day) {
         gmt.setTimeInMillis(0);
-        gmt.set(year, month-1, day);
+        gmt.set(year, month - 1, day);
         return (int) millisToDouble(gmt.getTimeInMillis());
     }
 
@@ -96,8 +152,9 @@ public class Dates extends WeakBase
                            double seconds) {
         gmt.setTimeInMillis(0);
         int secs = (int) seconds;
-        gmt.set(year, month-1, day, hours, minutes, secs);
-        gmt.set(Calendar.MILLISECOND, (int) ((seconds - secs)* MILLIS_BY_SECOND));
+        gmt.set(year, month - 1, day, hours, minutes, secs);
+        int milliseconds = (int) ((seconds - secs) * MILLIS_BY_SECOND);
+        gmt.set(Calendar.MILLISECOND, milliseconds);
         return millisToDouble(gmt.getTimeInMillis());
     }
 
@@ -128,7 +185,7 @@ public class Dates extends WeakBase
 
     @Override
     public double time(int hours, int minutes, double seconds) {
-        long millis = (long) (((hours * 60 + minutes) * 60 + seconds)*MILLIS_BY_SECOND);
+        long millis = (long) (((hours * 60 + minutes) * 60 + seconds) * MILLIS_BY_SECOND);
         return millisToDouble(millis);
     }
 

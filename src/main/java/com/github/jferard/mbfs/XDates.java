@@ -11,7 +11,13 @@ import com.sun.star.uno.XInterface;
 
 public interface XDates extends XInterface
 {
-    public static final TypeInfo[] UNOTYPEINFO = { new MethodTypeInfo("date", 0, 0), new MethodTypeInfo("datetime", 1, 0), new MethodTypeInfo("now", 2, 0), new MethodTypeInfo("strftime", 3, 0), new MethodTypeInfo("strptime", 4, 0), new MethodTypeInfo("time", 5, 0), new MethodTypeInfo("timestamp", 6, 0) };
+    public static final TypeInfo[] UNOTYPEINFO = { new MethodTypeInfo("addToDate", 0, 0), new MethodTypeInfo("addToDatetime", 1, 0), new MethodTypeInfo("addToTime", 2, 0), new MethodTypeInfo("date", 3, 0), new MethodTypeInfo("datetime", 4, 0), new MethodTypeInfo("now", 5, 0), new MethodTypeInfo("strftime", 6, 0), new MethodTypeInfo("strptime", 7, 0), new MethodTypeInfo("time", 8, 0), new MethodTypeInfo("timestamp", 9, 0) };
+    
+    double addToDate(final int p0, final int p1, final String p2);
+    
+    double addToDatetime(final double p0, final int p1, final String p2);
+    
+    double addToTime(final double p0, final int p1, final String p2);
     
     int date(final int p0, final int p1, final int p2);
     

@@ -349,6 +349,8 @@ End Sub
 
 Sub DatesTestSuite(Optional Tests as Variant)
 	Dim Dates as Variant
+	Dim d as Double
+	Dim format as String
 
 	If IsMissing(Tests) Then
 	    Tests = createUNOService("com.github.jferard.mbfs.Tests")
@@ -362,6 +364,17 @@ Sub DatesTestSuite(Optional Tests as Variant)
     Tests.assertEquals("strftime 2", "2021-01-24T12:00:00", Dates.strftime(44220.5, "yyyy-MM-dd'T'HH:mm:ss"))
     Tests.assertDoubleEquals("strptime 1", 44283.86523148148, Dates.strptime("2021-03-28T20:45:56", "yyyy-MM-dd'T'HH:mm:ss"), 0.001)
     Tests.assertDoubleEquals("strptime 2", 44220.5, Dates.strptime("2021-01-24T12:00:00", "yyyy-MM-dd'T'HH:mm:ss"), 0.001)
+
+    d = Dates.datetime(2021, 3, 28, 18, 45, 56) '2021-03-28T18:45:56
+    format = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+    Tests.assertEquals("add year", "2022-03-28T18:45:56.000", Dates.strftime(Dates.addToDatetime(d, 1, "year"), format))
+    Tests.assertEquals("add month", "2021-04-28T18:45:56.000", Dates.strftime(Dates.addToDatetime(d, 1, "month"), format))
+    Tests.assertEquals("add week", "2021-04-04T18:45:56.000", Dates.strftime(Dates.addToDatetime(d, 1, "week"), format))
+    Tests.assertEquals("add day", "2021-03-29T18:45:56.000", Dates.strftime(Dates.addToDatetime(d, 1, "day"), format))
+    Tests.assertEquals("add hour", "2021-03-28T19:45:56.000", Dates.strftime(Dates.addToDatetime(d, 1, "hour"), format))
+    Tests.assertEquals("add minute", "2021-03-28T18:46:56.000", Dates.strftime(Dates.addToDatetime(d, 1, "minute"), format))
+    Tests.assertEquals("add second", "2021-03-28T18:45:57.000", Dates.strftime(Dates.addToDatetime(d, 1, "second"), format))
+    Tests.assertEquals("add millisecond", "2021-03-28T18:45:56.453", Dates.strftime(Dates.addToDatetime(d, 453, "millisecond"), format))
 
     Tests.check()
 End Sub

@@ -22,8 +22,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class DatesTest {
 
     private Dates dates;
@@ -40,6 +38,13 @@ public class DatesTest {
 
     @Test
     public void testStrf() {
-        Assert.assertEquals("2021-01-24T12:00:00", dates.strftime(44220.5, "yyyy-MM-dd'T'HH:mm:ss"));
+        Assert.assertEquals("2021-01-24T12:00:00",
+                dates.strftime(44220.5, "yyyy-MM-dd'T'HH:mm:ss"));
+    }
+
+    @Test
+    public void dateTimeTest2() {
+        double datetime = dates.datetime(2021, 3, 28, 18, 45, 56);
+        Assert.assertEquals("2021-03-28T18:45:56.000", dates.strftime(datetime, "yyyy-MM-dd'T'HH:mm:ss.SSS"));
     }
 }
