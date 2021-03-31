@@ -431,12 +431,22 @@ Sub UtilsTestSuite(Optional Tests as Variant)
 
     Utils = createUNOService("com.github.jferard.mbfs.Utils")
     pvs = Utils.makePVs(Array("name1", 1, "name2", 2))
+    Tests.assertTrue("glob", Utils.glob("MoreBasicFunctions.oxt", "*.oxt"))
+    Tests.assertFalse("glob", Utils.glob("MoreBasicFunctions.oxt.zip", "*.oxt"))
+
     Tests.assertEquals("pv0.name", "name1", pvs(0).Name)
     Tests.assertEquals("pv0.value", 1, pvs(0).Value)
     Tests.assertEquals("pv1.name", "name2", pvs(1).Name)
     Tests.assertEquals("pv1.value", 2, pvs(1).Value)
     Tests.assertEquals("pvs from", 0, Lbound(pvs))
     Tests.assertEquals("pvs to ", 1, Ubound(pvs))
+
+    Tests.assertEquals("parseByte", 1, Utils.parseByte("1"))
+    Tests.assertEquals("parseShort", 2, Utils.parseShort("2"))
+    Tests.assertEquals("parseLong", 3, Utils.parseLong("3"))
+
+    Tests.assertDoubleEquals("parseDouble", 3.1415926, Utils.parseDouble("3.1415926"), 0.01)
+    Tests.assertDoubleEquals("parseFloat", 3.1415926, Utils.parseFloat("3.1415926"), 0.01)
 
     Tests.check()
 End Sub

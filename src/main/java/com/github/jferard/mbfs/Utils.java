@@ -80,6 +80,36 @@ public class Utils extends WeakBase
     }
 
     @Override
+    public byte parseByte(String number) {
+        return Byte.parseByte(number);
+    }
+
+    @Override
+    public double parseDouble(String number) {
+        return Double.parseDouble(number);
+    }
+
+    @Override
+    public float parseFloat(String number) {
+        return Float.parseFloat(number);
+    }
+
+    @Override
+    public long parseHyper(String number) {
+        return Long.parseLong(number);
+    }
+
+    @Override
+    public int parseLong(String number) {
+        return Integer.parseInt(number);
+    }
+
+    @Override
+    public short parseShort(String number) {
+        return Short.parseShort(number);
+    }
+
+    @Override
     public boolean glob(String string, String pattern) {
         String rePattern = Util.globToRe(pattern);
         return Pattern.compile(rePattern).matcher(string).matches();

@@ -25,6 +25,11 @@ module com { module github { module jferard { module mbfs {
 
 interface XUtils: ::com::sun::star::uno::XInterface {
     /*
+    Return true if the string matches the extglob pattern (man 1 bash)
+    */
+    boolean glob([in] string str, [in] string pattern);
+
+    /*
     Return a PropertyValue
     */
     ::com::sun::star::beans::PropertyValue makePV([in] string name, [in] any value);
@@ -35,9 +40,36 @@ interface XUtils: ::com::sun::star::uno::XInterface {
     sequence<::com::sun::star::beans::PropertyValue> makePVs([in] sequence<any> namesAndValues);
 
     /*
-    Return true if the string matches the extglob pattern (man 1 bash)
+    Return a byte from a string
     */
-    boolean glob([in] string str, [in] string pattern);
+    byte parseByte([in] string number);
+
+    /*
+    Return a double from a string
+    */
+    double parseDouble([in] string number);
+
+    /*
+    Return a float from a string
+    */
+    float parseFloat([in] string number);
+
+    /*
+    Return a hyper (= long) from a string
+    Does *not* work.
+    */
+    hyper parseHyper([in] string number);
+
+    /*
+    Return a long (= int) from a string
+    */
+    long parseLong([in] string number);
+
+    /*
+    Return a short from a string
+    */
+    short parseShort([in] string number);
+
 };
 
 }; }; }; };
