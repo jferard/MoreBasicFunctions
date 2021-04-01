@@ -24,8 +24,12 @@ import com.sun.star.lang.XServiceInfo;
 import com.sun.star.lib.uno.helper.WeakBase;
 import com.sun.star.uno.XComponentContext;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 public class Utils extends WeakBase
@@ -107,6 +111,33 @@ public class Utils extends WeakBase
     @Override
     public short parseShort(String number) {
         return Short.parseShort(number);
+    }
+
+    @Override
+    public String debugBinding(Object o) {
+        Class<?> clazz = o.getClass();
+        if (clazz.isArray()) {
+            StringBuilder sb = new StringBuilder().append("Array of (");
+            if (clazz.getComponentType().isPrimitive()) {
+                sb.append(clazz.getComponentType().getName());
+            } else {
+                List<String> representations = new ArrayList<String>();
+                Set<Class<?>> classes = new HashSet<Class<?>>();
+                Object[] array = (Object[]) o;
+                for (Object value : array) {
+                    Class<?> elementClazz = value.getClass();
+                    if (!classes.contains(elementClazz)) {
+                        representations.add(debugBinding(value));
+                        classes.add(elementClazz);
+                    }
+                }
+                sb.append(Util.join(representations.toArray(new String[]{}), ", "));
+            }
+            sb.append(')');
+            return sb.toString();
+        } else {
+            return clazz.getName();
+        }
     }
 
     @Override

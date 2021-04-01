@@ -11,7 +11,9 @@ import com.sun.star.uno.XInterface;
 
 public interface XUtils extends XInterface
 {
-    public static final TypeInfo[] UNOTYPEINFO = { new MethodTypeInfo("glob", 0, 0), new MethodTypeInfo("makePV", 1, 0), new MethodTypeInfo("makePVs", 2, 0), new MethodTypeInfo("parseByte", 3, 0), new MethodTypeInfo("parseDouble", 4, 0), new MethodTypeInfo("parseFloat", 5, 0), new MethodTypeInfo("parseHyper", 6, 0), new MethodTypeInfo("parseLong", 7, 0), new MethodTypeInfo("parseShort", 8, 0) };
+    public static final TypeInfo[] UNOTYPEINFO = { new MethodTypeInfo("debugBinding", 0, 0), new MethodTypeInfo("glob", 1, 0), new MethodTypeInfo("makePV", 2, 0), new MethodTypeInfo("makePVs", 3, 0), new MethodTypeInfo("parseByte", 4, 0), new MethodTypeInfo("parseDouble", 5, 0), new MethodTypeInfo("parseFloat", 6, 0), new MethodTypeInfo("parseHyper", 7, 0), new MethodTypeInfo("parseLong", 8, 0), new MethodTypeInfo("parseShort", 9, 0) };
+    
+    String debugBinding(final Object p0);
     
     boolean glob(final String p0, final String p1);
     

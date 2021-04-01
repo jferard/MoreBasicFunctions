@@ -25,6 +25,12 @@ module com { module github { module jferard { module mbfs {
 
 interface XUtils: ::com::sun::star::uno::XInterface {
     /*
+    Return a string representation of this obct with debug information.
+    Useful to understand how LO maps a Basic object to a Java Object.
+    */
+    string debugBinding([in] any o);
+
+    /*
     Return true if the string matches the extglob pattern (man 1 bash)
     */
     boolean glob([in] string str, [in] string pattern);

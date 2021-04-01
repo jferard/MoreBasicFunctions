@@ -28,6 +28,11 @@ public class Util {
         return oneCharString.charAt(0);
     }
 
+    /**
+     * Return an array of wrappers
+     * @param o
+     * @return
+     */
     public static Object[] toObjectArray(Object o) {
         if (o instanceof byte[]) {
             byte[] bytes = (byte[]) o;

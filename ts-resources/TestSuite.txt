@@ -437,12 +437,37 @@ End Sub
 Sub UtilsTestSuite(Optional Tests as Variant)
 	Dim Utils as Variant
 	Dim pvs as Variant
+	Dim l as Long
+	Dim s as Single
 
 	If IsMissing(Tests) Then
 	    Tests = createUNOService("com.github.jferard.mbfs.Tests")
 	End If
 
     Utils = createUNOService("com.github.jferard.mbfs.Utils")
+
+    Tests.assertEquals("binding Boolean", "java.lang.Boolean", Utils.debugBinding(True))
+    Tests.assertEquals("binding Double (could be Float)", "java.lang.Double", Utils.debugBinding(10.5))
+    Tests.assertEquals("binding Double", "java.lang.Double", Utils.debugBinding(12345678.9))
+    Tests.assertEquals("binding Byte", "java.lang.Byte", Utils.debugBinding(123))
+    Tests.assertEquals("binding Short", "java.lang.Short", Utils.debugBinding(12345))
+    Tests.assertEquals("binding Integer", "java.lang.Integer", Utils.debugBinding(1234567))
+    Tests.assertEquals("binding Double (could be Long)", "java.lang.Double", Utils.debugBinding(12345678910))
+    l = 123456789
+    Tests.assertEquals("binding Integer", "java.lang.Integer", Utils.debugBinding(l))
+    s = 1.23
+    Tests.assertEquals("binding Float", "java.lang.Float", Utils.debugBinding(s))
+
+    Tests.assertEquals("binding [boolean]", "Array of (boolean)", Utils.debugBinding(Array(True, False)))
+    Tests.assertEquals("binding [short] (could be [byte])", "Array of (short)", Utils.debugBinding(Array(1, 2, 4)))
+    Tests.assertEquals("binding [short]", "Array of (short)", Utils.debugBinding(Array(256, 512, 1024, 2048, 4096, 8192, 16384)))
+    Tests.assertEquals("binding [double] (could be integer)", "Array of (double)", Utils.debugBinding(Array(32768, 65536, 131072, 262144, 524288)))
+    Tests.assertEquals("binding [int]", "Array of (int)", Utils.debugBinding(Array(l)))
+    Tests.assertEquals("binding [float]", "Array of (float)", Utils.debugBinding(Array(s)))
+
+    Tests.assertEquals("binding mixed", "Array of (java.lang.Byte, java.lang.Short, java.lang.Integer)", Utils.debugBinding(Array(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288)))
+    Tests.assertEquals("complex binding", "Array of (Array of (short), java.lang.Byte, java.lang.String)", Utils.debugBinding(Array(Array(1, 2, 4), 7, 19, "foo")))
+
     pvs = Utils.makePVs(Array("name1", 1, "name2", 2))
     Tests.assertTrue("glob", Utils.glob("MoreBasicFunctions.oxt", "*.oxt"))
     Tests.assertFalse("glob", Utils.glob("MoreBasicFunctions.oxt.zip", "*.oxt"))

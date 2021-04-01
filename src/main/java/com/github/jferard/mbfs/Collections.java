@@ -96,7 +96,7 @@ public class Collections extends WeakBase
         if (array.length == 0) {
             return false;
         }
-        Object obj = Util.toObject(array[0].getClass(), element);
+        Object obj = Util.toObject(array[0].getClass(), element); // TODO: fixme there's no guarantee that all objects in the array have the same class.
         for (Object e : array) {
             if (e.equals(obj)) {
                 return true;
