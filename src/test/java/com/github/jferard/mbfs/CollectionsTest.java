@@ -31,8 +31,14 @@ public class CollectionsTest {
     public void setUp() {
         this.collections = new Collections(null);
     }
+
     @Test
-    public void test() {
-        // Assert.assertTrue(this.collections.contains(new byte[] {3, 17, 9}, (byte) 9));
+    public void testShortByte() {
+        Assert.assertTrue(this.collections.contains(new short[] {3, 17, 9}, (byte) 9));
+    }
+
+    @Test
+    public void test1() {
+        Assert.assertTrue(this.collections.contains(new Object[] {(double) 524288, 1}, (byte) 1));
     }
 }

@@ -23,12 +23,12 @@ import org.junit.Test;
 
 public class UtilTest {
     @Test
-    public void testByteArray() {
-        Assert.assertArrayEquals(new Byte[] {1, 2, 3}, Util.toObjectArray(new byte[] {1, 2, 3}));
+    public void testShortArray() {
+        Assert.assertArrayEquals(new Short[] {1, 2, 3}, Util.toObjectArray(new short[] {1, 2, 3}));
     }
 
     @Test
     public void testByte() {
-        Assert.assertEquals(Integer.valueOf(1), Util.toObject(Integer.class, (byte) 1));
+        Assert.assertEquals(Integer.valueOf(1), Util.promoteObject(Integer.class, (byte) 1));
     }
 }

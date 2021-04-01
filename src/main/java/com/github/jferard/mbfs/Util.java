@@ -34,14 +34,7 @@ public class Util {
      * @return
      */
     public static Object[] toObjectArray(Object o) {
-        if (o instanceof byte[]) {
-            byte[] bytes = (byte[]) o;
-            Object[] ret = new Byte[bytes.length];
-            for (int i = 0; i < bytes.length; i++) {
-                ret[i] = bytes[i];
-            }
-            return ret;
-        } else if (o instanceof short[]) {
+        if (o instanceof short[]) {
             short[] shorts = (short[]) o;
             Object[] ret = new Short[shorts.length];
             for (int i = 0; i < shorts.length; i++) {
@@ -62,18 +55,39 @@ public class Util {
                 ret[i] = booleans[i];
             }
             return ret;
+        } else if (o instanceof float[]) {
+            float[] floats = (float[]) o;
+            Object[] ret = new Float[floats.length];
+            for (int i = 0; i < floats.length; i++) {
+                ret[i] = floats[i];
+            }
+            return ret;
+        } else if (o instanceof double[]) {
+            double[] doubles = (double[]) o;
+            Object[] ret = new Double[doubles.length];
+            for (int i = 0; i < doubles.length; i++) {
+                ret[i] = doubles[i];
+            }
+            return ret;
         }
         return null;
     }
 
-    public static Object toObject(Class<?> expectedClass, Object o) {
-        if (expectedClass == Long.class) {
+    /**
+     * When we have a collection (of wrappers), we have to promote `o` to the type of the current
+     * element of collection
+     * @param expectedClass
+     * @param o
+     * @return
+     */
+    public static Object promoteObject(Class<?> expectedClass, Object o) {
+        if (expectedClass == Double.class) {
             if (o instanceof Byte) {
-                return ((Byte) o).longValue();
+                return ((Byte) o).doubleValue();
             } else if (o instanceof Short) {
-                return ((Short) o).longValue();
+                return ((Short) o).doubleValue();
             } else if (o instanceof Integer) {
-                return ((Integer) o).longValue();
+                return ((Integer) o).doubleValue();
             }
         } else if (expectedClass == Integer.class) {
             if (o instanceof Byte) {
