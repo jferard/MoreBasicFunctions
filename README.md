@@ -75,4 +75,37 @@ For path manipulation: `list`, `recursiveList`, `split`/`join`, `parent`, `withE
 ## `Math`
 TODO.
 
+# About Basic-Java mappings
+The [Developer's guide](https://wiki.openoffice.org/w/images/d/d9/DevelopersGuide_OOo3.1.0.pdf) 
+give an overview of the mappings between UNO, Java, C++ and Basic (p. 72). But this table does not
+show how Basic values will be typed in Java.
+
+The table aims to be more complete:
+
+| Basic Value                                                               | Java Type           |
+| ------------------------------------------------------------------------- | ------------------- |
+| `Boolean`                                                                 | `java.lang.Boolean` | 
+| `Single`                                                                  | `java.lang.Float`   | 
+| `Double`                                                                  | `java.lang.Double`  | 
+| `Integer`                                                                 | `java.lang.Short`   | 
+| `Long`                                                                    | `java.lang.Integer` | 
+| literal boolean (`True`)                                                  | `java.lang.Boolean` | 
+| literal floating point value (`3.14`)                                     | `java.lang.Double`  | 
+| literal number -128 <= x < 128                                            | `java.lang.Byte`    | 
+| literal number -32768 <= x < -128 or 128 <= x < 32768                     | `java.lang.Short`   | 
+| literal number -2147483648 <= x < -32768 or 32768 < x < -2147483648       | `java.lang.Integer` | 
+| larger literal number                                                     | `java.lang.Double`  | 
+
+Arrays are either mapped to primitive arrays (if the values are consistent) or to object arrays.
+
+| Basic Value                                                               | Java Type           |
+| ------------------------------------------------------------------------- | ------------------- |
+| array of `Boolean`s or boolean values                                     | `boolean[]`         | 
+| array of `Single`s or float values                                        | `float[]`           | 
+| array of `Double`s or double values                                       | `double[]`          | 
+| array of `Integer`s or integer values                                     | `short[]`           | 
+| array of `Long`s or long values                                           | `integer[]`         | 
+| array of mixed types                                                      | `Object[]`          |
+
+In the case of a mixed array, the object are typed according to the first table.
 
