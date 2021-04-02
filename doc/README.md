@@ -1,3 +1,3 @@
-The subdirectory `idl` contains LibreOffice IDL files. All interfaces are documented here.
+The subdirectory `pages` contains the HTML documentation.
 
 For examples, see `ts-resources/TestSuite.txt`.
