@@ -23,56 +23,79 @@
 
 module com { module github { module jferard { module mbfs {
 
+/**
+Provides various utility methods
+*/
 interface XUtils: ::com::sun::star::uno::XInterface {
-    /*
-    Return a string representation of this obct with debug information.
+    /**
+    Return a representation of the class of this object.
     Useful to understand how LO maps a Basic object to a Java Object.
+
+    Basic: 0
     */
     string debugBinding([in] any o);
 
-    /*
-    Return true if the string matches the extglob pattern (man 1 bash)
+    /**
+    Return `true` if the string matches the extglob pattern (man 1 bash)
+
+    Basic: 0
     */
     boolean glob([in] string str, [in] string pattern);
 
-    /*
+    /**
     Return a PropertyValue
+
+    Basic: use `new com.sun.star.beans.PropertyValue` and then set the `Name` and `Value` fields.
     */
     ::com::sun::star::beans::PropertyValue makePV([in] string name, [in] any value);
 
-    /*
+    /**
     Return an array of PropertyValues
+
+    Basic: use `new com.sun.star.beans.PropertyValue` and then set the `Name` and `Value` fields.
     */
     sequence<::com::sun::star::beans::PropertyValue> makePVs([in] sequence<any> namesAndValues);
 
-    /*
+    /**
     Return a byte from a string
+
+    Basic: `Val`
     */
     byte parseByte([in] string number);
 
-    /*
+    /**
     Return a double from a string
+
+    Basic: `Val`
     */
     double parseDouble([in] string number);
 
-    /*
+    /**
     Return a float from a string
+
+    Basic: `Val`
     */
     float parseFloat([in] string number);
 
-    /*
+    /**
     Return a hyper (= long) from a string
     Does *not* work.
+
+    Basic: `Val`
     */
     hyper parseHyper([in] string number);
 
-    /*
+    /**
     Return a long (= int) from a string
+
+    Basic: `Val`
     */
     long parseLong([in] string number);
 
-    /*
+    /**
     Return a short from a string
+
+    Basic: `Val`
     */
     short parseShort([in] string number);
 

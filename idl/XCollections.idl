@@ -24,74 +24,106 @@
 
 module com { module github { module jferard { module mbfs {
 
+/**
+Provides several methods to work on collections. A collection may be a plain Basic `Array`,
+an `XEnumerationAccess` or an `XIndexAccess`.
+*/
 interface XCollections: ::com::sun::star::uno::XInterface {
-    /*
+    /**
     Return the mean of a collection
+
+    Basic: use `AVERAGE` Calc function.
     */
     any avg([in] any collection);
 
-    /*
+    /**
     Return the concatenation of two collections
+
+    Basic: 0
     */
     sequence<any> concat([in] any collection1, [in] any collection2);
 
-    /*
+    /**
     Return the concatenation of two arrays
+
+    Basic: 0
     */
     sequence<any> concatArrays([in] sequence<any> array1, [in] sequence<any> array2);
 
-    /*
-    Return true if the collection contains the element
+    /**
+    Return `true` if the collection contains the element
+
+    Basic: 0
     */
     boolean contains([in] any collection, [in] any element);
 
-    /*
+    /**
     Return the concatenation of many collections
+
+    Basic: 0
     */
     sequence<any> flatten([in] sequence<any> collections);
 
-    /*
+    /**
     Return the concatenation of many arrays
+
+    Basic: 0
     */
     sequence<any> flattenArrays([in] sequence< sequence<any> > arrays);
 
-    /*
+    /**
     Return the max of a collection
+
+    Basic: use `MAX` Calc function.
     */
     any max([in] any collection);
 
-    /*
+    /**
     Return the min of a collection
+
+    Basic: use `MIN` Calc function.
     */
     any min([in] any collection);
 
-    /*
+    /**
     Return a random element from the collection
+
+    Basic: `Choose` + `Rnd`.
     */
     any randomElement([in] any collection);
 
-    /*
+    /**
     Return a shuffled copy of the collection
+
+    Basic: 0
     */
     sequence<any> shuffle([in] any collection);
 
-    /*
+    /**
     Return a sorted copy of the collection
+
+    Basic: 0
     */
     sequence<any> sort([in] any collection);
 
-    /*
+    /**
     Return chunks of even size from the collection
+
+    Basic: 0
     */
     sequence< sequence<any> > slice([in] any collection, [in] long size);
 
-    /*
+    /**
     Return a collection n times.
+
+    Basic: 0
     */
     sequence<any> times([in] any collection, [in] long times);
 
-    /*
-    Return an array
+    /**
+    Return an array from the given collection.
+
+    Basic: 0
     */
     sequence<any> toArray([in] any collection);
 };

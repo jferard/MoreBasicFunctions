@@ -15,7 +15,7 @@ import com.sun.star.container.XIndexReplace;
 
 public interface XList extends XIndexReplace, XEnumerationAccess
 {
-    public static final TypeInfo[] UNOTYPEINFO = { new MethodTypeInfo("append", 0, 0), new MethodTypeInfo("insert", 1, 0), new MethodTypeInfo("size", 2, 0), new MethodTypeInfo("get", 3, 64), new MethodTypeInfo("set", 4, 0), new MethodTypeInfo("removeLast", 5, 64), new MethodTypeInfo("appendCollection", 6, 0), new MethodTypeInfo("toArray", 7, 64), new MethodTypeInfo("subListFrom", 8, 0), new MethodTypeInfo("subListTo", 9, 0), new MethodTypeInfo("subList", 10, 0) };
+    public static final TypeInfo[] UNOTYPEINFO = { new MethodTypeInfo("append", 0, 0), new MethodTypeInfo("insert", 1, 0), new MethodTypeInfo("size", 2, 0), new MethodTypeInfo("get", 3, 64), new MethodTypeInfo("set", 4, 0), new MethodTypeInfo("removeLast", 5, 64), new MethodTypeInfo("appendCollection", 6, 0), new MethodTypeInfo("subListFrom", 7, 0), new MethodTypeInfo("subListTo", 8, 0), new MethodTypeInfo("subList", 9, 0), new MethodTypeInfo("toArray", 10, 64) };
     
     void append(final Object p0) throws IllegalArgumentException;
     
@@ -31,11 +31,11 @@ public interface XList extends XIndexReplace, XEnumerationAccess
     
     void appendCollection(final Object p0) throws IllegalArgumentException, IndexOutOfBoundsException, WrappedTargetException, NoSuchElementException;
     
-    Object[] toArray();
-    
     XList subListFrom(final int p0) throws IllegalArgumentException;
     
     XList subListTo(final int p0) throws IllegalArgumentException;
     
     XList subList(final int p0, final int p1) throws IllegalArgumentException;
+    
+    Object[] toArray();
 }

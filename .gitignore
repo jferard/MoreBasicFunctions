@@ -4,4 +4,5 @@ oxt-target/
 target/
 *.oxt
 *.iml
+doc/pages/
 

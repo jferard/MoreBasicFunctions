@@ -22,6 +22,9 @@
 
 module com { module github { module jferard { module mbfs {
 
+/**
+Provides some basic methods to deal with cell positions.
+*/
 interface XCells: ::com::sun::star::uno::XInterface {
     /**
     Return the alphabetic representation of the column. Starts with A = 0.

@@ -31,14 +31,31 @@
 
 module com { module github { module jferard { module mbfs {
 
+/**
+A hash set.
+
+Basic: use  `EnumerableMap` with value = key
+*/
 interface XMBFSSet {
+    /**
+    Implements `XSet`
+    */
     interface ::com::sun::star::container::XSet;
 
+    /**
+    Return the size of this set
+    */
     long size();
 
+    /**
+    Take an element from the set and return it.
+    */
     any take()
             raises ( ::com::sun::star::container::NoSuchElementException);
 
+    /**
+    Insert a collection of elements in the set.
+    */
     void insertCollection([in] any collection)
             raises( ::com::sun::star::lang::IllegalArgumentException,
                     ::com::sun::star::lang::IndexOutOfBoundsException,
@@ -46,6 +63,10 @@ interface XMBFSSet {
                     ::com::sun::star::container::NoSuchElementException
                     );
 
+    /**
+    Return an array with the elements of the set. The size of the array is the exact size of the
+    set.
+    */
     sequence<any> toArray();
 };
 

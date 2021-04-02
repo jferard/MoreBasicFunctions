@@ -24,56 +24,79 @@
 
 module com { module github { module jferard { module mbfs {
 
+/**
+Provides methods to deal with dates
+*/
 interface XDates: ::com::sun::star::uno::XInterface {
-    /*
+    /**
     Return a new date = date + count "unit"
+
+    Basic: `DateAdd`
     */
     double addToDate([in] long date, [in] long count, [in] string unit);
 
-    /*
+    /**
     Return a new datetime = datetime + count "unit"
+
+    Basic: `DateAdd`
     */
     double addToDatetime([in] double datetime, [in] long count, [in] string unit);
 
-    /*
+    /**
     Return a new time = time + count "unit"
+
+    Basic: `DateAdd`
     */
     double addToTime([in] double time, [in] long count, [in] string unit);
 
-    /*
+    /**
     Return a new date
+
+    Basic: `DateSerial`
     */
     long date([in] long year, [in] long month, [in] long day);
 
-    /*
+    /**
     Return a new datetime
+
+    Basic: `DateSerial` + `TimeSerial`
     */
     double datetime([in] long year, [in] long month, [in] long day, [in] long hours, [in] long minutes, [in] double seconds);
 
-    /*
+    /**
     Return a new datetime = now
+
+    Basic: `Date`
     */
     double now();
 
-    /*
+    /**
     Return a new formatted string.
+
+    Basic: `CDateToIso`
     */
     string strftime([in] double datetime, [in] string format)
                 raises( ::com::sun::star::lang::IllegalArgumentException);
 
-    /*
+    /**
     Parse str and returns a new datetime
+
+    Basic: `CDateFromIso`
     */
     double strptime([in] string str, [in] string format)
                 raises( ::com::sun::star::lang::IllegalArgumentException);
 
-    /*
+    /**
     Return a new formatted time.
+
+    Basic: `TimeSerial`
     */
     double time([in] long hours, [in] long minutes, [in] double seconds);
 
-    /*
+    /**
     Return the timestamp for this datetime.
+
+    Basic: 0
     */
     hyper timestamp([in] double datetime);
 };

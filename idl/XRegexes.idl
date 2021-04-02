@@ -24,34 +24,51 @@
 
 module com { module github { module jferard { module mbfs {
 
+/**
+Provides methods to use regular expressions.
+*/
 interface XRegexes: ::com::sun::star::uno::XInterface {
-    /*
+    /**
     Return an array of all parts of the string matching the pattern.
+
+    Basic: 0
     */
     sequence<string> findAll([in] string s, [in] string pattern);
 
-    /*
-    Return true if the string matches the pattern
+    /**
+    Return the first part of the string that matches the pattern
+
+    Basic: 0
     */
     string findFirst([in] string s, [in] string pattern);
 
-    /*
-    Return true if the string matches the pattern
+    /**
+    Return `true` if the string matches the pattern
+
+    Basic: ?
     */
     boolean match([in] string s, [in] string pattern);
 
-    /*
-    Return the string with the pattern replaced by replacement.
+    /**
+    Return the string with the first match of the pattern replaced by replacement.
+    Accepts back references.
+
+    Basic: ?
     */
     string replaceFirst([in] string s, [in] string pattern, [in] string replacement);
 
-    /*
-    Return the string with the pattern replaced by replacement.
+    /**
+    Return the string with all matches of the pattern replaced by replacement.
+    Accepts back references.
+
+    Basic: ?
     */
     string replaceAll([in] string s, [in] string pattern, [in] string replacement);
 
-    /*
+    /**
     Return an array of substring split on the pattern.
+
+    Basic: `Split`
     */
     sequence<string> split([in] string s, [in] string pattern);
 };

@@ -24,190 +24,263 @@
 
 module com { module github { module jferard { module mbfs {
 
+/**
+Provides methods to deal with strings.
+*/
 interface XStrings: ::com::sun::star::uno::XInterface {
     /**
     Return the char at a given position.
+
+    Basic:`Mid(s, pos, 1)`
     */
     string charAt([in] string s, [in] long pos);
 
     /**
     Compare two strings and return an long that indicates their sort position
+
+    Basic: 0
     */
     long compare([in] string s1, [in] string s2);
 
     /**
     Compare two strings and return an long that indicates their sort position
+
+    Basic: 0
     */
     long compareIgnoreCase([in] string s1, [in] string s2);
 
     /**
-    Return true if the first string contains the second
+    Return `true` if the first string contains the second
+
+    Basic: ?
     */
     boolean contains([in] string haystack, [in] string needle);
 
     /**
-    Return true if the first string contains the second
+    Return `true` if the first string contains the second
+
+    Basic: ?
     */
     boolean containsIgnoreCase([in] string haystack, [in] string needle);
 
     /**
     Return a formatted string (%s). The string is not "unescaped": you probably want to use
     `Strings.format`.
+
+    Basic: 0
     */
     string eformat([in] string formatString, [in] sequence<any> parameters);
 
     /**
-    Return true if the string ends with a a string
+    Return `true` if the string ends with a a string
+
+    Basic: use `Mid`
     */
     boolean endsWith([in] string s, [in] string e);
 
     /**
-    Return true if the string ends with a a string
+    Return `true` if the string ends with a a string
+
+    Basic: use `Mid`
     */
     boolean endsWithIgnoreCase([in] string s, [in] string e);
 
     /**
     Create an enumeration
+
+    Basic: 0
     */
     ::com::sun::star::container::XEnumeration enumerate([in] string s);
 
     /**
     Return a formatted string (%s). The string is "unescaped"
+
+    Basic: 0
     */
     string format([in] string formatString, [in] sequence<any> parameters);
 
     /**
     Return the index or -1
+
+    Basic: `InStr`
     */
     long indexOf([in] string haystack, [in] string needle);
 
     /**
     Return the index or -1
+
+    Basic: `InStr`
     */
     long indexOfIgnoreCase([in] string haystack, [in] string needle);
 
     /**
     Return a string with s2 inserted at given index.
+
+    Basic: use `Mid` and `&`
     */
     string insert([in] string s, [in] string s2, [in] long index);
 
     /**
     Join a sequence of strings
+
+    Basic: `Join`
     */
     string join([in] sequence<string> strings, [in] string delimiter);
 
     /**
     Return the index or -1
+
+    Basic: ?
     */
     long lastIndexOf([in] string haystack, [in] string needle);
 
     /**
     Return the index or -1
+
+    Basic: ?
     */
     long lastIndexOfIgnoreCase([in] string haystack, [in] string needle);
 
     /**
     Return a lower case string.
+
+    Basic: `LCase`
     */
     string lower([in] string s);
 
     /**
     Return a padded string.
+
+    Basic: ?
     */
     string padLeft([in] string s, [in] string c, [in] long n)
             raises( ::com::sun::star::lang::IllegalArgumentException);
 
     /**
     Return a padded string.
+
+    Basic: ?
     */
     string padRight([in] string s, [in] string c, [in] long n)
             raises( ::com::sun::star::lang::IllegalArgumentException);
 
     /**
-    Return a string.
+    Return a string with `before` replaced by `after`
+
+    Basic: ?
     */
     string replace([in] string s, [in] string before, [in] string after);
 
-    /*
+    /**
     Return the reversed string. E.g. `reversed("foo")` is `"oof"`
+
+    Basic: VBA `StrReverse`
     */
     string reversed([in] string s);
 
     /**
     Split a string
+    
+    Basic: `Split`
     */
     sequence<string> split([in] string s, [in] string delimiter);
 
     /**
-    Return true if the string ends with a a string
+    Return `true` if the string ends with a a string
+    
+    Basic: use `Mid`
     */
     boolean startsWith([in] string s, [in] string e);
 
     /**
-    Return true if the string ends with a a string
+    Return `true` if the string ends with a a string
+
+    Basic: use `Mid`
     */
     boolean startsWithIgnoreCase([in] string s, [in] string e);
 
     /**
-    Return a substring, `to` is excluded.
+    Return a substring from `from` index included to  `to` index is excluded.
+
+    Basic: `Mid`
     */
     string substring([in] string s, [in] long from, [in] long to);
 
     /**
-    Return a substring.
+    Return a substring starting at `from` index included.
+
+    Basic: `Mid`
     */
     string substringFrom([in] string s, [in] long from);
 
     /**
-    Return a substring, `to` is excluded.
+    Return a substring end at `to` index excluded.
     */
     string substringTo([in] string s, [in] long to);
 
     /**
     Return a string representation of o.
+
+    Basic: `Str`
     */
     string toString([in] any o);
 
     /**
     Return a trimmed string.
+
+    Basic: ?
     */
     string trim([in] string s, [in] string c)
             raises( ::com::sun::star::lang::IllegalArgumentException);
 
     /**
     Return a trimmed string.
+
+    Basic: ?
     */
     string trimLeft([in] string s, [in] string c)
             raises( ::com::sun::star::lang::IllegalArgumentException);
 
     /**
     Return a trimmed string.
+
+    Basic: ?
     */
     string trimRight([in] string s, [in] string c)
             raises( ::com::sun::star::lang::IllegalArgumentException);
 
     /**
     Return a trimmed string.
+
+    Basic: ?
     */
     string trimSpaces([in] string s);
 
     /**
     Return a trimmed string.
+
+    Basic: ?
     */
     string trimLeftSpaces([in] string s);
 
     /**
     Return a trimmed string.
+
+    Basic: ?
     */
     string trimRightSpaces([in] string s);
 
     /**
-    Return a string where chars like \n, \t... are converted to LF, TAB...
+    Return a string where chars like `\n`, `\t`... are converted to LF, TAB...
+
+    Basic: 0
     */
     string unescape([in] string s);
 
     /**
     Return a upper case string.
+
+    Basic: `UCase`
     */
     string upper([in] string s);
 };

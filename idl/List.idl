@@ -15,8 +15,8 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-#ifndef INCLUDED_COM_GITHUB_JFERARD_MBFS_SET
-#define INCLUDED_COM_GITHUB_JFERARD_MBFS_SET
+#ifndef INCLUDED_COM_GITHUB_JFERARD_MBFS_LIST
+#define INCLUDED_COM_GITHUB_JFERARD_MBFS_LIST
 
 #include <com/sun/star/uno/XInterface.idl>
 #include <com/sun/star/beans/IllegalTypeException.idl>
@@ -24,28 +24,46 @@
 #include <com/sun/star/container/XEnumerationAccess.idl>
 #include <com/sun/star/lang/IndexOutOfBoundsException.idl>
 #include <com/sun/star/lang/WrappedTargetException.idl>
-#include <XMBFSSet.idl>
+#include <XList.idl>
 
 module com { module github { module jferard { module mbfs {
 
-interface XSet;
+interface XList;
 
-service Set: XMBFSSet {
+/**
+A List service.
+*/
+service List: XList {
+    /**
+    Create a new List. Elements are of `elementType` type.
+    */
     create([in] type elementType);
 
+    /**
+    Create a new List containing `elements`. Elements are of `elementType` type
+    */
     fromArray([in] type elementType, [in] sequence<any> elements)
         raises( ::com::sun::star::beans::IllegalTypeException );
 
+    /**
+    Create a new List containing the elements of `enumerable`. Elements are of `elementType` type
+    */
     fromEnumerable([in] type elementType, [in] ::com::sun::star::container::XEnumerationAccess enumerable)
         raises( ::com::sun::star::beans::IllegalTypeException,
                 ::com::sun::star::container::NoSuchElementException,
                 ::com::sun::star::lang::WrappedTargetException );
 
+    /**
+    Create a new List containing the elements of `enumeration`. Elements are of `elementType` type
+    */
     fromEnumeration([in] type elementType, [in] ::com::sun::star::container::XEnumeration enumeration)
         raises( ::com::sun::star::beans::IllegalTypeException,
                 ::com::sun::star::container::NoSuchElementException,
                 ::com::sun::star::lang::WrappedTargetException );
 
+    /**
+    Create a new List containing the elements of `indexed`. Elements are of `elementType` type
+    */
     fromIndexed([in] type elementType, [in] ::com::sun::star::container::XIndexAccess indexed)
         raises( ::com::sun::star::beans::IllegalTypeException,
                 ::com::sun::star::lang::IndexOutOfBoundsException,

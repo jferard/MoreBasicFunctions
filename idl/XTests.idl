@@ -23,6 +23,9 @@
 
 module com { module github { module jferard { module mbfs {
 
+/**
+Provides a minimal JUnit API for testing.
+*/
 interface XTests: ::com::sun::star::uno::XInterface {
     /**
     Assert that two arrays are equal

@@ -30,29 +30,62 @@
 
 module com { module github { module jferard { module mbfs {
 
+/**
+A collection that grows automatically. Does not need to `ReDim Preserve`.
+Internally, this is an array of Java `Object`s.
+
+Basic: 0
+*/
 interface XList {
+    /**
+    Implement `XIndexReplace`
+    */
     interface ::com::sun::star::container::XIndexReplace;
+    /**
+    Implement `XEnumerationAccess`
+    */
     interface ::com::sun::star::container::XEnumerationAccess;
 
+    /**
+    Append an element to the current list
+    */
     void append([in] any element)
             raises( ::com::sun::star::lang::IllegalArgumentException );
 
+    /**
+    Insert an element to the current list at the given index.
+    */
     void insert([in] long pos, [in] any element)
             raises( ::com::sun::star::lang::IllegalArgumentException,
                     ::com::sun::star::lang::IndexOutOfBoundsException );
 
+    /**
+    Return the size of this list
+    */
     long size();
 
+    /**
+    Return the element at the given position
+    */
     any get([in] long pos)
             raises ( ::com::sun::star::lang::IndexOutOfBoundsException);
 
+    /**
+    Set the element at the given position
+    */
     void set([in] long pos, [in] any element)
             raises( ::com::sun::star::lang::IllegalArgumentException,
                     ::com::sun::star::lang::IndexOutOfBoundsException );
 
+    /**
+    Take the last element of the list and return it.
+    */
     any removeLast()
             raises ( ::com::sun::star::lang::IndexOutOfBoundsException);
 
+    /**
+    Append a collection to the list.
+    */
     void appendCollection([in] any collection)
             raises( ::com::sun::star::lang::IllegalArgumentException,
                     ::com::sun::star::lang::IndexOutOfBoundsException,
@@ -60,16 +93,29 @@ interface XList {
                     ::com::sun::star::container::NoSuchElementException
                     );
 
-    sequence<any> toArray();
-
+    /**
+    Return a copy of the elements of the list from `from` index to the end of the list.
+    */
     XList subListFrom([in] long from)
             raises( ::com::sun::star::lang::IllegalArgumentException);
 
+    /**
+    Return a copy of the elements of the list from the start of the list to `to` index excluded.
+    */
     XList subListTo([in] long to)
             raises( ::com::sun::star::lang::IllegalArgumentException);
 
+    /**
+    Return a copy of the elements of the list from `from` index to `to` index excluded.
+    */
     XList subList([in] long from, [in] long to)
             raises( ::com::sun::star::lang::IllegalArgumentException);
+
+    /**
+    Return an array with the elements of the list. The size of the array is the exact size of the
+    list.
+    */
+    sequence<any> toArray();
 };
 
 }; }; }; };

@@ -23,44 +23,61 @@
 
 module com { module github { module jferard { module mbfs {
 
+/**
+Provides methods to handle Basic `String` values as characters.
+*/
 interface XCharacters: ::com::sun::star::uno::XInterface {
     /**
-    Return true if the string has only one char
+    Return `true` if the string has only one char
+
+    Basic: `Len(s) = 1`
     */
     boolean isChar([in] string s);
 
     /**
-    Return true if the one char string is a letter
+    Return `true` if the one char string is a letter
+
+    Basic: 0
     */
     boolean isLetter([in] string s)
             raises( ::com::sun::star::lang::IllegalArgumentException);
 
     /**
-    Return true if the one char string is a letter and is lower case
+    Return `true` if the one char string is a letter and is lower case
+
+    Basic: `LCase(s) = s`
     */
     boolean isLowerCase([in] string s)
             raises( ::com::sun::star::lang::IllegalArgumentException);
 
     /**
-    Return true if the one char string is a letter and is lower case
+    Return `true` if the one char string is a letter and is lower case
+
+    Basic: `UCase(s) = s`
     */
     boolean isUpperCase([in] string s)
             raises( ::com::sun::star::lang::IllegalArgumentException);
 
     /**
-    Return true if the one char string is a digit
+    Return `true` if the one char string is a digit
+
+    Basic: `IsNumeric(s)`
     */
     boolean isDigit([in] string s)
             raises( ::com::sun::star::lang::IllegalArgumentException);
 
     /**
-    Return true if the one char string is a punctuation char
+    Return `true` if the one char string is a punctuation char
+
+    Basic: 0
     */
     boolean isPunctuation([in] string s)
             raises( ::com::sun::star::lang::IllegalArgumentException);
 
     /**
-    Return true if the one char string is a space
+    Return `true` if the one char string is a space
+
+    Basic: 0
     */
     boolean isSpace([in] string s)
             raises( ::com::sun::star::lang::IllegalArgumentException);
@@ -68,7 +85,7 @@ interface XCharacters: ::com::sun::star::uno::XInterface {
     /**
     Return the char at that code point
 
-    Basic : CHR
+    Basic : `Chr`
     */
     string chr([in] long codePoint)
             raises( ::com::sun::star::lang::IllegalArgumentException);
@@ -76,8 +93,8 @@ interface XCharacters: ::com::sun::star::uno::XInterface {
     /**
     Return the code point of that one character string
 
-    Basic : ORD
-    */
+    Basic : `Asc`
+   */
     long ord([in] string character)
             raises( ::com::sun::star::lang::IllegalArgumentException);
 };

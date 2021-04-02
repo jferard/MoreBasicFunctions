@@ -46,8 +46,9 @@ lib_root = lib_module.split(".")[0]
 work_dir = "temp"
 oxt_resources = "oxt-resources"
 ts_resources = "ts-resources"
-idl_resources = pt("doc", "idl")
+idl_resources = "idl"
 oxt_target = "oxt-target"
+doc_dir = "doc"
 
 mvn_source = pt("src", "main", "java")
 
@@ -198,11 +199,15 @@ class MoreBasicFunctions:
                 name = os.path.join(root, file)
                 dest.write(name, os.path.relpath(name, oxt_target))
 
+    def generate_doc(self):
+        self._run_command(["doxygen", "Doxyfile"], cwd=doc_dir)
+
 
 def main():
     mbfs = MoreBasicFunctions()
     mbfs.prepare()  # generate the files
     mbfs.build()
+    mbfs.generate_doc()
 
 
 if __name__ == "__main__":

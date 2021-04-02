@@ -25,9 +25,18 @@ module com { module github { module jferard { module mbfs {
 
 interface XStrings;
 
+/**
+A `Strings` service.
+*/
 service Strings: XStrings {
+    /**
+    Create new `Strings` service
+    */
     create();
 
+    /**
+    Create new `Strings` service with a given locale.
+    */
     createWithLocale([in] string locale);
 };
 

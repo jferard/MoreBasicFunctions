@@ -24,33 +24,103 @@
 
 module com { module github { module jferard { module mbfs {
 
+/**
+Provides methods to handle and list paths. Does not provide any write method.
+*/
 interface XPaths: ::com::sun::star::uno::XInterface {
+    /**
+    Concatenate `path` and `otherPath` using the default fs separator.
+
+    Basic: use `path & GetPathSeparator & otherPath`
+    */
     string concat([in] string path, [in] string otherPath);
 
+    /**
+    Return `true` if the file identified by this path exists.
+
+    Basic: `FileExists`
+    */
     boolean exists([in] string path);
 
+    /**
+    Return the last extension of the path.
+
+    Basic: 0
+    */
     string extension([in] string path);
 
+    /**
+    Return `true` if the path identifies a directory
+
+    Basic: `Dir(path, 16) = path`
+    */
     boolean isDir([in] string path);
 
+    /**
+    Return `true` if the path identifies a directory
+
+    Basic: `Dir(path, 0) = path`
+    */
     boolean isFile([in] string path);
 
+    /**
+    Return the joined path
+
+    Basic: `Join(chunks, GetPathSeparator)`
+    */
     string join([in] sequence<string> chunks);
 
+    /**
+    Return the list of first level elements of the directory identified by `path`.
+    The `wildCard` parameter uses a `glob` notation.
+
+    Basic: use `Dir`
+    */
     sequence<string> list([in] string path, [in] string wildCard)
             raises( ::com::sun::star::lang::IllegalArgumentException);
 
+    /**
+    Return the name part of the path
+
+    Basic: 0
+    */
     string name([in] string path);
 
+    /**
+    Return the parent of the path
+
+    Basic: 0
+    */
     string parent([in] string path);
 
+    /**
+    Return the recursive list elements of the directory identified by `path`.
+    The `wildCard` parameter uses a `glob` notation.
+
+    Basic: use `Dir`
+    */
     sequence<string> recursiveList([in] string path, [in] string wildCard)
             raises( ::com::sun::star::lang::IllegalArgumentException);
 
+    /**
+    Return a split version of path
+
+    Basic: use `Split(path, GetPathSeparator)`
+    */
     sequence<string> split([in] string path);
 
+    /**
+    Return the path without extension
+
+    Basic: 0
+    */
     string stem([in] string path);
 
+    /**
+    Return the path with a new extension
+
+    Basic: 0
+    */
     string withExtension([in] string path, [in] string extension);
 };
 
