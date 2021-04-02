@@ -25,7 +25,7 @@ from pathlib import Path
 
 from xml.sax.saxutils import escape
 
-VERSION = "0.1.0"
+VERSION = "0.2.0"
 
 RDB = ".rdb"
 TYPES_RDB = "types" + RDB
