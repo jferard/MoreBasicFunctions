@@ -38,16 +38,18 @@ public class CellsTest {
         Assert.assertEquals("AZ", cells.alphabeticCol(51));
         Assert.assertEquals("BA", cells.alphabeticCol(52));
         Assert.assertEquals("AMJ", cells.alphabeticCol(1023));
+        Assert.assertEquals("ZZZ", cells.alphabeticCol(Cells.MAX_COLUMN_NUMBER));
     }
 
     @Test
     public void testNumeric() {
-        Assert.assertEquals(cells.numericCol("A"), 0);
-        Assert.assertEquals(cells.numericCol("Z"), 25);
-        Assert.assertEquals(cells.numericCol("AA"), 26);
-        Assert.assertEquals(cells.numericCol("AZ"), 51);
-        Assert.assertEquals(cells.numericCol("BA"), 52);
-        Assert.assertEquals(cells.numericCol("AMJ"), 1023);
+        Assert.assertEquals(0, cells.numericCol("A"));
+        Assert.assertEquals(25, cells.numericCol("Z"));
+        Assert.assertEquals(26, cells.numericCol("AA"));
+        Assert.assertEquals(51, cells.numericCol("AZ"));
+        Assert.assertEquals(52, cells.numericCol("BA"));
+        Assert.assertEquals(1023, cells.numericCol("AMJ"));
+        Assert.assertEquals(Cells.MAX_COLUMN_NUMBER, cells.numericCol("ZZZ"));
     }
 
     public void test() {

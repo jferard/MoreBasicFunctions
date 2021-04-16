@@ -28,8 +28,17 @@ public class Cells extends WeakBase
 
     public static final String[] serviceNames = {"com.github.jferard.mbfs.Cells"};
     public static final int MAX_LETTERS = 3;
-    public static final double MAX_COLUMN_NUMBER = Math.pow(26, MAX_LETTERS);
+    public static final int MAX_COLUMN_NUMBER;
     public static final int A = 'A';
+
+    static {
+        int m = 1;
+        for (int i = 0; i < MAX_LETTERS; i++) {
+            m = m * 26 + 1;
+        }
+        // 26**3 + 26**2 + 26 - 1
+        MAX_COLUMN_NUMBER = m - 2;
+    }
 
     private final XComponentContext xContext;
 
@@ -59,21 +68,15 @@ public class Cells extends WeakBase
 
     @Override
     public String alphabeticCol(int c) {
-        if (c < 0 || c >= MAX_COLUMN_NUMBER) {
+        if (c < 0 || c > MAX_COLUMN_NUMBER) {
             throw new RuntimeException("Bad col number: " + c);
         }
         char[] cs = new char[MAX_LETTERS];
         int cur = c;
         int i = MAX_LETTERS;
-        while (i >= 0) {
-            if (cur < 0) {
-                break;
-            }
+        while (cur >= 0 && i > 0) {
             cs[i - 1] = (char) (A + cur % 26);
             i -= 1;
-            if (cur == 0) {
-                break;
-            }
             cur = cur / 26 - 1;
         }
         return new String(cs, i, MAX_LETTERS - i);
