@@ -4,6 +4,8 @@ Copyright (C) 2021 Julien Férard.
 # Goal
 LibreOffice Basic is pretty limited, and calling Calc functions is cumbersome. Hence the idea of this add-on. 
 
+**There is a major limitation: the services won't be available unless the add-on is installed. That means that your scripts won't be usable on a standard LibreOffice installation.**
+
 # Rationale
 There are already dozens of functions available via the [`com.sun.star.sheet.FunctionAccess`](https://api.libreoffice.org/docs/idl/ref/servicecom_1_1sun_1_1star_1_1sheet_1_1FunctionAccess.html) service, but the syntax is tedious:
 
