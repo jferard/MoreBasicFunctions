@@ -30,13 +30,34 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
+        <libreoffice.version>5.0.6</libreoffice.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.github.jferard</groupId>
-            <artifactId>libreoffice-macros-tools</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>org.libreoffice</groupId>
+            <artifactId>juh</artifactId>
+            <version>${libreoffice.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.libreoffice</groupId>
+            <artifactId>jurt</artifactId>
+            <version>${libreoffice.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.libreoffice</groupId>
+            <artifactId>unoil</artifactId>
+            <version>${libreoffice.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.libreoffice</groupId>
+            <artifactId>ridl</artifactId>
+            <version>${libreoffice.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.libreoffice</groupId>
+            <artifactId>officebean</artifactId>
+            <version>${libreoffice.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
