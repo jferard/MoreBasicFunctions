@@ -1,6 +1,10 @@
 MoreBasicFunctions - A LibreOffice Add-On written in Java that provides more basic functions.
 Copyright (C) 2021 Julien Férard.
 
+Questions: https://github.com/jferard/MoreBasicFunctions/discussions
+
+Bug reports: https://github.com/jferard/MoreBasicFunctions/issues
+
 # Goal
 LibreOffice Basic is pretty limited, and calling Calc functions is cumbersome. Hence the idea of this add-on. 
 

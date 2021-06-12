@@ -2,6 +2,10 @@
 
 Copyright (C) 2021 Julien Férard.
 
+Questions: https://github.com/jferard/MoreBasicFunctions/discussions
+
+Bug reports: https://github.com/jferard/MoreBasicFunctions/issues
+
 # Overview
 
 On one hand, LibreOffice Basic is pretty limited, functions names are unusual (think of `Mid`!). On the other hand, Calc functions are powerful, but cumbersome to call because of a tedious syntax. Hence the idea of this add-on: `MoreBasicFunctions` exposes very common function as UNO services.  
