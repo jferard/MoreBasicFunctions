@@ -12,6 +12,12 @@ On one hand, LibreOffice Basic is pretty limited, functions names are unusual (t
 
 **There is a major limitation: the services won't be available unless the add-on is installed. That means that your scripts won't be usable on a standard LibreOffice installation.**  
 
+Use cases:
+
+* One PC script (typically personal script): install the add-on on the PC and use the services;
+* Prototype: the add-on will help you to write clean code;
+* Developer: the `Tests` service is mandatory on the developer PC but not on the end user PC.
+
 There are several services: `Tests`, `Strings`, `Characters`, `Regexes`, `Collections`, `Dates`, `Paths`.
 
 ## Tests
